@@ -4,6 +4,35 @@
     <title></title>
 
     <script type="text/javascript" src="//sslstatic.wix.com/services/js-sdk/1.8.0/js/Wix.js"></script>
+    <script src="~/client/src/libs/jquery-1.7.2.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var instance = qs('instance');
+            $('#instance').val(instance);
+        });
+        function qs(key) {
+            key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&"); // escape RegEx meta chars
+            var match = location.search.match(new RegExp("[?&]"+key+"=([^&]+)(&|$)"));
+            return match && decodeURIComponent(match[1].replace(/\+/g, " "));
+        }
+        function updateSettings(){
+            var tag = $('#battleTag').val();
+            var name =
+            $.post('setBattleData', {
+                'battleName': $('#battleName').val(),
+                'battleTag': $('#battleTag').val(),
+                'instance': $('#instance').val()
+            }, function(data, status, jqXHR){
+                if(status === 'success'){
+                    alert('we good');
+                    Wix.refreshApp();
+                } else{
+                    alert(status);
+                }
+            });
+
+        }
+    </script>
 </head>
 <body>
 <script>
@@ -16,5 +45,15 @@
     };
 </script>
     this is settings
+    <form>
+        <label for="battleName">name</label>
+        <input id="battleName" name="battleName" type="text" value="{battleName}">
+        <br/>
+        <label for="battleTag">id</label>
+        <input id="battleTag" name="battleTag" type="number" value="{battleTag}">
+        <br/>
+        <input name="instance" id="instance" type="hidden">
+        <input type="button" value="submit" onclick="updateSettings()">
+    </form>
 </body>
 </html>

@@ -17,15 +17,14 @@ function handleRequestForApp(request, callback){
     var query = url.parse(request.url).query;
     var instanceString = querystring.parse(query).instance;
 
+    if(!instanceString){
+        callback(loadHtmlContent());
+        return;
+    }
     var instanceObject = decoder.decodeInstance(instanceString);
-    instances.getEntry(instanceObject.instanceId, function(err, item){
-        if(err){
-            console.log('get item ' + instanceObject.instanceId + ' err: ' + err);
-        }
-        else {
-            var html = loadHtmlContent(item);
-            callback(html);
-        }
+    instances.getEntry(instanceObject.instanceId, function(item){
+        var html = loadHtmlContent(item);
+        callback(html);
     });
 
 }
@@ -33,7 +32,7 @@ function handleRequestForApp(request, callback){
 function loadHtmlContent(instanceEntry){
     var html = fs.readFileSync('.' + htmlPath + 'index.html');
     if(instanceEntry){
-        html.replace('{d3UserId}', instanceEntry.userId);
+       html = html.toString().replace('{battleObject}', JSON.stringify(instanceEntry));
     }
     return html;
 }

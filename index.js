@@ -6,8 +6,12 @@
  * To change this template use File | Settings | File Templates.
  */
 
-var server = require("./server");
-var router = require("./router");
+try{
+    var server = require("./server");
+    var router = require("./router");
 
-server.start(router.route);
+    server.start(router.route);
+} catch(e){
+    console.log(e);
+}
 

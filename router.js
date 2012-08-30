@@ -1,6 +1,7 @@
 
 var fs = require('fs');
 var appRequestHandler = require('./mainAppHandler');
+var settingsHandler = require('./settingsHandler');
 
 var htmlPath = '/client/html/';
 var routingTable = {
@@ -9,7 +10,12 @@ var routingTable = {
         return true;
     },
     '/settings': function(response, request){
-        return loadFile(htmlPath + 'settings.html', response);
+        settingsHandler.handleLoadSettings(request, loadHtmlString(response));
+        return true;
+    },
+    '/setBattleData': function(response, request){
+        settingsHandler.handleSetDiabloUser(request, loadHtmlString(response));
+        return true;
     }
 };
 

@@ -12,5 +12,5 @@ exports.decodeInstance = function(instanceString){
     var encodedJsonObject = new Buffer( parts[1], 'base64');
     var jsonObject = encodedJsonObject.toString('utf8');
     return JSON.parse(jsonObject);
-}
+};
 

@@ -15,6 +15,7 @@ function addOrUpdate(instanceId, data, callback){
         collection.update({'instanceId': instanceId}, {$set: data}, {upsert: true, safe:true}, function(err, objects){
             if(err){
                 console.log(err);
+                throw new Error("couldn't update item " + instanceId + ' data ' + data + ' err: ' + err );
             }else{
                 console.log('updated ' + objects);
                 if(callback && typeof callback === 'function'){
@@ -28,6 +29,10 @@ function addOrUpdate(instanceId, data, callback){
 function getEntry(instanceId, callback){
     getCollection(function(collection){
         collection.findOne({'instanceId': instanceId}, function(err, item){
+            if(err){
+                console.log('get item ' + instanceId + ' err: ' + JSON.stringify(err));
+                throw err;
+            }
             callback(item);
         });
     });
