@@ -10,30 +10,12 @@ var config      = {};
 
 
 var currentProfile = {};
+var hrs = {};
 
 function getData (url) {
     return $.ajax ({ type: "GET", dataType: "jsonp",  url: url });
 }
 
-function fetch (url, back) {
-
-    var request = $.ajax({
-        url: url,
-        type: "GET",
-        dataType: "jsonp"
-    });
-
-    request.done(function(data) {
-        var d = data;
-    });
-
-    request.fail(function(jqXHR, textStatus) {
-        alert( "Request failed: " + textStatus );
-    });
-
-
-
-}
 
 function hGender (gr) {
     var g = parseInt(gr);
@@ -66,22 +48,34 @@ function renderHero(data) {
 
 function renderProfile ( currentProfile ) {
 
+    var last = currentProfile.lastHeroPlayed;
+    getData(config.profile+"/hero/"+last).then(function (data){
+           renderHero(data);
+    });
+
     var frag   = document.createDocumentFragment();
     var arr   = [];
+    var obj   = {};
+
     for (var i in currentProfile.heroes){
 
         var curr = currentProfile.heroes[i];
 
-        curr.gender = hGender(curr.gender );
+            curr.gender = hGender(curr.gender );
 
-        var li        = document.createElement("li");
-        li.id        = curr.id;
-        li.className = curr.class+"-"+curr.gender;
+        var li = document.createElement("li");
+        li.id  = curr.id;
+
+        if (curr.id == last ) {
+            li.className = "lastPlayed-"+curr.class+"-"+curr.gender;
+        } else {
+            li.className = curr.class+"-"+curr.gender;
+        }
+
         li.innerHTML = "<h3>"+curr.name+"</h3><span>"+curr.level+"</span>";
 
         getData(config.profile+"/hero/"+curr.id).then(function (data){
-            data.items = renderItems ( data.items);
-            arr.push(data);
+            arr.push(data)
         });
 
         frag.appendChild(li);
@@ -95,33 +89,25 @@ function renderProfile ( currentProfile ) {
 
 
 
-function renderItems ( items ) {
-
-    var obj   = {};
-    for (var i in items){
-        getData(config.api+"/data/"+items[i].tooltipParams).then(function (data){
-            obj[i] = data;
-        });
-    }
-    console.log(obj)
-    return obj;
-}
 
 
 $(document).ready(function() {
-
+    init();
     $("#go").on("click", function() {
-
-        config.bTag = $("#bName").val()+"-"+$("#bTag").val();
-        config.profile = config.api+"/profile/"+config.bTag+"/";
-
-        getData(config.profile).then(function (data){
-            currentProfile = data;
-            renderProfile(currentProfile);
-        });
-
+        init()
     });
 });
+
+
+function init () {
+    config.bTag = $("#bName").val()+"-"+$("#bTag").val();
+    config.profile = config.api+"/profile/"+config.bTag+"/";
+
+    getData(config.profile).then(function (data){
+        currentProfile = data;
+        renderProfile(currentProfile);
+    });
+}
 
 
 
