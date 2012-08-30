@@ -12,7 +12,7 @@ function start(route) {
         });
     }
     //http.createServer(onRequest).listen(80);
-    http.createServer(onRequest).listen(3002);
+    http.createServer(onRequest).listen(3003);
     console.log("Server has started.");
 }
 
