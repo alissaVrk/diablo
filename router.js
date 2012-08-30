@@ -1,17 +1,12 @@
-/**
- * Created with JetBrains WebStorm.
- * User: alissav
- * Date: 8/29/12
- * Time: 5:15 PM
- * To change this template use File | Settings | File Templates.
- */
 
-fs = require('fs');
+var fs = require('fs');
+var appRequestHandler = require('./mainAppHandler');
 
 var htmlPath = '/client/html/';
 var routingTable = {
     '/': function(response, request){
-        return loadFile(htmlPath + 'index.html', response);
+        appRequestHandler.handleRequest(request, loadHtmlString(response));
+        return true;
     },
     '/settings': function(response, request){
         return loadFile(htmlPath + 'settings.html', response);
@@ -30,7 +25,7 @@ var fileExtToType = {
 function route(pathname, response, request){
     var success = false;
     if (typeof routingTable[pathname] === 'function') {
-        var success = routingTable[pathname](response, request);
+        success = routingTable[pathname](response, request);
     }
     else{
         success = loadFile(pathname, response);
@@ -38,7 +33,7 @@ function route(pathname, response, request){
     if(!success){
         notFound(response, pathname);
     }
-};
+}
 
 function loadFile(pathname, response){
     pathname = getCorrectRelativePath(pathname);
@@ -61,6 +56,13 @@ function loadFile(pathname, response){
     response.writeHead(200, {'Content-Type': fileTypeMeta.type });
     response.end(file, fileTypeMeta.encoding);
     return true;
+}
+
+function loadHtmlString(response){
+    return function(html){
+        response.writeHead(200, {'Content-Type': 'text/html' });
+        response.end(html);
+    };
 }
 
 function getCorrectRelativePath(pathname){

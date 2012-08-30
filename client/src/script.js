@@ -36,8 +36,10 @@ function fetch (url, back) {
 }
 
 function hGender (gr) {
-    var g = parseInt(gr);
-    if (g == 0 ) { g = "male" } else {  g = "female" }
+    var g = parseInt(gr, 10);
+    if (g === 0 )
+    { g = "male"; }
+    else {  g = "female"; }
     return g;
 }
 
@@ -89,7 +91,7 @@ function renderProfile ( currentProfile ) {
     }
 
     currentProfile.heroes = arr;
-    console.log(currentProfile)
+    console.log(currentProfile);
     document.getElementById("heroes").appendChild(frag);
 }
 
@@ -97,13 +99,13 @@ function renderProfile ( currentProfile ) {
 
 function renderItems ( items ) {
 
-    var obj   = {};
+    var obj = {};
     for (var i in items){
         getData(config.api+"/data/"+items[i].tooltipParams).then(function (data){
             obj[i] = data;
         });
     }
-    console.log(obj)
+    console.log(obj);
     return obj;
 }
 
