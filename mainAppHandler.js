@@ -32,7 +32,7 @@ function handleRequestForApp(request, callback){
 function loadHtmlContent(instanceEntry){
     var html = fs.readFileSync('.' + htmlPath + 'index.html');
     if(instanceEntry){
-       html = html.toString().replace('{battleObject}', JSON.stringify(instanceEntry));
+       html = html.toString().replace('{battleObject}', instanceEntry);
     }
     return html;
 }

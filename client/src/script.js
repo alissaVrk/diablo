@@ -112,17 +112,26 @@ function renderItems ( items ) {
 
 $(document).ready(function() {
 
-    $("#go").on("click", function() {
+    config.bTag = diabloData.battleName + '-' + diabloData.battleTag;
+    //config.bTag = $("#bName").val()+"-"+$("#bTag").val();
+    config.profile = config.api+"/profile/"+config.bTag+"/";
 
-        config.bTag = $("#bName").val()+"-"+$("#bTag").val();
-        config.profile = config.api+"/profile/"+config.bTag+"/";
-
-        getData(config.profile).then(function (data){
-            currentProfile = data;
-            renderProfile(currentProfile);
-        });
-
+    getData(config.profile).then(function (data){
+        currentProfile = data;
+        renderProfile(currentProfile);
     });
+//    $("#go").on("click", function() {
+//
+//        config.bTag = diabloData.battleName + '-' + diabloData.battleTag;
+//        //config.bTag = $("#bName").val()+"-"+$("#bTag").val();
+//        config.profile = config.api+"/profile/"+config.bTag+"/";
+//
+//        getData(config.profile).then(function (data){
+//            currentProfile = data;
+//            renderProfile(currentProfile);
+//        });
+//
+//    });
 });
 
 
