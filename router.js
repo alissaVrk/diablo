@@ -1,20 +1,18 @@
 
 var fs = require('fs');
-var appRequestHandler = require('./mainAppHandler');
-var settingsHandler = require('./settingsHandler');
+var requestHandler = require('./requestHandler');
 
-var htmlPath = '/client/html/';
 var routingTable = {
     '/': function(response, request){
-        appRequestHandler.handleRequest(request, loadHtmlString(response));
+        requestHandler.handleRequestForApp(request, loadHtmlString(response));
         return true;
     },
     '/settings': function(response, request){
-        settingsHandler.handleLoadSettings(request, loadHtmlString(response));
+        requestHandler.handleLoadSettings(request, loadHtmlString(response));
         return true;
     },
     '/setBattleData': function(response, request){
-        settingsHandler.handleSetDiabloUser(request, loadHtmlString(response));
+        requestHandler.handleSetDiabloUser(request, loadHtmlString(response));
         return true;
     }
 };
@@ -29,14 +27,14 @@ var fileExtToType = {
 };
 
 function route(pathname, response, request){
-    var success = false;
+    var found = false;
     if (typeof routingTable[pathname] === 'function') {
-        success = routingTable[pathname](response, request);
+        found = routingTable[pathname](response, request);
     }
     else{
-        success = loadFile(pathname, response);
+        found = loadFile(pathname, response);
     }
-    if(!success){
+    if(!found){
         notFound(response, pathname);
     }
 }

@@ -83,7 +83,7 @@ function renderProfile ( currentProfile ) {
     }
 
     currentProfile.heroes = arr;
-    console.log(currentProfile)
+    console.log(currentProfile);
     document.getElementById("heroes").appendChild(frag);
 }
 
@@ -94,13 +94,14 @@ function renderProfile ( currentProfile ) {
 $(document).ready(function() {
     init();
     $("#go").on("click", function() {
-        init()
+        init();
     });
 });
 
 
 function init () {
-    config.bTag = $("#bName").val()+"-"+$("#bTag").val();
+    //config.bTag = $("#bName").val()+"-"+$("#bTag").val();
+    config.bTag = window.diabloData.battleName + "-" + window.diabloData.battleTag;
     config.profile = config.api+"/profile/"+config.bTag+"/";
 
     getData(config.profile).then(function (data){
