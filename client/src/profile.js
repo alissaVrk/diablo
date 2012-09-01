@@ -1,27 +1,59 @@
 var profiles = {}, config = {};
     config.icon = "http://eu.media.blizzard.com/d3/icons/";
     config.api  = "http://eu.battle.net/api/d3/";
+    config.ui =  {};
+        config.ui.inp =  $("#battleTag");
+        config.ui.btn =  $("#go");
+    config.bTag = "";
+    config.dummy = "Djz-2157";
+
+function init () {
+    var l = config.api+"profile/"+config.dummy+"/";
+    config.bTag = config.dummy;
+    parseProfile (l)
+}
 
 function getJson (lnk) {
     return $.ajax({ type: "GET", dataType: "jsonp", url: lnk})
 }
 
-function parseProfile (lnk, battleTag) {
-    profiles[battleTag] = {};
+function parseProfile (lnk) {
+
+    profiles[config.bTag] = {};
+
     getJson(lnk).then(function (dta) {
+
         var last = dta.lastHeroPlayed;
+
         for (var i in dta.heroes){
-            getJson(lnk+"hero/"+dta.heroes[i].id ).then(function (data) {
+
+            var mm = getJson(lnk+"hero/"+dta.heroes[i].id );
+
+            mm.then(function (data) {
+
                 data.gender = ( data.gender==0 ) ? "male" : "female";
                 data.last = (data.id == last) ? true : false;
                 data.items = parseItems (data.items);
-                profiles[battleTag][data.name]=data ;
+                //TODO in case of same name for all heroes in profile
+                profiles[config.bTag][data.name]=data ;
+
+                renderHero(data);
             });
+
         }
-    }).done(function(){
-            console.log(profiles);
-        })
+    })
+
 }
+
+
+function renderHero (hero) {
+
+    var li = document.createElement("li");
+    li.innerHTML = "<h3>"+hero.name+"</h3><span>"+hero.level+"</span>";
+    document.getElementById("heroes").appendChild(li);
+}
+
+
 
 function  parseItems (items) {
     var newItems = {};
@@ -35,17 +67,25 @@ function  parseItems (items) {
     return newItems;
 };
 
+
+
 $(document).ready(function() {
-    init ();
-    $("#go").on("click", function(){
-        init ();
+
+    init();
+
+    config.ui.btn.on("click", function(){
+
+        if (config.ui.inp.val() == "") {
+            alert("nono")
+        } else {
+            var b = config.ui.inp.val().replace("#", "-");
+            var l = config.api+"profile/"+ b+"/";
+            config.bTag = b;
+            parseProfile (l)
+
+        }
     })
 });
-
-function init () {
-    var bName = $("#bName").val(), bTag = $("#bTag").val(), battleTag = bName+"-"+bTag, bLnk = config.api+"profile/"+battleTag+"/";
-    parseProfile (bLnk, battleTag);
-}
 
 
 
