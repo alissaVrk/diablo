@@ -32,49 +32,61 @@
 
 <section id="main">
 
-    <ul id="heroes"></ul>
-
-    <ul id="stats">
-
-        <li><h3>Main Stats</h3></li>
-        <li><b>Str: </b></li>
-        <li><b>Dex: </b></li>
-        <li><b>Int: </b></li>
-        <li><b>Vit: </b></li>
-
-        <li><h3>Damage: </h3></li>
-        <li><h3>Armor: </h3></li>
-
+    <ul id="heroes" data-bind="foreach: m_heroes">
+        <li data-bind="attr:{ class: klass }, click: selectHero"></li>
     </ul>
 
-    <ul id="gear">
-
-        <li data-bind='value: shoulders' id="shoulders"></li>
-        <li data-bind='value: head' id="head"></li>
-        <li data-bind='value: neck' id="neck"></li>
-        <li data-bind='value: hands' id="hands"></li>
-        <li data-bind='value: torso' id="torso"></li>
-        <li data-bind='value: bracers' id="bracers"></li>
-        <li data-bind='value: rightFinger' id="rightFinger"></li>
-        <li data-bind='value: waist' id="waist"></li>
-        <li data-bind='value: leftFinger' id="leftFinger"></li>
-        <li data-bind='value: mainHand' id="mainHand"></li>
-        <li data-bind='value: legs' id="legs"></li>
-        <li data-bind='value: offHand' id="offHand"></li>
-        <li data-bind='value: feet' id="feet"></li>
-
+    <ul id="gear" >
+        <li data-bind="if: m_items.shoulders" id="shoulders">   <img data-bind="attr: {src: m_items.shoulders.m_icon}"></li>
+        <li data-bind="if: m_items.head" id="head">        <img data-bind="attr: {src: m_items.head.m_icon}"></li>
+        <li data-bind="if: m_items.neck" id="neck">        <img data-bind="attr: {src: m_items.neck.m_icon}"></li>
+        <li data-bind="if: m_items.hands" id="hands">       <img data-bind="attr: {src: m_items.hands.m_icon}"></li>
+        <li data-bind="if: m_items.torso" id="torso">       <img data-bind="attr: {src: m_items.torso.m_icon}"></li>
+        <li data-bind="if: m_items.bracers" id="bracers">     <img data-bind="attr: {src: m_items.bracers.m_icon}"></li>
+        <li data-bind="if: m_items.rightFinger" id="rightFinger"> <img data-bind="attr: {src: m_items.rightFinger.m_icon}"></li>
+        <li data-bind="if: m_items.waist" id="waist">       <img data-bind="attr: {src: m_items.waist.m_icon}"></li>
+        <li data-bind="if: m_items.leftFinger" id="leftFinger">  <img data-bind="attr: {src: m_items.leftFinger.m_icon}"></li>
+        <li data-bind="if: m_items.mainHand" id="mainHand">    <img data-bind="attr: {src: m_items.mainHand.m_icon}"></li>
+        <li data-bind="if: m_items.legs" id="legs">        <img data-bind="attr: {src: m_items.legs.m_icon}"></li>
+        <li data-bind="if: m_items.offHand" id="offHand">     <img data-bind="attr: {src: m_items.offHand.m_icon}"></li>
+        <li data-bind="if: m_items.feet" id="feet">        <img data-bind=" attr: {src: m_items.feet.m_icon}"></li>
     </ul>
+
+
 
 </section>
 
-<section id="skills"></section>
+<section>
+    <ul data-bind="foreach: m_stats" id="stats">
+        <li  data-bind="attr:{ class: name }">
+            <h3 data-bind="text: name"></h3>: <span data-bind="text: value"></span>
+
+        </li>
+    </ul>
+</section>
+
+<section id="skills">
+    <ul id="active" data-bind="foreach: m_skills_active">
+        <li  data-bind="attr:{ class: skill.name, category:skill.categorySlug }">
+            <h3 data-bind="text: skill.name"></h3>
+            <img data-bind="attr: {src: skill.m_icon}">
+            <img data-bind="attr: {src: rune.m_icon}">
+        </li>
+    </ul>
+    <ul id="passive" data-bind="foreach: m_skills_passive">
+        <h3 data-bind="text: skill.name"></h3>
+        <img data-bind="attr: {src: skill.m_icon}">
+    </ul>
+</section>
 
 
 <script src="http://eu.battle.net/d3/static/js/tooltips.js"></script>
 
 <script src="~/client/src/libs/jquery-1.7.2.min.js"></script>
+<script src='~/client/src/libs/underscore-min.js'></script>
 <script src='~/client/src/libs/knockout-2.1.0.js'></script>
 <script src="~/client/src/profile.js"></script>
+<script src="~/client/src/model.js"></script>
 
 </body>
 </html>

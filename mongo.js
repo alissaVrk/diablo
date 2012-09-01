@@ -11,6 +11,8 @@ var ObjectID = require('mongodb').ObjectID;
 
 function addOrUpdate(instanceId, data, callback){
     getCollection(function(collection){
+        callback(1);
+        return;
         data.instanceId = instanceId;
         collection.update({'instanceId': instanceId}, {$set: data}, {upsert: true, safe:true}, function(err, objects){
             if(err){
@@ -27,6 +29,12 @@ function addOrUpdate(instanceId, data, callback){
 }
 
 function getEntry(instanceId, callback){
+    callback({
+        'battleTag': 2139,
+        'battleName': 'chapaev',
+        'userId': null
+    });
+    return;
     getCollection(function(collection){
         collection.findOne({'instanceId': instanceId}, function(err, item){
             if(err){

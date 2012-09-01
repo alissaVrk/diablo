@@ -36,8 +36,8 @@ function start(route) {
             });
         });
     }
-    http.createServer(onRequest).listen(80);
-    //http.createServer(onRequest).listen(3004);
+    //http.createServer(onRequest).listen(80);
+    http.createServer(onRequest).listen(3004);
     console.log("Server has started.");
 }
 
