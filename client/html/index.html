@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/client/css/main.css" type="text/css" />
 </head>
 <body>
+
 <script>
     window.wixInit = function() {
         Wix.init({
@@ -18,23 +19,16 @@
     };
     //window.diabloData = {battleObject};
 </script>
+
 <section id="heroDetails">
     <h2>hero details</h2>
     <ul>
-        <!--<li><label>battle name:</label> <input value="vir" id="bName" type="text"></li>-->
-        <!--<li><label>battle tag:</label>  <input value="1729" id="bTag" type="number"></li>-->
-
-        <!--<li><label>battle name:</label> <input value="alkaizer" id="bName" type="text"></li>-->
-        <!--<li><label>battle tag:</label>  <input value="1727" id="bTag" type="number"></li>-->
-
-        <!--<li><label>battle name:</label> <input placeholder="name" value="" id="bName" type="text"></li>-->
-        <!--<li><label>battle tag:</label>  <input placeholder="ib" value="" id="bTag" type="number"></li>-->
-
         <li><label>battleTag:</label>   <input placeholder="name#0000" value="" id="battleTag" type="text"></li>
-
         <li><a id="go" href="#">go!</a></li>
     </ul>
 </section>
+
+​
 
 <section id="main">
 
@@ -55,19 +49,19 @@
 
     <ul id="gear">
 
-        <li id="shoulders"></li>
-        <li id="head"></li>
-        <li id="neck"></li>
-        <li id="hands"></li>
-        <li id="torso"></li>
-        <li id="bracers"></li>
-        <li id="rightFinger"></li>
-        <li id="waist"></li>
-        <li id="leftFinger"></li>
-        <li id="mainHand"></li>
-        <li id="legs"></li>
-        <li id="offHand"></li>
-        <li id="feet"></li>
+        <li data-bind='value: shoulders' id="shoulders"></li>
+        <li data-bind='value: head' id="head"></li>
+        <li data-bind='value: neck' id="neck"></li>
+        <li data-bind='value: hands' id="hands"></li>
+        <li data-bind='value: torso' id="torso"></li>
+        <li data-bind='value: bracers' id="bracers"></li>
+        <li data-bind='value: rightFinger' id="rightFinger"></li>
+        <li data-bind='value: waist' id="waist"></li>
+        <li data-bind='value: leftFinger' id="leftFinger"></li>
+        <li data-bind='value: mainHand' id="mainHand"></li>
+        <li data-bind='value: legs' id="legs"></li>
+        <li data-bind='value: offHand' id="offHand"></li>
+        <li data-bind='value: feet' id="feet"></li>
 
     </ul>
 
@@ -76,8 +70,10 @@
 <section id="skills"></section>
 
 
-<!--<script src="http://eu.battle.net/d3/static/js/tooltips.js"></script>-->
+<script src="http://eu.battle.net/d3/static/js/tooltips.js"></script>
+
 <script src="~/client/src/libs/jquery-1.7.2.min.js"></script>
+<script src='~/client/src/libs/knockout-2.1.0.js'></script>
 <script src="~/client/src/profile.js"></script>
 
 </body>
