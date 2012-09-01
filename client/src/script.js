@@ -11,11 +11,20 @@ var config      = {};
 
 var currentProfile = {};
 var hrs = {};
+var h = [];
 
 function getData (url) {
     return $.ajax ({ type: "GET", dataType: "jsonp",  url: url });
 }
 
+function fetchData (url) {
+    $.ajax({
+        type: "GET", dataType: "jsonp",  url: url
+    }).then(function (data) {
+        var d = data;
+        return d;
+    });
+}
 
 function hGender (gr) {
     var g = parseInt(gr);
@@ -74,16 +83,24 @@ function renderProfile ( currentProfile ) {
 
         li.innerHTML = "<h3>"+curr.name+"</h3><span>"+curr.level+"</span>";
 
-        getData(config.profile+"/hero/"+curr.id).then(function (data){
-            arr.push(data)
-        });
+
+                $.ajax({
+                    type: "GET", dataType: "jsonp",  url: config.profile+"/hero/"+curr.id
+                }).then(function (data) {
+                        h.push( data );
+                });
+
 
         frag.appendChild(li);
 
     }
 
+    $.when.apply($, h).then(function(data) {
+        console.log(h);
+    });
+
     currentProfile.heroes = arr;
-    console.log(currentProfile)
+    //console.log(currentProfile)
     document.getElementById("heroes").appendChild(frag);
 }
 
