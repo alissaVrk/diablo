@@ -50,21 +50,23 @@ function getCollection(callback){
 
     db.open(function (err, db_p) {
         if (err) {
-            console.log(err);
+            console.log('error while openening db connection ' + err);
             throw err;
         }
         db.authenticate('nodejitsu', 'f94a5d9583245726dcd4059166fcad5e', function (err, replies) {
             if(replies){
                 db_p.collection('instances', function(err, collection){
                     if(err){
-                        console.log(err);
+                        console.log('error while getting instances collection ' + err);
+                        throw err;
                     }
                     _collection = collection;
                     callback(collection);
                 });
             }
             else if(err){
-                console.log('err ' + err);
+                console.log('error while log in to db ' + err);
+                throw err;
             }
         });
     });
