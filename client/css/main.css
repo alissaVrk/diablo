@@ -2,14 +2,12 @@
 body { font-size: 0.75em; font-family: Calibri; color: #777;}
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
-section { padding: 40px; width: 600px;  margin:20px auto; border-radius: 10px; /*background: #f5f5f5;*/  position: relative;
-
-}
+section { padding: 40px;   position: relative; }
 
 
 div.bg { position: absolute;}
 
-.mainbg { position: absolute; top: 29px; left: 29px; bottom: 29px; right: 29px; background:#f2f2f2;}
+.section:before { position: absolute; top: 0px; left: 29px; bottom: 29px; right: 29px; background:#f2f2f2 url("../../images/bookcenter.png") repeat-y 50% 50%;}
 
 .top-left {top: 0; left: 0; width: 30px; height: 29px; background: url("../../images/bgbookcorners.png") no-repeat 0 0; }
 .top-right {top: 0; right: 0; width: 30px; height: 29px; background: url("../../images/bgbookcorners.png") no-repeat 100% 0; }
@@ -113,9 +111,9 @@ details {
 .lastPlayed-witch-doctor-female   { background-position: -240px -360px; width: 120px; height: 120px; position: absolute !important; left: 10px; bottom: -20px; }
 .lastPlayed-wizard-female         { background-position: -240px -480px; width: 120px; height: 120px; position: absolute !important; left: 10px; bottom: -20px; }
 
-#gear       { text-align: center; width: 220px; float: right; vertical-align: top; }
+#gear       { text-align: center; width:360px; float: right; vertical-align: top; }
 #gear li    { position: relative; border-radius: 5px; box-shadow: 0 1px 3px rgba(0,0,0,0.6); border: 2px solid #fff; display: inline-block;
-    width: 60px; height: 60px; background: #eee; margin:0 5px 5px 0; vertical-align: top; }
+    width: 100px; min-height: 60px; background: #eee; margin:0 5px 5px 0; vertical-align: top; }
 #gear li a  { display: block;  }
 #gear li img  { max-width: 100%; max-height: 100%;  }
 #gear:after, #stats:after { content: ""; display: table; clear: both; height: 0; font-size: 0; line-height: 0; }
