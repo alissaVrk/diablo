@@ -35,21 +35,22 @@ function handleLoadSettings(request, callback){
 
 function handleSetDiabloUser(request, callback){
     var battleData = getBattleDataFromPost(request);
-    instances.updateEntry(battleData.instanceId, battleData, function(){
+    instances.updateEntry(battleData.instanceId, battleData.compId, battleData, function(){
         callback();
     } );
 }
 
 function getBattleDataFromQuery(request, callback){
     var query = url.parse(request.url).query;
-    var instanceString = querystring.parse(query).instance;
-
-    if(!instanceString){
+    var parsedQuery = querystring.parse(query);
+    var instanceString = parsedQuery.instance;
+    var compId = parsedQuery.compId;
+    if(!instanceString || !compId){
         callback();
         return;
     }
     var instanceObject = decoder.decodeInstance(instanceString);
-    instances.getEntry(instanceObject.instanceId, callback);
+    instances.getEntry(instanceObject.instanceId, compId, callback);
 }
 
 function getBattleDataFromPost(request){
@@ -57,12 +58,13 @@ function getBattleDataFromPost(request){
         throw new Error('no data passed in settings');
     }
     var battleData = {
-        'battleTag': request.body.battleTag
+        'battleTag': request.body.battleTag,
+        'compId': request.body.compId
         //'battleName': request.body.battleName
     };
     var instanceString = request.body.instance;
-    if(!battleData.battleTag || !instanceString){
-        throw new Error('no battle tag, battle name or instance');
+    if(!battleData.battleTag || !instanceString || !battleData.compId){
+        throw new Error('no battle tag, compId or instance');
     }
     var instanceObject = decoder.decodeInstance(instanceString);
     battleData.userId = instanceObject.uid;

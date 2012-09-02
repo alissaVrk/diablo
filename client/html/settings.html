@@ -14,6 +14,7 @@
             $('#instance').val(instance);
             $('#battleName').val(battleArr[0]);
             $('#battleTag').val(battleArr[1]);
+            $('#compId').val(qs('compId'));
         });
         function qs(key) {
             key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&"); // escape RegEx meta chars
@@ -26,7 +27,8 @@
             $.post('setBattleData', {
                 //'battleName': $('#battleName').val(),
                 'battleTag':  $('#battleName').val() + '-' + $('#battleTag').val(),
-                'instance': $('#instance').val()
+                'instance': $('#instance').val(),
+                'compId': $('#compId').val()
             }, function(data, status, jqXHR){
                 if(status === 'success'){
                     alert('we good');
@@ -60,6 +62,7 @@ sdfsfsfds
         <input id="battleTag" name="battleTag" type="number">
         <br/>
         <input name="instance" id="instance" type="hidden">
+        <input name="compId" id="compId" type="hidden">
         <input type="button" value="submit" onclick="updateSettings()">
     </form>
 </body>

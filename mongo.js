@@ -9,11 +9,12 @@ var mongodb = require('mongodb');
 var ObjectID = require('mongodb').ObjectID;
 
 
-function addOrUpdate(instanceId, data, callback){
+function addOrUpdate(instanceId, compId, data, callback){
     getCollection(function(collection){
 //        callback(1);
 //        return;
         data.instanceId = instanceId;
+        data.compId = compId;
         collection.update({'instanceId': instanceId}, {$set: data}, {upsert: true, safe:true}, function(err, objects){
             if(err){
                 console.log(err);
@@ -28,7 +29,7 @@ function addOrUpdate(instanceId, data, callback){
     });
 }
 
-function getEntry(instanceId, callback){
+function getEntry(instanceId, compId, callback){
 //    callback({
 //        'battleTag': 'Alexandra-2631',
 //        //'battleName': 'chapaev',
@@ -36,7 +37,7 @@ function getEntry(instanceId, callback){
 //    });
 //    return;
     getCollection(function(collection){
-        collection.findOne({'instanceId': instanceId}, function(err, item){
+        collection.findOne({'instanceId': instanceId, 'compId': compId}, function(err, item){
             if(err){
                 console.log('get item ' + instanceId + ' err: ' + JSON.stringify(err));
                 throw err;
