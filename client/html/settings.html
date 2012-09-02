@@ -10,9 +10,10 @@
 
         $(document).ready(function(){
             var instance = qs('instance');
+            var battleArr = window.diabloData.battleTag.split('-');
             $('#instance').val(instance);
-            $('#battleName').val(window.diabloData.battleName);
-            $('#battleTag').val(window.diabloData.battleTag);
+            $('#battleName').val(battleArr[0]);
+            $('#battleTag').val(battleArr[1]);
         });
         function qs(key) {
             key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&"); // escape RegEx meta chars
@@ -23,8 +24,8 @@
             var tag = $('#battleTag').val();
             var name =
             $.post('setBattleData', {
-                'battleName': $('#battleName').val(),
-                'battleTag': $('#battleTag').val(),
+                //'battleName': $('#battleName').val(),
+                'battleTag':  $('#battleName').val() + '-' + $('#battleTag').val(),
                 'instance': $('#instance').val()
             }, function(data, status, jqXHR){
                 if(status === 'success'){

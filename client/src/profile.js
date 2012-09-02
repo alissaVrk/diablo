@@ -3,21 +3,21 @@ var profiles = {}, config;
 config = {
     icon: "http://eu.media.blizzard.com/d3/icons/",
     api: "http://eu.battle.net/api/d3/",
-    ui: { inp: "#battleTag", btn: "#go" },
-    dummy: "chapaev-2139",
-    init : function () {
-        var b = $(config.ui.inp).val().replace("#", "-");
-        var lnk = config.api + "profile/" + b + "/";
-        config.bTag = b;
-        parseProfile(lnk);
-    }
+    ui: { inp: "#battleTag", btn: "#go" }
+//    dummy: "chapaev-2139",
+//    init : function () {
+//        var b = $(config.ui.inp).val().replace("#", "-");
+//        var lnk = config.api + "profile/" + b + "/";
+//        config.bTag = b;
+//        parseProfile(lnk);
+//    }
 };
 
 $(document).ready(function () {
-    parseProfile(config.api+"profile/"+config.dummy+"/");
-    $(config.ui.btn).on("click", function () {
-        ($(config.ui.inp).val() === "")? alert("nono") : config.init();
-    });
+    parseProfile(config.api+"profile/"+window.diabloData.battleTag+"/");
+//    $(config.ui.btn).on("click", function () {
+//        ($(config.ui.inp).val() === "")? alert("nono") : config.init();
+//    });
 });
 
 function fetchData(url) {

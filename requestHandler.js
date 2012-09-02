@@ -15,8 +15,8 @@ var querystring = require('querystring');
 
 var htmlPath = '/client/html/';
 var defaultBattleData = {
-    'battleTag': 2139,
-    'battleName': 'chapaev',
+    'battleTag': 'Alexandra-2631',
+//    'battleName': 'chapaev',
     'userId': null
 };
 
@@ -57,11 +57,11 @@ function getBattleDataFromPost(request){
         throw new Error('no data passed in settings');
     }
     var battleData = {
-        'battleTag': request.body.battleTag,
-        'battleName': request.body.battleName
+        'battleTag': request.body.battleTag
+        //'battleName': request.body.battleName
     };
     var instanceString = request.body.instance;
-    if(!battleData.battleName || !battleData.battleTag || !instanceString){
+    if(!battleData.battleTag || !instanceString){
         throw new Error('no battle tag, battle name or instance');
     }
     var instanceObject = decoder.decodeInstance(instanceString);
