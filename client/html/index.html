@@ -52,24 +52,43 @@
 
     <div id="skills">
 
-        <h2>Skills</h2>
-        <h3>Active</h3>
-        <ul id="active" data-bind="foreach: m_skills_active">
-            <li  data-bind="attr:{ class: skill.name, category:skill.categorySlug }">
-                <h4 data-bind="text: skill.name"></h4>
-                <img data-bind="attr: {src: skill.m_icon}">
-                <img data-bind="attr: {src: rune.m_icon}">
-            </li>
-        </ul>
-        <h3>Passive</h3>
-        <ul id="passive" data-bind="foreach: m_skills_passive">
-            <li  data-bind="attr:{ class: skill.name, category:skill.categorySlug }">
-                <h4 data-bind="text: skill.name"></h4>
-                <img data-bind="attr: {src: skill.m_icon}">
-            </li>
-        </ul>
+        <h3>Active Skills</h3>
 
+        <details>
+            <ul id="active" data-bind="foreach: m_skills_active">
+                <li  data-bind="attr:{ class: skill.name, category:skill.categorySlug }">
+                    <h4 data-bind="text: skill.name"></h4>
+                    <img data-bind="attr: {src: skill.m_icon}">
+                    <img data-bind="attr: {src: rune.m_icon}">
+                </li>
+            </ul>
+        </details>
+
+        <h3>Passive Skills</h3>
+
+        <details>
+            <ul id="passive" data-bind="foreach: m_skills_passive">
+                <li  data-bind="attr:{ class: skill.name, category:skill.categorySlug }">
+                    <h4 data-bind="text: skill.name"></h4>
+                    <img data-bind="attr: {src: skill.m_icon}">
+                </li>
+            </ul>
+        </details>
     </div>
+
+
+    <div class="bg top-left"></div>
+    <div class="bg top-right"></div>
+
+    <div class="bg bottom-left"></div>
+    <div class="bg bottom-right"></div>
+
+    <div class="bg left"></div>
+    <div class="bg right"></div>
+    <div class="bg bottom"></div>
+
+
+
 </section>
 
 <script src="http://eu.battle.net/d3/static/js/tooltips.js"></script>
