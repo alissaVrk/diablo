@@ -15,6 +15,7 @@ config = {
 
 $(document).ready(function () {
     parseProfile(config.api+"profile/"+window.diabloData.battleTag+"/");
+
 //    $(config.ui.btn).on("click", function () {
 //        ($(config.ui.inp).val() === "")? alert("nono") : config.init();
 //    });
