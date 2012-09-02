@@ -4,7 +4,7 @@ config = {
     icon: "http://eu.media.blizzard.com/d3/icons/",
     api: "http://eu.battle.net/api/d3/",
     ui: { inp: "#battleTag", btn: "#go" },
-    dummy: "Jargon-2813",
+    dummy: "chapaev-2139",
     init : function () {
         var b = $(config.ui.inp).val().replace("#", "-");
         var lnk = config.api + "profile/" + b + "/";

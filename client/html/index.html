@@ -37,19 +37,19 @@
     </ul>
 
     <ul id="gear" >
-        <li data-bind="if: m_items.shoulders" id="shoulders">   <img data-bind="attr: {src: m_items.shoulders.m_icon}"></li>
-        <li data-bind="if: m_items.head" id="head">        <img data-bind="attr: {src: m_items.head.m_icon}"></li>
-        <li data-bind="if: m_items.neck" id="neck">        <img data-bind="attr: {src: m_items.neck.m_icon}"></li>
-        <li data-bind="if: m_items.hands" id="hands">       <img data-bind="attr: {src: m_items.hands.m_icon}"></li>
-        <li data-bind="if: m_items.torso" id="torso">       <img data-bind="attr: {src: m_items.torso.m_icon}"></li>
-        <li data-bind="if: m_items.bracers" id="bracers">     <img data-bind="attr: {src: m_items.bracers.m_icon}"></li>
-        <li data-bind="if: m_items.rightFinger" id="rightFinger"> <img data-bind="attr: {src: m_items.rightFinger.m_icon}"></li>
-        <li data-bind="if: m_items.waist" id="waist">       <img data-bind="attr: {src: m_items.waist.m_icon}"></li>
-        <li data-bind="if: m_items.leftFinger" id="leftFinger">  <img data-bind="attr: {src: m_items.leftFinger.m_icon}"></li>
-        <li data-bind="if: m_items.mainHand" id="mainHand">    <img data-bind="attr: {src: m_items.mainHand.m_icon}"></li>
-        <li data-bind="if: m_items.legs" id="legs">        <img data-bind="attr: {src: m_items.legs.m_icon}"></li>
-        <li data-bind="if: m_items.offHand" id="offHand">     <img data-bind="attr: {src: m_items.offHand.m_icon}"></li>
-        <li data-bind="if: m_items.feet" id="feet">        <img data-bind=" attr: {src: m_items.feet.m_icon}"></li>
+        <li data-bind="if: shoulders" id="shoulders">   <img data-bind="attr: {src: shoulders.m_icon}"></li>
+        <li data-bind="if: head" id="head">        <img data-bind="attr: {src: head.m_icon}"></li>
+        <li data-bind="if: neck" id="neck">        <img data-bind="attr: {src: neck.m_icon}"></li>
+        <li data-bind="if: hands" id="hands">       <img data-bind="attr: {src: hands.m_icon}"></li>
+        <li data-bind="if: torso" id="torso">       <img data-bind="attr: {src: torso.m_icon}"></li>
+        <li data-bind="if: bracers" id="bracers">     <img data-bind="attr: {src: bracers.m_icon}"></li>
+        <li data-bind="if: rightFinger" id="rightFinger"> <img data-bind="attr: {src: rightFinger.m_icon}"></li>
+        <li data-bind="if: waist" id="waist">       <img data-bind="attr: {src: waist.m_icon}"></li>
+        <li data-bind="if: leftFinger" id="leftFinger">  <img data-bind="attr: {src: leftFinger.m_icon}"></li>
+        <li data-bind="if: mainHand" id="mainHand">    <img data-bind="attr: {src: mainHand.m_icon}"></li>
+        <li data-bind="if: legs" id="legs">        <img data-bind="attr: {src: legs.m_icon}"></li>
+        <li data-bind="if: offHand" id="offHand">     <img data-bind="attr: {src: offHand.m_icon}"></li>
+        <li data-bind="if: feet" id="feet">        <img data-bind=" attr: {src: feet.m_icon}"></li>
     </ul>
 
 
@@ -60,7 +60,6 @@
     <ul data-bind="foreach: m_stats" id="stats">
         <li  data-bind="attr:{ class: name }">
             <h3 data-bind="text: name"></h3>: <span data-bind="text: value"></span>
-
         </li>
     </ul>
 </section>
