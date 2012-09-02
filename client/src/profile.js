@@ -18,6 +18,17 @@ $(document).ready(function () {
 //    $(config.ui.btn).on("click", function () {
 //        ($(config.ui.inp).val() === "")? alert("nono") : config.init();
 //    });
+
+
+//    $("#gear li").on("hover", function(){
+//        var i = $(this).attr("id");
+//       console.log(selectedHeroModel.items[i])
+//    })
+
+
+
+    //<a target="_blank" href="http://eu.battle.net/d3/en/class/wizard/active/blizzard?runeType=b">Blizzard - Stark Winter</a>
+
 });
 
 function fetchData(url) {
@@ -89,28 +100,6 @@ function getItemCall(items, key){
     });
 }
 
-
-//var GearViewModel = function(hero) {
-//    this.bracers     =  ko.observable(hero.items.bracers     );
-//    this.feet        =  ko.observable(hero.items.feet        );
-//    this.hands       =  ko.observable(hero.items.hands       );
-//    this.head        =  ko.observable(hero.items.head        );
-//    this.leftFinger  =  ko.observable(hero.items.leftFinger  );
-//    this.legs        =  ko.observable(hero.items.legs        );
-//    this.mainHand    =  ko.observable(hero.items.mainHand    );
-//    this.neck        =  ko.observable(hero.items.neck        );
-//    this.offHand     =  ko.observable(hero.items.offHand     );
-//    this.rightFinger =  ko.observable(hero.items.rightFinger );
-//    this.shoulders   =  ko.observable(hero.items.shoulders   );
-//    this.torso       =  ko.observable(hero.items.torso       );
-//    this.waist       =  ko.observable(hero.items.waist       );
-//
-//
-//};
-
-
-
-//ko.applyBindings(new GearViewModel(profiles["hero"+i]));
 
 
 

@@ -20,20 +20,18 @@
     window.diabloData = {battleObject};
 </script>
 
-<section id="heroDetails">
-    <h2>hero details</h2>
-    <ul>
-        <li><label>battleTag:</label>   <input placeholder="name#0000" value="" id="battleTag" type="text"></li>
-        <li><a id="go" href="#">go!</a></li>
-    </ul>
-</section>
-
-​
 
 <section id="main">
 
     <ul id="heroes" data-bind="foreach: m_heroes">
         <li data-bind="attr:{ class: klass }, click: selectHero"></li>
+    </ul>
+
+    <h2>Attributes</h2>
+    <ul data-bind="foreach: m_stats" id="stats">
+        <li  data-bind="attr:{ class: name }">
+            <h3 data-bind="text: name"></h3> <span data-bind="text: value"></span>
+        </li>
     </ul>
 
     <ul id="gear" >
@@ -52,35 +50,29 @@
         <li data-bind="if: feet" id="feet">        <img data-bind=" attr: {src: feet.m_icon}"></li>
     </ul>
 
+    <div id="skills">
 
+        <h2>Skills</h2>
+        <h3>Active</h3>
+        <ul id="active" data-bind="foreach: m_skills_active">
+            <li  data-bind="attr:{ class: skill.name, category:skill.categorySlug }">
+                <h3 data-bind="text: skill.name"></h3>
+                <img data-bind="attr: {src: skill.m_icon}">
+                <img data-bind="attr: {src: rune.m_icon}">
+            </li>
+        </ul>
+        <h3>Passive</h3>
+        <ul id="passive" data-bind="foreach: m_skills_passive">
+            <li  data-bind="attr:{ class: skill.name, category:skill.categorySlug }">
+                <h3 data-bind="text: skill.name"></h3>
+                <img data-bind="attr: {src: skill.m_icon}">
+            </li>
+        </ul>
 
+    </div>
 </section>
-
-<section>
-    <ul data-bind="foreach: m_stats" id="stats">
-        <li  data-bind="attr:{ class: name }">
-            <h3 data-bind="text: name"></h3>: <span data-bind="text: value"></span>
-        </li>
-    </ul>
-</section>
-
-<section id="skills">
-    <ul id="active" data-bind="foreach: m_skills_active">
-        <li  data-bind="attr:{ class: skill.name, category:skill.categorySlug }">
-            <h3 data-bind="text: skill.name"></h3>
-            <img data-bind="attr: {src: skill.m_icon}">
-            <img data-bind="attr: {src: rune.m_icon}">
-        </li>
-    </ul>
-    <ul id="passive" data-bind="foreach: m_skills_passive">
-        <h3 data-bind="text: skill.name"></h3>
-        <img data-bind="attr: {src: skill.m_icon}">
-    </ul>
-</section>
-
 
 <script src="http://eu.battle.net/d3/static/js/tooltips.js"></script>
-
 <script src="~/client/src/libs/jquery-1.7.2.min.js"></script>
 <script src='~/client/src/libs/underscore-min.js'></script>
 <script src='~/client/src/libs/knockout-2.1.0.js'></script>

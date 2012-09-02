@@ -107,7 +107,7 @@ function loadStatsView(selectedHero, isFirstTime) {
 }
 
 function loadSkillsView(selectedHero, isFirstTime){
-    var iconUrl = "http://eu.media.blizzard.com/d3/icons/skill/large/";
+    var iconUrl = "http://eu.media.blizzard.com/d3/icons/skills/64/";
     selectedHero.skills.active = _.filter(selectedHero.skills.active, function(item){
         return !! item.skill;
     });

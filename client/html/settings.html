@@ -2,7 +2,8 @@
 <html>
 <head>
     <title></title>
-
+    <link rel="stylesheet" href="~/client/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="~/client/css/main.css" type="text/css" />
     <script type="text/javascript" src="//sslstatic.wix.com/services/js-sdk/1.8.0/js/Wix.js"></script>
     <script src="~/client/src/libs/jquery-1.7.2.min.js"></script>
     <script>
@@ -50,15 +51,13 @@
     };
 </script>
 
-sdfsfsfds
-    this is settings
     <form>
-        <label for="battleName">name</label>
-        <input id="battleName" name="battleName" type="text">
-        <br/>
-        <label for="battleTag">id</label>
-        <input id="battleTag" name="battleTag" type="number">
-        <br/>
+        <label for="battleName">name
+        <input id="battleName" name="battleName" type="text"></label>
+
+        <label for="battleTag">id
+        <input id="battleTag" name="battleTag" type="number"></label>
+
         <input name="instance" id="instance" type="hidden">
         <input type="button" value="submit" onclick="updateSettings()">
     </form>
