@@ -18,7 +18,7 @@ function loadViews(heroes){
     var lastHero = _.filter(heroesModel, function(hero){
         return hero.selected;
     });
-    selectedHeroModel = lastHero.length > 0 ? lastHero[0] : heroes[0];
+    selectedHeroModel = lastHero.length > 0 ? lastHero[0] : heroesModel[0];
     loadHeroView(selectedHeroModel, true);
 }
 
