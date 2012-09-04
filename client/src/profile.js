@@ -3,33 +3,13 @@ var profiles = {}, config;
 config = {
     icon: "http://eu.media.blizzard.com/d3/icons/",
     api: "http://eu.battle.net/api/d3/",
-    ui: { inp: "#battleTag", btn: "#go" }
-//    dummy: "chapaev-2139",
-//    init : function () {
-//        var b = $(config.ui.inp).val().replace("#", "-");
-//        var lnk = config.api + "profile/" + b + "/";
-//        config.bTag = b;
-//        parseProfile(lnk);
-//    }
+    ui: { inp: "#battleTag", btn: "#go" },
+    currentTag : null
 };
 
 $(document).ready(function () {
-    parseProfile(config.api+"profile/"+window.diabloData.battleTag+"/");
-
-//    $(config.ui.btn).on("click", function () {
-//        ($(config.ui.inp).val() === "")? alert("nono") : config.init();
-//    });
-
-
-//    $("#gear li").on("hover", function(){
-//        var i = $(this).attr("id");
-//       console.log(selectedHeroModel.items[i])
-//    })
-
-
-
-    //<a target="_blank" href="http://eu.battle.net/d3/en/class/wizard/active/blizzard?runeType=b">Blizzard - Stark Winter</a>
-
+    //parseProfile(config.api+"profile/"+window.diabloData.battleTag+"/");
+    parseProfile(config.api+"profile/chapaev-2139/");
 });
 
 function fetchData(url) {
@@ -47,7 +27,10 @@ function parseProfile(lnk) {
         var bTag = pTag(data.battleTag);
         var last = data.lastHeroPlayed;
         profiles[bTag] = {};
-        getHeroesData(data, heroUrl, last, bTag, loadViews);
+        currentTag = bTag;
+        currentProfile = profiles[bTag];
+        //getHeroesData(data, heroUrl, last, bTag, loadViews);
+        getHeroesData(data, heroUrl, last, bTag, itsDone);
     });
 }
 
@@ -69,9 +52,9 @@ function getHeroCall(url, last, bTag){
         dataType: "jsonp",
         success: function(dta){
             dta.gender = (dta.gender === 0 ) ? "male" : "female";
-            dta.last = (dta.id === last) ? true : false;
-            profiles[bTag][dta.name] = dta;
-            //newItems(dta, bTag);
+            var heroId = dta.gender + "-" + dta.class  + "-" + dta.level  + "-" + dta.name + "-" + dta.id;
+            dta.last = (dta.id === last) ? true   : false;
+            profiles[bTag][heroId] = dta;
         }
     });
 }
@@ -96,62 +79,6 @@ function getItemCall(items, key){
         dataType: "jsonp",
         success: function(data){
             items[key] = data;
-            //ko.applyBindings(new GearViewModel(profiles[bTag][dta.name]));
         }
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

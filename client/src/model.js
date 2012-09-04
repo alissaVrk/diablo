@@ -53,6 +53,9 @@ function loadHeroesView(heroes){
 }
 
 function loadItemsView(selectedHero, isFirstTime){
+
+    itsDone ();
+
     var iconUrl = "http://eu.media.blizzard.com/d3/icons/items/large/";
     _.each(items, function(item, itemName){
         var heroItem = selectedHero.items[itemName];
