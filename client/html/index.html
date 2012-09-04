@@ -6,26 +6,27 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="~/client/css/reset.css" type="text/css" />
     <link rel="stylesheet" href="~/client/css/main.css" type="text/css" />
+
+    <script>
+
+        window.wixInit = function() {
+            Wix.init({});
+            Wix.isAlive();
+        };
+        window.diabloData = {battleObject};
+
+    </script>
+
 </head>
-<body id="bd">
-
-<script>
-    window.wixInit = function() {
-        Wix.init({
-            //compId      : "comp-id-query-param-value"
-        });
-        Wix.isAlive();
-        // more initialization code here (if you like)
-    };
-    window.diabloData = {battleObject};
-</script>
-
+<body>
 
     <section>
         <h1>Heroes</h1>
         <ul id="heroes"></ul>
     </section>
+
     <section>
+
         <ul id="gear" >
             <h2></h2>
             <li id="shoulders"></li>
@@ -44,16 +45,70 @@
         </ul>
         <ul id="stats"><h2>Attributes</h2></ul>
     </section>
+
     <section id="skills">
             <ul id="active"></ul>
             <ul id="passive"></ul>
     </section>
 
 
+    <div id="itemTip"><a href="#">x</a></div>
+    <div class="loader"></div>
+
+
 <script src="~/client/src/libs/jquery-1.7.2.min.js"></script>
+<script src="~/client/src/utils.js"></script>
 <script src="~/client/src/profile.js"></script>
 <script src="~/client/src/models.js"></script>
 <script src="http://eu.battle.net/d3/static/js/tooltips.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        parseProfile(config.api+"profile/chapaev-2139/");
+
+        //parseProfile(config.api+"profile/"+window.diabloData.battleTag+"/");
+
+        $("#heroes li").live('click', function() {
+
+            renderHero (currentProfile[$(this).attr("data")]);
+
+        });
+
+        //.html($(this).data("item-info"))
+
+        $("#gear li").live('click', function() {
+
+            var d = $(this).data("item-info");
+            var t= $("#itemTip");
+            t.empty();
+            t.animate({ right: "-999" }, 500, function (){
+                t.html(d).animate({ right: "0" }, 500)
+            });
+
+        });
+
+
+
+
+//        $("#gear li").toggle( function() {
+//            $('#itemTip').animate({
+//                top: "0"
+//            }, 500);
+//        }, function() {
+//            $('#itemTip').animate({
+//                top: "-999"
+//            }, 500);
+//        });
+
+
+
+
+
+
+    });
+
+</script>
 
 </body>
 </html>

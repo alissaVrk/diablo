@@ -23,6 +23,7 @@ var fileExtToType = {
     'js': {'type': 'text/javascript'},
     'jpg': {'type': 'image/jpeg', 'encoding': 'binary'},
     'png': {'type': 'image/png', 'encoding': 'binary'},
+    'gif': {'type': 'image/gif', 'encoding': 'binary'},
     'ico': {'type': 'image/x-icon', encoding: 'binary'}
 };
 
@@ -84,4 +85,3 @@ function notFound(response, pathname){
 }
 
 exports.route = route;
-

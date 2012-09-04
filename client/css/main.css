@@ -2,7 +2,7 @@
 body { font-size: 0.75em; font-family: Calibri; color: #777; }
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
-section { padding: 20px;   position: relative;   margin: 20px 100px; background: rgba(0,0,0,0.1); }
+section { padding: 20px;   position: relative;   margin: 20px; background: rgba(0,0,0,0.1); }
 
 #heroes     { text-align: left;  position: relative; }
     #heroes li  { cursor:pointer;  box-shadow: 0px 1px 2px rgba(0,0,0,0.6);  width: 60px; height: 60px; display: inline-block; position: relative; margin:0 5px 0 0; background-image: url("../../images/portraits.jpg"); background-repeat: no-repeat ; }
@@ -16,37 +16,13 @@ section { padding: 20px;   position: relative;   margin: 20px 100px; background:
         #heroes li div, #gear .tip { display: none;  position: absolute; top: -95%; right: -95%;  background: #fff; padding: 10px; border-radius: 5px; box-shadow: 0px 1px 2px rgba(0,0,0,0.6); z-index: 999; }
         #heroes li:hover div, #gear li:hover .tip       { display: block; }
 
-
-/*
-.barbarian-male        { background-position: 0 0         ; width: 60px; height: 60px; }
-.demon-hunter-male     { background-position: 0 -60px     ; width: 60px; height: 60px; }
-.monk-male             { background-position: 0 -120px    ; width: 60px; height: 60px; }
-.witch-doctor-male     { background-position: 0 -180px    ; width: 60px; height: 60px; }
-.wizard-male           { background-position: 0 -240px    ; width: 60px; height: 60px; }
-.barbarian-female      { background-position: -60px 0     ; width: 60px; height: 60px; }
-.demon-hunter-female   { background-position: -60px -60px ; width: 60px; height: 60px; }
-.monk-female           { background-position: -60px -120px; width: 60px; height: 60px; }
-.witch-doctor-female   { background-position: -60px -180px; width: 60px; height: 60px; }
-.wizard-female         { background-position: -60px -240px; width: 60px; height: 60px; }
-*/
-/*
-.lastPlayed-barbarian-male        { background-position: -120px 0     ; width: 120px; height: 120px; position: absolute !important; left: 10px; bottom: -20px; }
-.lastPlayed-demon-hunter-male     { background-position: -120px -120px; width: 120px; height: 120px; position: absolute !important; left: 10px; bottom: -20px; }
-.lastPlayed-monk-male             { background-position: -120px -240px; width: 120px; height: 120px; position: absolute !important; left: 10px; bottom: -20px; }
-.lastPlayed-witch-doctor-male     { background-position: -120px -360px; width: 120px; height: 120px; position: absolute !important; left: 10px; bottom: -20px; }
-.lastPlayed-wizard-male           { background-position: -120px -480px; width: 120px; height: 120px; position: absolute !important; left: 10px; bottom: -20px; }
-.lastPlayed-barbarian-female      { background-position: -240px 0     ; width: 120px; height: 120px; position: absolute !important; left: 10px; bottom: -20px; }
-.lastPlayed-demon-hunter-female   { background-position: -240px -120px; width: 120px; height: 120px; position: absolute !important; left: 10px; bottom: -20px; }
-.lastPlayed-monk-female           { background-position: -240px -240px; width: 120px; height: 120px; position: absolute !important; left: 10px; bottom: -20px; }
-.lastPlayed-witch-doctor-female   { background-position: -240px -360px; width: 120px; height: 120px; position: absolute !important; left: 10px; bottom: -20px; }
-.lastPlayed-wizard-female         { background-position: -240px -480px; width: 120px; height: 120px; position: absolute !important; left: 10px; bottom: -20px; }
-*/
-
-
 section ul    { display: inline-block;  }
 
-#gear         { text-align: center; vertical-align: top; margin-right: 100px; width: 205px; }
-#gear > li      { position: relative; border-radius: 5px;  display: inline-block; width: 65px; min-height: 50px;  background: #ddd; margin:0 1px 5px 0; vertical-align: top;  box-shadow:inset 0px 0px 10px rgba(0,0,0,0.3);}
+#gear           { text-align: center; vertical-align: top; margin-right: 20px; width: 205px; }
+#gear > li      {
+    width: 60px;  min-height: 30px;
+    display: inline-block;
+    position: relative; border-radius: 5px;     background: #ddd; margin:0 1px 5px 0; vertical-align: top;  box-shadow:inset 0px 0px 10px rgba(0,0,0,0.3);}
 #gear > li a    { display: block;  }
 #gear > li img  { max-width: 100%; max-height: 100%;  }
 #gear .tip { background: rgba(0,0,0,0.8); color: #ccc;  }
@@ -58,6 +34,19 @@ section ul    { display: inline-block;  }
 #gear h2  { position: relative; text-align: center;  }
 #gear h2 p { font-size: 12px;  }
 #gear h2 span { position: absolute; left: 50%; bottom: -10px; margin-left: -10px; border-radius: 50%; background: #fff; width: 20px; height: 20px; line-height: 20px; font-size: 10px;  }
+
+
+#itemTip {
+    position: fixed;
+    width: 100%;
+
+    padding: 20px;
+    background: rgba(0,0,0,0.85); color: #fff;
+    top: 35%;
+    left: 450px;
+    right: -999px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
 
 
 #stats li      { padding:4px 0; border-bottom: 1px solid rgba(0,0,0,0.2); border-top: 1px solid rgba(255,255,255,0.3);  }
@@ -73,27 +62,18 @@ section ul    { display: inline-block;  }
 #skills h4    { font-size: 14px; margin-bottom: 5px; }
 
 
-
-
-
-
-
- /*
-
-form { text-align: center; padding: 10px;  border-radius: 10px; background: #f5f5f5; box-shadow: 0px 0px 5px rgba(0,0,0,0.5); }
-
-form input { display: block; margin: 5px 0; padding: 5px; border-radius: 5px; border: none; box-shadow:inset 0px 0px 3px rgba(0,0,0,0.5); }
-form label { display: inline-block; }
-
-form  input[type="button"] {
-    display: block;
-    width: 80px;
-    margin: 5px auto;
-}
-
- */
 section h1, section h2, section h3 {  border-bottom:1px solid #ccc; padding-bottom:0.5em; margin-bottom:0.5em; text-align: left; font-smooth:always;  margin-bottom:1em; font-weight: 100; }
 
 section h1 { color:#7B6D55; font-size: 24px; font-style: italic; }
 section h2 { color:#7B6D55; font-size: 18px; font-style: italic; }
 section h3 { color:#7B6D55; font-size: 16px;}
+
+
+
+.loader {
+    height: 100%; line-height: 100%;
+    text-align: center;
+    background: rgba(0,0,0,0.7);
+    position: fixed; top: 0; bottom: 0; left: 0; right: 0;
+}
+.loader:after {content: "loading..." }

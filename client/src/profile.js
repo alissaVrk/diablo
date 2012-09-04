@@ -1,23 +1,4 @@
-var profiles = {}, config;
-
-config = {
-    icon: "http://eu.media.blizzard.com/d3/icons/",
-    api: "http://eu.battle.net/api/d3/",
-    ui: { inp: "#battleTag", btn: "#go" },
-    currentTag : null
-};
-
-$(document).ready(function () {
-    //parseProfile(config.api+"profile/"+window.diabloData.battleTag+"/");
-    parseProfile(config.api+"profile/chapaev-2139/");
-});
-
-function fetchData(url) {
-    return $.ajax({ url: url, type: "GET", dataType: "jsonp" });
-}
-function pTag(str) {
-    return str.replace("#", "-");
-}
+var profiles = {};
 
 function parseProfile(lnk) {
     var mainUrl = lnk;
