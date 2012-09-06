@@ -38,13 +38,11 @@ section ul    { display: inline-block;  }
 
 #itemTip {
     position: fixed;
-    width: 100%;
-
-    padding: 20px;
+    width: 200px;
+    padding: 400px 20px 20px 20px;
     background: rgba(0,0,0,0.85); color: #fff;
-    top: 35%;
-    left: 450px;
-    right: -999px;
+    top: -999px;
+    left: 350px;
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
@@ -76,4 +74,4 @@ section h3 { color:#7B6D55; font-size: 16px;}
     background: rgba(0,0,0,0.7);
     position: fixed; top: 0; bottom: 0; left: 0; right: 0;
 }
-.loader:after {content: "loading..." }
+.loader:after { content: "loading..."; position: absolute; display: block; top: 50%; left:50%; margin: -20px 0 0 -50px; line-height:40px; height:40px; width:100px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,0,0,0.6); background: #fff; }

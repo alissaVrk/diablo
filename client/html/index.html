@@ -9,11 +9,11 @@
 
     <script>
 
-        window.wixInit = function() {
-            Wix.init({});
-            Wix.isAlive();
-        };
-        window.diabloData = {battleObject};
+//        window.wixInit = function() {
+//            Wix.init({});
+//            Wix.isAlive();
+//        };
+//        window.diabloData = {battleObject};
 
     </script>
 
@@ -23,6 +23,7 @@
     <section>
         <h1>Heroes</h1>
         <ul id="heroes"></ul>
+        <input placeholder="battletag" type="text">
     </section>
 
     <section>
@@ -66,24 +67,23 @@
     $(document).ready(function () {
 
         //parseProfile(config.api+"profile/chapaev-2139/");
+        //parseProfile(config.api+"profile/alkaizer-1727/");
+        parseProfile(config.api+"profile/alexandra-2631/");
 
-        parseProfile(config.api+"profile/"+window.diabloData.battleTag+"/");
+        //parseProfile(config.api+"profile/"+window.diabloData.battleTag+"/");
 
         $("#heroes li").live('click', function() {
-
             renderHero (currentProfile[$(this).attr("data")]);
-
         });
 
-        //.html($(this).data("item-info"))
 
         $("#gear li").live('click', function() {
 
             var d = $(this).data("item-info");
             var t= $("#itemTip");
             t.empty();
-            t.animate({ right: "-999" }, 500, function (){
-                t.html(d).animate({ right: "0" }, 500)
+            t.animate({ top: "-999" }, 500, function (){
+                t.html(d).animate({ top: "0" }, 500)
             });
 
         });

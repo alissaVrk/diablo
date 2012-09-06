@@ -50,10 +50,10 @@ function  renderItems (items) {
         var li  = $("#gear li#" + i);
         li.data("item-info", "").html("").empty();
         var html = "";
-
         var pic = "<img src='" + makeIcon("items", "big", items[i].icon) + "' />";
-
         var gems = (items[i].gems.length > 0) ? renderGems(items[i].gems, "p") : null;
+
+        test(items[i].attributesRaw);
 
 
         html += "<div class='tip'>" + pic + gems;
@@ -75,6 +75,13 @@ function  renderItems (items) {
 }
 
 
+function test(obj) {
+
+    for (var i in obj) {
+        console.log(i)
+    }
+
+}
 function renderGems(gems, e) {
     var html = "";
     for (var i in gems) {
@@ -87,6 +94,7 @@ function renderAttributes(attr, e) {
     var html = "";
     for (var i in attr) {
         html += "<" + e + ">" +attr[i]+ "</" + e + ">"
+
     }
     return html;
 }

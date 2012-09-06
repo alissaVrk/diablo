@@ -45,7 +45,7 @@ function makeSkillUrl(klass, cat, prop ) {
 }
 
 function pTag(str) {
-    return str.replace("#", "-");
+    //return str.replace("#", "-");
 }
 function defineGender(g) {
     return (g === 0 ) ? "male" : "female";
