@@ -1,6 +1,8 @@
-function itsDone() {
-   renderHeroes();
-   $(".loader").fadeOut();
+function profileReady() {
+
+    //console.log(d3);
+   //renderHeroes();
+  // $(".loader").fadeOut();
 }
 
 function renderHeroes() {
@@ -52,8 +54,9 @@ function  renderItems (items) {
         var html = "";
         var pic = "<img src='" + makeIcon("items", "big", items[i].icon) + "' />";
         var gems = (items[i].gems.length > 0) ? renderGems(items[i].gems, "p") : null;
+        var desc = (items[i].flavorText) ? items[i].flavorText : "";
 
-        test(items[i].attributesRaw);
+
 
 
         html += "<div class='tip'>" + pic + gems;
@@ -62,6 +65,10 @@ function  renderItems (items) {
         html += "<h4 style='color:" + items[i].displayColor + "'>" + items[i].typeName + "</h4>";
 
         html += "<ul>" +  renderAttributes(items[i].attributes, "li") + "</ul>";
+
+
+
+        html += "<p>" +  desc + "</p>";
 
         html += "<h5>Item Level: " + items[i].itemLevel + "</h5>";
         html += "<h6>Required Level: " + items[i].requiredLevel + "</h6>";
@@ -75,13 +82,6 @@ function  renderItems (items) {
 }
 
 
-function test(obj) {
-
-    for (var i in obj) {
-        console.log(i)
-    }
-
-}
 function renderGems(gems, e) {
     var html = "";
     for (var i in gems) {
