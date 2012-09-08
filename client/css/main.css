@@ -4,17 +4,17 @@ body { font-size: 0.75em; font-family: Calibri; color: #777; }
 
 section { padding: 20px;   position: relative;   margin: 20px; background: rgba(0,0,0,0.1); }
 
-#heroes     { text-align: left;  position: relative; }
-    #heroes li  { cursor:pointer;  box-shadow: 0px 1px 2px rgba(0,0,0,0.6);  width: 60px; height: 60px; display: inline-block; position: relative; margin:0 5px 0 0; background-image: url("../../images/portraits.jpg"); background-repeat: no-repeat ; }
+.heroes     { text-align: left;  position: relative; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #fff; }
+    .heroes li  { cursor:pointer;  box-shadow: 0px 1px 2px rgba(0,0,0,0.6);  width: 60px; height: 60px; display: inline-block; position: relative; margin:0 5px 0 0; background-image: url("../../images/portraits.jpg"); background-repeat: no-repeat ; }
 
-        #heroes .barbarian        { background-position: -60px 0     ; }
-        #heroes .demon-hunter     { background-position: -60px -60px ; }
-        #heroes .monk             { background-position: -60px -120px; }
-        #heroes .witch-doctor     { background-position: -60px -180px; }
-        #heroes .wizard           { background-position: -60px -240px; }
+        .heroes .barbarian        { background-position: -60px 0     ; }
+        .heroes .demon-hunter     { background-position: -60px -60px ; }
+        .heroes .monk             { background-position: -60px -120px; }
+        .heroes .witch-doctor     { background-position: -60px -180px; }
+        .heroes .wizard           { background-position: -60px -240px; }
 
-        #heroes li div, #gear .tip { display: none;  position: absolute; top: -95%; right: -95%;  background: #fff; padding: 10px; border-radius: 5px; box-shadow: 0px 1px 2px rgba(0,0,0,0.6); z-index: 999; }
-        #heroes li:hover div, #gear li:hover .tip       { display: block; }
+        .heroes li div, #gear .tip { display: none;  position: absolute; top: -95%; right: -95%;  background: #fff; padding: 10px; border-radius: 5px; box-shadow: 0px 1px 2px rgba(0,0,0,0.6); z-index: 999; }
+        .heroes li:hover div, #gear li:hover .tip       { display: block; }
 
 section ul    { display: inline-block;  }
 

@@ -1,33 +1,57 @@
-function profileReady() {
-
-    //console.log(d3);
-   //renderHeroes();
-  // $(".loader").fadeOut();
-}
 
 function renderHeroes() {
 
-    var ul   = document.getElementById("heroes"),
-        frag = document.createDocumentFragment();
+    //var ul = $("#heroes").removeData().empty();
+    var ul = $("<ul>").attr("id", d3.current.tag).addClass("heroes").appendTo("section:first");
+    var hrs = $(d3.profiles[d3.current.tag].heroes);
 
-    ul.innerHTML = "";
+    var deferreds = [];
 
-    for (var hero in currentProfile) {
+    $(hrs).each(function(h) {
 
-        var li = document.createElement("li");
-        li.setAttribute("data", hero);
-        li.className = currentProfile[hero].class + " " + currentProfile[hero].gender;
-        li.innerHTML = "<div><h4>" + currentProfile[hero].name + "</h4><span>level: " + currentProfile[hero].level + "</span><p>kills: " + currentProfile[hero].kills.elites + "</p></div>";
+        var li = $("<li>");
+        li.addClass(hrs[h].class + " " + defineGender(hrs[h].gender));
+        li.html("<div><h4>" + hrs[h].name + "</h4><span>level: " + hrs[h].level + "</span><span>id: " + hrs[h].id + "</span></div>");
+        (hrs[h].id == d3.current.last) ? li.attr("id", "lastPlayed") : null;
 
-        if(currentProfile[hero].last) {
-            li.id = "lastPlayed";
-            renderHero(currentProfile[hero]);
-        }
-        frag.appendChild(li);
-    }
-    ul.appendChild(frag);
+
+        var request = fetchData(d3.current.url + "hero/" + hrs[h].id);
+        deferreds.push(request);
+
+        request.done(function (data) {
+
+            d3.profiles[d3.current.tag].heroes[h] = data;
+            li.data("d3", d3.profiles[d3.current.tag].heroes[h]);
+            ul.append(li);
+            mapItems(d3.profiles[d3.current.tag].heroes[h].items)
+
+        }); //done one
+
+    }); //loop end
+
+
+    $.when.apply($, deferreds).then(function(args){
+        console.log(d3.profiles[d3.current.tag].heroes);
+    });
+
 
 }
+
+
+function mapItems(items) {
+    var lnk = "http://us." + d3.base.host + "us/item/warlord-gauntlets"
+    for(var i in items) {
+
+       var slot =  $("#" + i);
+       var a =  $("<a>").attr("href", lnk ).data("d3tooltip", items[i].tooltipParams).text(items[i].name);
+       slot.append(a);
+        //slot.data("d3tooltip", items[i].tooltipParams)
+
+    }
+    //data-d3tooltip
+    //$("#gear li")
+}
+
 
 function renderHero (hero) {
 

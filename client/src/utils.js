@@ -36,22 +36,3 @@ function handlerErr(args) {
 function fetchData(url) {
     return $.ajax({ url: url, type: "GET", dataType: "jsonp" });
 }
-
-function dummy(h)  {
-
-    var olo;
-    olo = {
-        bb : { region:"us", name:"alkaizer", id:"1727" },
-        dh:{ region:"eu", name:"ingek", id:"2353" },
-        mk:{ region:"eu", name:"muggz", id:"2796" },
-        wd:{ region:"us", name:"fish", id:"1477" },
-        wz:{ region:"us", name:"faye", id:"1737" },
-        me:{ region:"eu", name:"chapaev", id:"2139" }
-    }
-
-    $("#sel").val(olo[h].region);
-    $("#battleName").val(olo[h].name);
-    $("#battleCode").val(olo[h].id);
-
-}
-
