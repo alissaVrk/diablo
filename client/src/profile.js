@@ -1,30 +1,40 @@
 function parseProfile() {
-    var request = fetchData(d3.current.url);
-    request.done(function (data) {
+
+    $.ajax({
+
+        url: d3.current.url,
+        type: "GET",
+        dataType: "jsonp"
+
+    }).done(function (data) {
+
         d3.current["last"] = data.lastHeroPlayed;
         d3.profiles[d3.current.tag] = data;
         renderHeroes()
+
     });
+
 }
 
 $(document).ready(function () {
 
+
     for (var i in d3.base.regions) {
         $("#sel").append($("<option>").attr("value", i).text(d3.base.regions[i]));
     }
-    dummy("wz");
+
+    dummy("bb");
+//    dummy("dh");
+//    dummy("mk");
+//    dummy("wd");
+//    dummy("wz");
+
 
     $("#go").on('click', function(e) {
 
         e.preventDefault();
 
-        d3.current["region"] = $("#sel").val()
-        d3.current["name"]   = $("#battleName").val()
-        d3.current["id"]     = $("#battleCode").val()
-        d3.current["tag"]    = d3.current.name + "-" + d3.current.id
-        d3.current["url"]    = "http://" + d3.current.region + "." + d3.base.api + "profile/" + d3.current.tag + "/";
-
-        parseProfile();
+        setCurrent();
 
     });
 
@@ -35,11 +45,14 @@ $(document).ready(function () {
 
     });
 
-    $("#gear li a").live('click', function(e) {
-        e.preventDefault();
-        var d = $(this).data("d3tooltip");
-        console.log(d);
+    //$("#gear li a").live('hover', function() {
 
-    });
+        //e.preventDefault();
+
+        //Bnet.D3.Tooltips.show(this);
+        //var d = $(this).data("d3tooltip");
+        //console.log(e);
+
+    //});
 
 });

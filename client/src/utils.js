@@ -5,6 +5,9 @@ function el(e) {
 function elId(e) {
     return document.getElementById(e);
 }
+function cl(m) {
+    console.log(m);
+}
 
 function makeIcon(type, size, prop ) {
     var t, s;

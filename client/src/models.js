@@ -23,7 +23,7 @@ function renderHeroes() {
             d3.profiles[d3.current.tag].heroes[h] = data;
             li.data("d3", d3.profiles[d3.current.tag].heroes[h]);
             ul.append(li);
-            mapItems(d3.profiles[d3.current.tag].heroes[h].items)
+            mapItems(d3.profiles[d3.current.tag].heroes[h].items, babyGotBack)
 
         }); //done one
 
@@ -38,19 +38,95 @@ function renderHeroes() {
 }
 
 
-function mapItems(items) {
-    var lnk = "http://us." + d3.base.host + "us/item/warlord-gauntlets"
+
+var Bnet = {};
+
+Bnet.D3 = {}
+Bnet.D3.Tooltips = {}
+Bnet.D3.Tooltips.registerData = function(){
+    babyGotBack();
+}
+function babyGotBack() {
+    console.log("tttttttt---------------------------************************************");
+}
+
+function mapItems(items, babyGotBack) {
+
+
+    var tt = d3.current.urls.tooltip;
+    //var tt = d3.current.urls.data;
+
     for(var i in items) {
 
-       var slot =  $("#" + i);
-       var a =  $("<a>").attr("href", lnk ).data("d3tooltip", items[i].tooltipParams).text(items[i].name);
-       slot.append(a);
-        //slot.data("d3tooltip", items[i].tooltipParams)
+        var slot =  $("#" + i);
+        var a =  $("<a>");
+        var str =  items[i].tooltipParams;
+        var itm = str.replace("item", "item-data");
+
+        a.attr("href", tt + itm );
+       // a.attr("data-d3tooltip", tt + itm );
+            a.data("d3tooltip", tt + itm);
+                a.text(items[i].name).appendTo(slot);
+
+        var req = $.ajax({
+            url: tt + itm,
+            dataType: 'jsonp',
+            timeout : 1000,
+            //jsonp : false,
+            jsonpCallback: babyGotBack
+
+
+        })
+
+        req.success(function() {
+            console.log('Yes! Success!');
+        });
+
+        req.error(function() {
+
+            console.log('Oh noes!' + this);
+        });
+
+//        $(document).ajaxError(function (e, jqXHR, ajaxSettings, thrownError) {
+//                //If either of these are true, then it's not a true error and we don't care
+//                if (jqXHR.status === 0 || jqXHR.readyState === 0) {
+//                    return;
+//                }
+//
+//                console.log("oooooooooooooooo")
+//            });
+
+
+//        req.done(function (resp) {
+//                console.log("done " + resp);
+//            });
+//        req.error(function (resp) {
+//                console.log("err " + resp);
+//            });
+//        req.fail(function (resp) {
+//                console.log("fail " + resp);
+//            });
+//        req.success(function (resp) {
+//                console.log("success " + resp);
+//            });
+//        req.then(function (resp) {
+//                console.log("then " + resp);
+//            });
 
     }
-    //data-d3tooltip
-    //$("#gear li")
+
+//    $.when.apply($, def).then(function(args){
+//        console.log(args);
+//        for(var i in def) {
+//            console.log(def[i]);
+//        }
+//
+//    });
+
 }
+
+
+
 
 
 function renderHero (hero) {
@@ -105,7 +181,6 @@ function  renderItems (items) {
 
 }
 
-
 function renderGems(gems, e) {
     var html = "";
     for (var i in gems) {
@@ -122,8 +197,6 @@ function renderAttributes(attr, e) {
     }
     return html;
 }
-
-
 
 function renderStats(stats) {
     var ul   = document.getElementById("stats"), frag = document.createDocumentFragment();
