@@ -1,31 +1,134 @@
-function itsDone() {
-   renderHeroes();
-   $(".loader").fadeOut();
-}
 
 function renderHeroes() {
 
-    var ul   = document.getElementById("heroes"),
-        frag = document.createDocumentFragment();
+    //var ul = $("#heroes").removeData().empty();
+    var ul = $("<ul>").attr("id", d3.current.tag).addClass("heroes").appendTo("section:first");
+    var hrs = $(d3.profiles[d3.current.tag].heroes);
 
-    ul.innerHTML = "";
+    var deferreds = [];
 
-    for (var hero in currentProfile) {
+    $(hrs).each(function(h) {
 
-        var li = document.createElement("li");
-        li.setAttribute("data", hero);
-        li.className = currentProfile[hero].class + " " + currentProfile[hero].gender;
-        li.innerHTML = "<div><h4>" + currentProfile[hero].name + "</h4><span>level: " + currentProfile[hero].level + "</span><p>kills: " + currentProfile[hero].kills.elites + "</p></div>";
+        var li = $("<li>");
+        li.addClass(hrs[h].class + " " + defineGender(hrs[h].gender));
+        li.html("<div><h4>" + hrs[h].name + "</h4><span>level: " + hrs[h].level + "</span><span>id: " + hrs[h].id + "</span></div>");
+        (hrs[h].id == d3.current.last) ? li.attr("id", "lastPlayed") : null;
 
-        if(currentProfile[hero].last) {
-            li.id = "lastPlayed";
-            renderHero(currentProfile[hero]);
-        }
-        frag.appendChild(li);
-    }
-    ul.appendChild(frag);
+
+        var request = fetchData(d3.current.url + "hero/" + hrs[h].id);
+        deferreds.push(request);
+
+        request.done(function (data) {
+
+            d3.profiles[d3.current.tag].heroes[h] = data;
+            li.data("d3", d3.profiles[d3.current.tag].heroes[h]);
+            ul.append(li);
+            mapItems(d3.profiles[d3.current.tag].heroes[h].items, d3.profiles[d3.current.tag].heroes[h].gender, d3.profiles[d3.current.tag].heroes[h].class )
+
+        }); //done one
+
+    }); //loop end
+
+    $.when.apply($, deferreds).then(function(args){
+        console.log(d3.profiles[d3.current.tag].heroes);
+    });
 
 }
+
+
+var Bnet = {};
+
+Bnet.D3 = {}
+Bnet.D3.Tooltips = {}
+Bnet.D3.Tooltips.registerData = function(d){
+
+    console.log("..............." + d.tooltipHtml)
+
+    debugger;
+
+    babyGotBack(d);
+}
+function babyGotBack(d) {
+    console.log("**********************" + d);
+}
+
+function mapItems(items, kls, gnr) {
+
+
+    var tt = d3.current.urls.tooltip;
+    //var tt = d3.current.urls.data;
+
+    for(var i in items) {
+
+        var slot =  $("#" + i);
+        var a =  $("<a>");
+        var str =  items[i].tooltipParams;
+        var itm = str.replace("item", "item-data");
+
+        a.attr("href", tt + itm );
+        // a.attr("data-d3tooltip", tt + itm );
+        a.data("d3tooltip", tt + itm);
+        a.text(items[i].name).appendTo(slot);
+
+        var req = $.ajax({
+            url: tt + itm,
+            dataType: "jsonp",
+            data  :{ classIcon: kls, gender: gnr, format:"jsonp"}
+
+            //jsonpCallback: Bnet.D3.Tooltips.registerData
+
+        })
+
+        req.success(function() {
+            console.log('Yes! Success!');
+        });
+
+        req.error(function(data) {
+
+            console.log('Oh noes!' + data.tooltipHtml);
+        });
+
+//        $(document).ajaxError(function (e, jqXHR, ajaxSettings, thrownError) {
+//                //If either of these are true, then it's not a true error and we don't care
+//                if (jqXHR.status === 0 || jqXHR.readyState === 0) {
+//                    return;
+//                }
+//
+//                console.log("oooooooooooooooo")
+//            });
+
+
+//        req.done(function (resp) {
+//                console.log("done " + resp);
+//            });
+//        req.error(function (resp) {
+//                console.log("err " + resp);
+//            });
+//        req.fail(function (resp) {
+//                console.log("fail " + resp);
+//            });
+//        req.success(function (resp) {
+//                console.log("success " + resp);
+//            });
+//        req.then(function (resp) {
+//                console.log("then " + resp);
+//            });
+
+    }
+
+//    $.when.apply($, def).then(function(args){
+//        console.log(args);
+//        for(var i in def) {
+//            console.log(def[i]);
+//        }
+//
+//    });
+
+}
+
+
+
+
 
 function renderHero (hero) {
 
@@ -52,8 +155,9 @@ function  renderItems (items) {
         var html = "";
         var pic = "<img src='" + makeIcon("items", "big", items[i].icon) + "' />";
         var gems = (items[i].gems.length > 0) ? renderGems(items[i].gems, "p") : null;
+        var desc = (items[i].flavorText) ? items[i].flavorText : "";
 
-        test(items[i].attributesRaw);
+
 
 
         html += "<div class='tip'>" + pic + gems;
@@ -62,6 +166,10 @@ function  renderItems (items) {
         html += "<h4 style='color:" + items[i].displayColor + "'>" + items[i].typeName + "</h4>";
 
         html += "<ul>" +  renderAttributes(items[i].attributes, "li") + "</ul>";
+
+
+
+        html += "<p>" +  desc + "</p>";
 
         html += "<h5>Item Level: " + items[i].itemLevel + "</h5>";
         html += "<h6>Required Level: " + items[i].requiredLevel + "</h6>";
@@ -74,14 +182,6 @@ function  renderItems (items) {
 
 }
 
-
-function test(obj) {
-
-    for (var i in obj) {
-        console.log(i)
-    }
-
-}
 function renderGems(gems, e) {
     var html = "";
     for (var i in gems) {
@@ -98,8 +198,6 @@ function renderAttributes(attr, e) {
     }
     return html;
 }
-
-
 
 function renderStats(stats) {
     var ul   = document.getElementById("stats"), frag = document.createDocumentFragment();
@@ -125,12 +223,12 @@ function renderSkills(skills, klass) {
 
                 var curr = skills[cat][i].skill, li = el("li"), img = el("img"), a = el("a");
 
-                a.setAttribute("href", makeSkillUrl(klass, cat, curr.slug ));
-                img.setAttribute("src", makeIcon("skills", "small", curr.icon));
+            a.setAttribute("href", makeSkillUrl(klass, cat, curr.slug ));
+            img.setAttribute("src", makeIcon("skills", "small", curr.icon));
 
-                a.appendChild(img);
-                li.appendChild(a);
-                frag.appendChild(li);
+            a.appendChild(img);
+            li.appendChild(a);
+            frag.appendChild(li);
         }
 
         ul.appendChild(frag);

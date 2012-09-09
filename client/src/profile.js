@@ -1,65 +1,117 @@
-var profiles = {};
+function getProfile() {
 
-function parseProfile(lnk) {
-    var mainUrl = lnk;
-    var heroUrl = mainUrl + "hero/";
-    var fData = fetchData(lnk);
-    fData.then(function (data) {
-        var bTag = pTag(data.battleTag);
-        var last = data.lastHeroPlayed;
-        profiles[bTag] = {};
-        currentTag = bTag;
-        currentProfile = profiles[bTag];
-        //getHeroesData(data, heroUrl, last, bTag, loadViews);
-        getHeroesData(data, heroUrl, last, bTag, itsDone);
+    $.ajax({ url:d3.current.url, type:"GET", dataType: "jsonp" }).done(function (data) {
+
+        d3.current["last"] = data.lastHeroPlayed;
+        d3.profiles[d3.current.tag] = data;
+
+        getHeroes();
+
     });
 }
 
 
-function getHeroesData(data, heroUrl, last, bTag, callback) {
-    var getHeroCalls = [];
-    for (var i in data.heroes){
-        getHeroCalls.push(getHeroCall(heroUrl+data.heroes[i].id, last, bTag));
+function getHeroes() {
+
+    var deferreds = [];
+
+    var heroes = d3.profiles[d3.current.tag].heroes;
+
+    $(heroes).each(function(i) {
+
+        var req = $.ajax({ url:d3.current.urls.hero + heroes[i].id, type:"GET", dataType: "jsonp" })
+        deferreds.push(req);
+        req.done(function(data){
+            d3.profiles[d3.current.tag].heroes[i] = data;
+            getItems(d3.profiles[d3.current.tag].heroes[i]);
+            console.log("hero?");
+        })
+
+    })
+
+    $.when.apply($, deferreds).then(function(data){
+
+        console.log("heroes done?");
+
+    });
+
+}
+
+function getItems(hero) {
+
+    var deferreds = [];
+
+
+
+    $(hero.items).each(function(i) {
+        console.log($(hero.items)[i]);
+       
+        var req = $.ajax({ url:d3.current.urls.data + $(hero.items)[i].tooltipParams, type:"GET", dataType: "jsonp" })
+        deferreds.push(req);
+        req.done(function(data){
+            hero.items[i] = data;
+            console.log("item?");
+        })
+
+    })
+
+    $.when.apply($, deferreds).then(function(data){
+
+        console.log("items done?");
+
+    });
+
+}
+
+
+function setCurrent() {
+
+    d3.current["region"] = $("#sel").val()
+    d3.current["name"]   = $("#battleName").val()
+    d3.current["id"]     = $("#battleCode").val()
+    d3.current["tag"]    = d3.current.name + "-" + d3.current.id;
+
+    d3.current.urls = {};
+    d3.current.urls["profile"] = "http://" + d3.current.region + "." + d3.base.api + "profile/" + d3.current.tag + "/";
+    d3.current.urls["hero"]    = "http://" + d3.current.region + "." + d3.base.api + "profile/" + d3.current.tag + "/hero/";
+    d3.current.urls["data"]    = "http://" + d3.current.region + "." + d3.base.api + "data/";
+    d3.current.urls["tooltip"] = "http://" + d3.current.region + "." + d3.base.host + "d3/en/tooltip/";
+
+    d3.current["url"]    = "http://" + d3.current.region + "." + d3.base.api + "profile/" + d3.current.tag + "/";
+
+    getProfile();
+
+}
+
+function dummy(hero)  {
+
+    $("#sel").val(d3.defaultHeroes[hero].region);
+    $("#battleName").val(d3.defaultHeroes[hero].name);
+    $("#battleCode").val(d3.defaultHeroes[hero].id);
+
+    setCurrent();
+}
+
+$(document).ready(function () {
+
+    for (var i in d3.base.regions) {
+        $("#sel").append($("<option>").attr("value", i).text(d3.base.regions[i]));
     }
-    $.when.apply($, getHeroCalls).then(function(args){
-        getExtendedItems(profiles[bTag], callback);
-    });
-}
 
-function getHeroCall(url, last, bTag){
-    return $.ajax({
-        url: url,
-        type: "GET",
-        dataType: "jsonp",
-        success: function(dta){
-            dta.gender = (dta.gender === 0 ) ? "male" : "female";
-            var heroId = dta.gender + "-" + dta.class  + "-" + dta.level  + "-" + dta.name + "-" + dta.id;
-            dta.last = (dta.id === last) ? true   : false;
-            profiles[bTag][heroId] = dta;
-        }
-    });
-}
+    dummy("bb");
 
-function getExtendedItems(heroes, callback){
-    var getItemsCalls = [];
-    for(var heroName in heroes){
-        var hero = heroes[heroName];
-        for(var itemName in hero.items){
-            getItemsCalls.push(getItemCall(hero.items, itemName));
-        }
-    }
-    $.when.apply($, getItemsCalls).then(function(args){
-        callback(heroes);
-    });
-}
+    $("#go").on('click', function(e) {
 
-function getItemCall(items, key){
-    return $.ajax({
-        url: config.api + "data/" + items[key].tooltipParams,
-        type: "GET",
-        dataType: "jsonp",
-        success: function(data){
-            items[key] = data;
-        }
+        e.preventDefault();
+        setCurrent();
+
     });
-}
+
+    $(".heroes li").live('click', function() {
+
+        var d = $(this).data("d3");
+        console.log(d);
+
+    });
+
+});
