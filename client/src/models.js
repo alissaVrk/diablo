@@ -1,57 +1,112 @@
+function renderHeroes(tag) {
+    $(".overlay p").text("rendering heroes");
+    var profile = d3.profiles[tag];
+    var ul  = $("#" + tag + " .heroes");
 
-function renderHeroes() {
+    $("#" + tag + " section.heroes h2").html("Heroes " + tag);
 
-    //var ul = $("#heroes").removeData().empty();
-    var ul = $("<ul>").attr("id", d3.current.tag).addClass("heroes").appendTo("section:first");
-    var hrs = $(d3.profiles[d3.current.tag].heroes);
+    $(profile.heroes).each(function(h) {
+        //var last = (profile.lastHeroPlayed == profile.heroes[h].id) ? h : null;
+        var li = $("<li>").data("hero", {tag: tag, id : h});
+        li.addClass(profile.heroes[h].class + " " + defineGender(profile.heroes[h].gender));
+        li.html("<div><h4>" + profile.heroes[h].name + "</h4><span>level: " + profile.heroes[h].level + "</span><br><span>id: " + profile.heroes[h].id + "</span></div>");
 
-    var deferreds = [];
+        li.on('click', function() {
 
-    $(hrs).each(function(h) {
+            var t = $(this).data("hero").tag;
+            var n = $(this).data("hero").id;
 
-        var li = $("<li>");
-        li.addClass(hrs[h].class + " " + defineGender(hrs[h].gender));
-        li.html("<div><h4>" + hrs[h].name + "</h4><span>level: " + hrs[h].level + "</span><span>id: " + hrs[h].id + "</span></div>");
-        (hrs[h].id == d3.current.last) ? li.attr("id", "lastPlayed") : null;
+            renderItems(t, n);
+        });
 
+        //(profile.heroes[h].id == d3.current.last) ? li.attr("id", "lastPlayed") : null;
+        ul.append(li);
 
-        var request = fetchData(d3.current.url + "hero/" + hrs[h].id);
-        deferreds.push(request);
-
-        request.done(function (data) {
-
-            d3.profiles[d3.current.tag].heroes[h] = data;
-            li.data("d3", d3.profiles[d3.current.tag].heroes[h]);
-            ul.append(li);
-            mapItems(d3.profiles[d3.current.tag].heroes[h].items, babyGotBack)
-
-        }); //done one
-
-    }); //loop end
-
-
-    $.when.apply($, deferreds).then(function(args){
-        console.log(d3.profiles[d3.current.tag].heroes);
     });
 
-
+   renderItems(tag, 0);
 }
 
+function  renderItems(tag, n) {
+
+    $(".overlay p").text("rendering items");
+
+    $(".overlay").fadeIn();
+
+    var items = d3.profiles[tag].heroes[n].items;
+
+    $("#" + tag + " section.gear h2").html(d3.profiles[tag].heroes[n].name + "'s Gear");
+
+    $(".overlay p").text("rendering items");
 
 
-var Bnet = {};
+    for (var i in items) {
 
-Bnet.D3 = {}
-Bnet.D3.Tooltips = {}
-Bnet.D3.Tooltips.registerData = function(){
-    babyGotBack();
+
+
+        var li  = $("#" + tag + " .gear li."+i);
+
+        li.find("img").attr("src", makeIcon("items", "small", items[i].icon));
+
+        var str =  items[i].tooltipParams;
+        var itm = str.replace("item", "item-data");
+        li.data("tip", d3.current.urls.tooltip + itm);
+
+        li.on('click', function() {
+
+            console.log($(this).data());
+
+            var req = $.ajax({
+                url: $(this).data("tip"),
+                dataType: "jsonp",
+                data  :{ format:"jsonp"}
+
+                //jsonpCallback: Bnet.D3.Tooltips.registerData
+
+            })
+            req.then(function(d) {
+                $("#" + tag + " .olo").html(d);
+            });
+
+            req.error(function(data) {
+
+                console.log('Oh noes!' + data);
+            });
+
+
+
+
+        });
+
+
+/*
+        var gems = (items[i].gems.length > 0) ? renderGems(items[i].gems, "p") : null;
+        var desc = (items[i].flavorText) ? items[i].flavorText : "";
+        html += "<div class='tip'>" + pic + gems;
+        html += (items[i].armor == undefined) ? "" : "<span>armor: " + items[i].armor.max + "</span>" ;
+        html += "<h3 style='color:" + items[i].displayColor + "'>" + items[i].name + "</h3>";
+        html += "<h4 style='color:" + items[i].displayColor + "'>" + items[i].typeName + "</h4>";
+        html += "<ul>" +  renderAttributes(items[i].attributes, "li") + "</ul>";
+        html += "<p>" +  desc + "</p>";
+        html += "<h5>Item Level: " + items[i].itemLevel + "</h5>";
+        html += "<h6>Required Level: " + items[i].requiredLevel + "</h6>";
+        html += "</div>";
+        li.data("item-info", html);
+        li.html(pic);
+*/
+
+    }
+
+    $(".overlay").fadeOut();
 }
-function babyGotBack() {
-    console.log("tttttttt---------------------------************************************");
+
+/*
+
+tt.registerData = function(d){
+    console.log("..............." + d.tooltipHtml)
 }
 
-function mapItems(items, babyGotBack) {
-
+function mapItems(items, kls, gnr) {
 
     var tt = d3.current.urls.tooltip;
     //var tt = d3.current.urls.data;
@@ -64,17 +119,16 @@ function mapItems(items, babyGotBack) {
         var itm = str.replace("item", "item-data");
 
         a.attr("href", tt + itm );
-       // a.attr("data-d3tooltip", tt + itm );
-            a.data("d3tooltip", tt + itm);
-                a.text(items[i].name).appendTo(slot);
+        // a.attr("data-d3tooltip", tt + itm );
+        a.data("d3tooltip", tt + itm);
+        a.text(items[i].name).appendTo(slot);
 
         var req = $.ajax({
             url: tt + itm,
-            dataType: 'jsonp',
-            timeout : 1000,
-            //jsonp : false,
-            jsonpCallback: babyGotBack
+            dataType: "jsonp",
+            data  :{ classIcon: kls, gender: gnr, format:"jsonp"}
 
+            //jsonpCallback: Bnet.D3.Tooltips.registerData
 
         })
 
@@ -82,9 +136,9 @@ function mapItems(items, babyGotBack) {
             console.log('Yes! Success!');
         });
 
-        req.error(function() {
+        req.error(function(data) {
 
-            console.log('Oh noes!' + this);
+            console.log('Oh noes!' + data.tooltipHtml);
         });
 
 //        $(document).ajaxError(function (e, jqXHR, ajaxSettings, thrownError) {
@@ -129,57 +183,9 @@ function mapItems(items, babyGotBack) {
 
 
 
-function renderHero (hero) {
-
-    $("#gear h2").html("<span>" + hero.level + "</span><p>" + hero.class + "</p>" + hero.name);
-    var klass = hero.class;
-    renderItems(hero.items);
-    renderSkills(hero.skills, klass);
-    renderStats(hero.stats);
-}
-
-function  renderItems (items) {
 
 
 
-    $("#gear li").each(function(index) {
-        $(this).data("item-info", "").html("").empty();
-    });
-
-
-    for (var i in items) {
-
-        var li  = $("#gear li#" + i);
-        li.data("item-info", "").html("").empty();
-        var html = "";
-        var pic = "<img src='" + makeIcon("items", "big", items[i].icon) + "' />";
-        var gems = (items[i].gems.length > 0) ? renderGems(items[i].gems, "p") : null;
-        var desc = (items[i].flavorText) ? items[i].flavorText : "";
-
-
-
-
-        html += "<div class='tip'>" + pic + gems;
-        html += (items[i].armor == undefined) ? "" : "<span>armor: " + items[i].armor.max + "</span>" ;
-        html += "<h3 style='color:" + items[i].displayColor + "'>" + items[i].name + "</h3>";
-        html += "<h4 style='color:" + items[i].displayColor + "'>" + items[i].typeName + "</h4>";
-
-        html += "<ul>" +  renderAttributes(items[i].attributes, "li") + "</ul>";
-
-
-
-        html += "<p>" +  desc + "</p>";
-
-        html += "<h5>Item Level: " + items[i].itemLevel + "</h5>";
-        html += "<h6>Required Level: " + items[i].requiredLevel + "</h6>";
-        html += "</div>";
-
-        li.data("item-info", html);
-        li.html(pic);
-
-    }
-
-}
 
 function renderGems(gems, e) {
     var html = "";
@@ -222,12 +228,12 @@ function renderSkills(skills, klass) {
 
                 var curr = skills[cat][i].skill, li = el("li"), img = el("img"), a = el("a");
 
-                a.setAttribute("href", makeSkillUrl(klass, cat, curr.slug ));
-                img.setAttribute("src", makeIcon("skills", "small", curr.icon));
+            a.setAttribute("href", makeSkillUrl(klass, cat, curr.slug ));
+            img.setAttribute("src", makeIcon("skills", "small", curr.icon));
 
-                a.appendChild(img);
-                li.appendChild(a);
-                frag.appendChild(li);
+            a.appendChild(img);
+            li.appendChild(a);
+            frag.appendChild(li);
         }
 
         ul.appendChild(frag);
@@ -236,7 +242,7 @@ function renderSkills(skills, klass) {
 }
 
 
-
+*/
 
 
 

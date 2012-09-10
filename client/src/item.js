@@ -75,62 +75,62 @@ d3.item.render = function (item) {
 
 /*
 
-apiResponse : {
+ apiResponse : {
 
-     ErrorCode   : { json : "code"   },
-     ErrorReason : { json : "reason" },
-     //'OOPS', 'LIMITED', 'MAINTENANCE', 'NOTFOUND'
+ ErrorCode   : { json : "code"   },
+ ErrorReason : { json : "reason" },
+ //'OOPS', 'LIMITED', 'MAINTENANCE', 'NOTFOUND'
 
-     Heroes      : { json : "heroes" }
-
- }
-
-apiHero : {
-
-    name        : { json : "name"         , type : "string   " }
-    class       : { json : "class"        , type : "string   " }
-    id          : { json : "id"           , type : "number   " }
-    level       : { json : "level"        , type : "number   " }
-    hardcore    : { json : "hardcore"     , type : "bool     " }
-    gender      : { json : "gender"       , type : "number   " }
-    lastupdated : { json : "last-updated" , type : "number   " }
-    dead        : { json : "dead"         , type : "bool     " }
-    stats       : { json : "stats"        , type : "ApiStats " }
-    skills      : { json : "skills"       , type : "ApiSkills" }
-    items       : { json : "items"       , type : "ApiItems " }
+ Heroes      : { json : "heroes" }
 
  }
 
-apiStats : {
-    Life              : { json:"life"
-    Damage            : { json:"damage"
-    AttackSpeed       : { json:"attackSpeed"
-    Armor             : { json:"armor"
-    Strength          : { json:"strength"
-    Dexterity         : { json:"dexterity"
-    Vitality          : { json:"vitality"
-    Intelligence      : { json:"intelligence"
-    ResistPhysical    : { json:"physicalResist"
-    ResistFire        : { json:"fireResist"
-    ResistCold        : { json:"coldResist"
-    ResistLightning   : { json:"lightningResist"
-    ResistPoison      : { json:"poisonResist"
-    ResistArcane      : { json:"arcaneResist"
-    CritDamage        : { json:"critDamage"
-    DamageIncrease    : { json:"damageIncrease"
-    CritChance        : { json:"critChance"
-    DamageReduction   : { json:"damageReduction"
-    BlockChance       : { json:"blockChance"
-    ThornsDamage      : { json:"thorns"
-    LifeSteal         : { json:"lifeSteal"
-    LifePerKill       : { json:"lifePerKill"
-    GoldFind          : { json:"goldFind"
-    MagicFind         : { json:"magicFind"
-    BlockAmountMin    : { json:"blockAmountMin"
-    BlockAmountMax    : { json:"blockAmountMax"
-    LifeOnHit         : { json:"lifeOnHit"
-    PrimaryResource   : { json:"primaryResource"
-    SecondaryResource : { json:"secondaryResource"
+ apiHero : {
+
+ name        : { json : "name"         , type : "string   " }
+ class       : { json : "class"        , type : "string   " }
+ id          : { json : "id"           , type : "number   " }
+ level       : { json : "level"        , type : "number   " }
+ hardcore    : { json : "hardcore"     , type : "bool     " }
+ gender      : { json : "gender"       , type : "number   " }
+ lastupdated : { json : "last-updated" , type : "number   " }
+ dead        : { json : "dead"         , type : "bool     " }
+ stats       : { json : "stats"        , type : "ApiStats " }
+ skills      : { json : "skills"       , type : "ApiSkills" }
+ items       : { json : "items"       , type : "ApiItems " }
+
+ }
+
+ apiStats : {
+ Life              : { json:"life"
+ Damage            : { json:"damage"
+ AttackSpeed       : { json:"attackSpeed"
+ Armor             : { json:"armor"
+ Strength          : { json:"strength"
+ Dexterity         : { json:"dexterity"
+ Vitality          : { json:"vitality"
+ Intelligence      : { json:"intelligence"
+ ResistPhysical    : { json:"physicalResist"
+ ResistFire        : { json:"fireResist"
+ ResistCold        : { json:"coldResist"
+ ResistLightning   : { json:"lightningResist"
+ ResistPoison      : { json:"poisonResist"
+ ResistArcane      : { json:"arcaneResist"
+ CritDamage        : { json:"critDamage"
+ DamageIncrease    : { json:"damageIncrease"
+ CritChance        : { json:"critChance"
+ DamageReduction   : { json:"damageReduction"
+ BlockChance       : { json:"blockChance"
+ ThornsDamage      : { json:"thorns"
+ LifeSteal         : { json:"lifeSteal"
+ LifePerKill       : { json:"lifePerKill"
+ GoldFind          : { json:"goldFind"
+ MagicFind         : { json:"magicFind"
+ BlockAmountMin    : { json:"blockAmountMin"
+ BlockAmountMax    : { json:"blockAmountMax"
+ LifeOnHit         : { json:"lifeOnHit"
+ PrimaryResource   : { json:"primaryResource"
+ SecondaryResource : { json:"secondaryResource"
  }
 
  type ApiSkills struct {

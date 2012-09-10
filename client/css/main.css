@@ -5,35 +5,30 @@ body { font-size: 0.75em; font-family: Calibri; color: #777; }
 section { padding: 20px;   position: relative;   margin: 20px; background: rgba(0,0,0,0.1); }
 
 .heroes     { text-align: left;  position: relative; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #fff; }
-    .heroes li  { cursor:pointer;  box-shadow: 0px 1px 2px rgba(0,0,0,0.6);  width: 60px; height: 60px; display: inline-block; position: relative; margin:0 5px 0 0; background-image: url("../../images/portraits.jpg"); background-repeat: no-repeat ; }
+.heroes li  { cursor:pointer;  box-shadow: 0px 1px 2px rgba(0,0,0,0.6);  width: 60px; height: 60px; display: inline-block; position: relative; margin:0 5px 0 0; background-image: url("../../images/portraits.jpg"); background-repeat: no-repeat ; }
 
-        .heroes .barbarian        { background-position: -60px 0     ; }
-        .heroes .demon-hunter     { background-position: -60px -60px ; }
-        .heroes .monk             { background-position: -60px -120px; }
-        .heroes .witch-doctor     { background-position: -60px -180px; }
-        .heroes .wizard           { background-position: -60px -240px; }
+.heroes .barbarian        { background-position: -60px 0     ; }
+.heroes .demon-hunter     { background-position: -60px -60px ; }
+.heroes .monk             { background-position: -60px -120px; }
+.heroes .witch-doctor     { background-position: -60px -180px; }
+.heroes .wizard           { background-position: -60px -240px; }
 
-        .heroes li div, #gear .tip { display: none;  position: absolute; top: -95%; right: -95%;  background: #fff; padding: 10px; border-radius: 5px; box-shadow: 0px 1px 2px rgba(0,0,0,0.6); z-index: 999; }
-        .heroes li:hover div, #gear li:hover .tip       { display: block; }
+.heroes li div, .gear .tip { display: none;  position: absolute; top: -95%; right: -95%;  background: #fff; padding: 10px; border-radius: 5px; box-shadow: 0px 1px 2px rgba(0,0,0,0.6); z-index: 999; }
+.heroes li:hover div, .gear li:hover .tip       { display: block; }
 
 section ul    { display: inline-block;  }
 
-#gear           { text-align: center; vertical-align: top; margin-right: 20px; width: 205px; }
-#gear > li      {
-    width: 60px;  min-height: 30px;
-    display: inline-block;
-    position: relative; border-radius: 5px;     background: #ddd; margin:0 1px 5px 0; vertical-align: top;  box-shadow:inset 0px 0px 10px rgba(0,0,0,0.3);}
-#gear > li a    { display: block;  }
-#gear > li img  { max-width: 100%; max-height: 100%;  }
-#gear .tip { background: rgba(0,0,0,0.8); color: #ccc;  }
-
-#gear .gems    { position: absolute; left: 50%; top: 25%; margin-left: -15px; }
-#gear .gems li  { width: 30px; height: 30px;  }
-#gear .gems img { width: 100%; height: 100%; }
-
-#gear h2  { position: relative; text-align: center;  }
-#gear h2 p { font-size: 12px;  }
-#gear h2 span { position: absolute; left: 50%; bottom: -10px; margin-left: -10px; border-radius: 50%; background: #fff; width: 20px; height: 20px; line-height: 20px; font-size: 10px;  }
+.gear ul           { text-align: center; vertical-align: top; margin-right: 20px; width: 205px; }
+.gear ul> li      { width: 60px;  min-height: 30px; display: inline-block; position: relative; border-radius: 5px;     background: #ddd; margin:0 1px 5px 0; vertical-align: top;  box-shadow:inset 0px 0px 10px rgba(0,0,0,0.3);}
+.gear ul > li a    { display: block;  }
+.gear ul > li img  { max-width: 100%; max-height: 100%;  }
+.gear ul .tip { background: rgba(0,0,0,0.8); color: #ccc;  }
+.gear ul .gems    { position: absolute; left: 50%; top: 25%; margin-left: -15px; }
+.gear ul .gems li  { width: 30px; height: 30px;  }
+.gear ul .gems img { width: 100%; height: 100%; }
+.gear ul h2  { position: relative; text-align: center;  }
+.gear ul h2 p { font-size: 12px;  }
+.gear ul h2 span { position: absolute; left: 50%; bottom: -10px; margin-left: -10px; border-radius: 50%; background: #fff; width: 20px; height: 20px; line-height: 20px; font-size: 10px;  }
 
 
 #itemTip {
@@ -68,10 +63,10 @@ section h3 { color:#7B6D55; font-size: 16px;}
 
 
 
-.loader {
+.overlay {
     height: 100%; line-height: 100%;
     text-align: center;
     background: rgba(0,0,0,0.7);
     position: fixed; top: 0; bottom: 0; left: 0; right: 0;
 }
-.loader p { position: absolute; display: block; top: 35%; left:50%; margin: -20px 0 0 -150px; line-height:40px; min-height:40px; width:300px; padding: 20px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,0,0,0.6); background: #fff; }
+.overlay p { position: absolute; display: block; top: 35%; left:50%; margin: -20px 0 0 -150px; line-height:40px; min-height:40px; width:300px; padding: 20px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,0,0,0.6); background: #fff; }

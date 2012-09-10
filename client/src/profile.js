@@ -1,58 +1,57 @@
-function parseProfile() {
-
+function getProfile(url, callback) {
     $.ajax({
 
-        url: d3.current.url,
-        type: "GET",
+        url:url,
+        type:"GET",
         dataType: "jsonp"
 
     }).done(function (data) {
-
-        d3.current["last"] = data.lastHeroPlayed;
-        d3.profiles[d3.current.tag] = data;
-        renderHeroes()
-
+        callback(data);
     });
-
 }
 
-$(document).ready(function () {
+function getHeroes(objh, url, callback) {
 
+    //var back = callback;
+    var obj = objh;
+    var deferreds = [];
 
-    for (var i in d3.base.regions) {
-        $("#sel").append($("<option>").attr("value", i).text(d3.base.regions[i]));
-    }
+    $(obj).each(function(i) {
 
-    dummy("bb");
-//    dummy("dh");
-//    dummy("mk");
-//    dummy("wd");
-//    dummy("wz");
+        var req = $.ajax({ url:url + obj[i].id, type:"GET", dataType: "jsonp" });
 
+        deferreds.push(req);
 
-    $("#go").on('click', function(e) {
+        req.done(function(data){
 
-        e.preventDefault();
+            obj[i] = data;
+            $(".overlay p").text("loading items");
+            getItems(obj[i].items);
 
-        setCurrent();
-
+        });
     });
 
-    $(".heroes li").live('click', function() {
-
-        var d = $(this).data("d3");
-        console.log(d);
-
+    $.when.apply($, deferreds).then(function(data){
+        callback(obj);
     });
+}
 
-    //$("#gear li a").live('hover', function() {
+function getItems(items) {
 
-        //e.preventDefault();
+    var deferreds = [];
 
-        //Bnet.D3.Tooltips.show(this);
-        //var d = $(this).data("d3tooltip");
-        //console.log(e);
+    $.each(items, function(i) {
 
-    //});
+        var req = $.ajax({ url:d3.current.urls.data + items[i].tooltipParams, type:"GET", dataType: "jsonp" });
 
-});
+        deferreds.push(req);
+
+        req.done(function(data){
+
+            items[i] = data;
+            return items;
+        });
+
+    })
+
+}

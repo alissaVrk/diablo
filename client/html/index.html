@@ -7,13 +7,38 @@
         <meta charset="utf-8">
         <link rel="stylesheet" href="~/client/css/reset.css" type="text/css" />
         <link rel="stylesheet" href="~/client/css/main.css" type="text/css" />
+        <link rel="stylesheet" href="http://eu.battle.net/d3/static/css/tooltips.css?v51" type="text/css" />
+
+        <script src="~/client/src/libs/jquery-1.8.1.js"></script>
+        <script src="~/client/src/utils.js"></script>
+        <script src="~/client/src/main.js"></script>
+        <script src="~/client/src/config.js"></script>
+        <script src="~/client/src/profile.js"></script>
+        <script src="~/client/src/models.js"></script>
+
+        <script>
+
+            $(document).ready(function () {
+
+                for (var i in d3.base.regions) {
+                    $("#sel").append($("<option>").attr("value", i).text(d3.base.regions[i]));
+                }
+                dummy("mk");
+
+                $("#go").on('click', function(e) {
+                    e.preventDefault();
+                    d3.init();
+                });
+
+            });
+
+        </script>
 
     </head>
 
     <body>
 
         <section>
-            <h1>Heroes</h1>
             <form>
                 <label>battle name <input type="text" min="3" required="required" placeholder="battle name" id="battleName"></label>
                 <label>battle tag  <input type="number" min="3" required="required" placeholder="battle tag" id="battleCode"></label>
@@ -21,55 +46,19 @@
                 <a id="go" href="#">go</a>
             </form>
         </section>
-        <section>
+        <div class="olo"></div>
+        <div id="container"></div>
 
-            <ul id="gear">
-                <h2></h2>
-                <li id="shoulders"></li>
-                <li id="head"></li>
-                <li id="neck"></li>
-                <li id="hands"></li>
-                <li id="torso"></li>
-                <li id="bracers"></li>
-                <li id="rightFinger"></li>
-                <li id="waist"></li>
-                <li id="leftFinger"></li>
-                <li id="mainHand"></li>
-                <li id="legs"></li>
-                <li id="offHand"></li>
-                <li id="feet"></li>
-            </ul>
-            <ul id="stats"><h2>Attributes</h2></ul>
-        </section>
-
-        <section id="skills">
-                <ul id="active"></ul>
-                <ul id="passive"></ul>
-        </section>
-
-
-        <!--<div id="itemTip"><a href="#">x</a></div>-->
-        <!--<div class="loader"><p></p></div>-->
-
-
-        <!--<script src="~/client/src/libs/jquery-1.7.2.min.js"></script>-->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-        <script src="~/client/src/utils.js"></script>
-        <script src="~/client/src/config.js"></script>
-        <script src="~/client/src/profile.js"></script>
-        <script src="~/client/src/models.js"></script>
-
-
-        <!--<script src="http://us.battle.net/d3/static/js/tooltips.js"></script>-->
-
-        <!--<script src="http://eu.battle.net/d3/static/js/d3.js?v51"></script>-->
-        <!--<script src="http://eu.battle.net/d3/static/local-common/js/tooltip.js?v42"></script>-->
-
-
-
-
+        <div class="overlay"><p>loading...</p></div>
 
     </body>
+
+
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>-->
+
+
+
 </html>
 
 
