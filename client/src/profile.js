@@ -10,6 +10,8 @@ function getProfile(url, callback) {
     });
 }
 
+
+
 function getHeroes(objh, url, callback) {
 
     //var back = callback;
@@ -24,6 +26,7 @@ function getHeroes(objh, url, callback) {
 
         req.done(function(data){
 
+           // data.stats = sortStats(data.stats);
             obj[i] = data;
             $(".overlay p").text("loading items");
             getItems(obj[i].items);
