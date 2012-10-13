@@ -34,46 +34,35 @@ function  renderItems(tag, n) {
 
     for (var i in items) {
 
-        var itmColor = "background-image:  url('http://eu.battle.net/d3/static/images/item/icon-bgs/" + items[i].displayColor + ".png');"
+        var bg = items[i].displayColor;
+        var li  = $("#container").find(".gear li[type=" + i + "]").removeAttr("class").addClass(bg);
 
-        var li  = $("#container .gear li."+i).removeAttr("style").attr("style", itmColor);
         li.find("img").attr("src", makeIcon("items", "large", items[i].icon));
 
         var str =  items[i].tooltipParams;
         var itm = str.replace("item", "item-data");
+
         li.data("tip", d3.current.urls.tooltip + itm);
 
+        li.on({
+            mouseenter: function () {
 
+                var l = $(this).offset().left-50;
+                var t = $(this).offset().top-500;
 
+                var req = $.ajax({
+                    url: $(this).data("tip"), dataType:"jsonp", data:{ format:"jsonp"}
+                });
 
-//        li.hover(function() {
-//            var req = $.ajax({
-//                url: $(this).data("tip"),
-//                dataType: "jsonp",
-//                data  :{ format:"jsonp"}
-//            }).then(function(d) {
-//                $(".olo").html(d).fadeIn();
-//            });
-//
-//            },
-//            function(){
-//                $(".olo").fadeOut();
-//            }
-//
-//
-//        );
+                $(".olo").fadeIn().css({left:l,top:t});
 
-
-        li.on('click', function() {
-            var req = $.ajax({
-                url: $(this).data("tip"),
-                dataType: "jsonp",
-                data  :{ format:"jsonp"}
-            })
-            req.then(function(d) {
-                $(".olo").html(d);
-            });
-
+                req.then(function(d) {
+                    $(".olo").html(d);
+                });
+            },
+            mouseleave: function () {
+                $(".olo").fadeOut();
+            }
         });
     }
 }
