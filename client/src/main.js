@@ -68,11 +68,9 @@ d3.babyGotBack = function(heroes) {
     var heroTrigger = $("<li>").attr("id",  d3.current.tag).text(d3.current.tag).appendTo("nav ul");
 
     heroTrigger.on('click', function() {
-        cl($(this).attr("id"))
         renderHeroes($(this).attr("id"));
-
     });
 
-    renderHeroes(d3.current.tag);
-
+   // render first time
+   renderHeroes(d3.current.tag);
 }

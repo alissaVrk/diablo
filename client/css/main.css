@@ -30,6 +30,7 @@ section ul    { display: inline-block;  }
 #doll { text-align: center; vertical-align: top; margin-right: 20px; width: 205px; position: relative; }
 
 .olo { position: absolute; width:330px; background: #000; z-index: 999; }
+/*
 .olo:after {
     content: "◀";
     width: 20px; height: 20px;
@@ -38,7 +39,7 @@ section ul    { display: inline-block;  }
     position: absolute;
     bottom:40%;
     left: -20px;
-}
+}*/
 
 #doll> li       { cursor: pointer !important;
     width: 60px;  min-height: 50px; margin:0 1px 5px 0; vertical-align: top; display: inline-block; position:relative;

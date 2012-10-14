@@ -30,12 +30,15 @@ function  renderItems(tag, n) {
 
     $("#container .gear h2").text(d3.profiles[tag].heroes[n].name + "'s Gear");
 
+    $("#doll li").removeClass().addClass("white").data("tip", "");
+    $("#doll li img").attr("src", "http://eu.battle.net/d3/static/images/profile/hero/help-icon.png");
+
     var items = d3.profiles[tag].heroes[n].items;
 
     for (var i in items) {
 
         var bg = items[i].displayColor;
-        var li  = $("#container").find(".gear li[type=" + i + "]").removeAttr("class").addClass(bg);
+        var li  = $("#container").find(".gear li[type=" + i + "]").removeClass().addClass(bg);
 
         li.find("img").attr("src", makeIcon("items", "large", items[i].icon));
 
@@ -61,7 +64,7 @@ function  renderItems(tag, n) {
                 });
             },
             mouseleave: function () {
-                $(".olo").fadeOut();
+                $(".olo").fadeOut().html("");
             }
         });
     }
