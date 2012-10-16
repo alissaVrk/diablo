@@ -1,14 +1,8 @@
+//........ shortcut for console log
 
-function el(e) {
-    return document.createElement(e);
-}
-function elId(e) {
-    return document.getElementById(e);
-}
-function cl(m) {
-    console.log(m);
-}
+function cl(m) { console.log(m); }
 
+//........ Does icon url for items and skills
 
 function makeIcon(type, size, prop ) {
     var t, s;
@@ -22,75 +16,56 @@ function makeIcon(type, size, prop ) {
             s = (size == "small") ? "small/" : "large/";
             break;
     }
+
     return d3.current.urls.media + t + s + prop + ".png";
 }
+
+//........ replace default numeric values with string values
+
+function defineGender(g) { 
+    return (g === 0 ) ? "male" : "female"; 
+}
+
+/*
+ ________/-----------------------\________
+/________/-----             -----\________\
+/________/-----   TOOLTIP   -----\________\
+/________/-----             -----\________\
+/________/-----------------------\________\
+/.........................................\
+*/
+
+//........ url for ajax Bnet, blizzard shit 
+
+function makeItemUrl(str) {
+    return d3.current.urls.tooltip + str.replace("item", "item-data");
+}
+
+//........ displays item tooltip
+
+function showItemTip(html) {
+    var tip = $(d3.sel.tTip); // in "main.js" define id for html element
+    ( tip.css('display') == 'none')? tip.html(html).fadeIn(300) : null;
+}
+
+//........ hack to avoid blizzard tooltip
+
+var Bnet={D3:{Tooltips:{registerData:function(d){showItemTip(d.tooltipHtml);}}}};
+
+//........
 
 function makeSkillUrl(klass, cat, prop ) {
     return config.base + "class/" + klass + "/" + cat + "/" + prop;
 }
 
+//........ wrap message with given html tag
 
-function defineGender(g) {
-    return (g === 0 ) ? "male" : "female";
-}
-function handlerErr(args) {
-    $(".loader p").html(args.code + "<br>" + args.reason);
-    throw new Error(args.code + "<br>" + args.reason);
+function wrap(wrp, msg) {
+    return "<" + wrp + ">" + msg + "</" + wrp + ">";
 }
 
-function fetchData(url) {
-    return $.ajax({ url: url, type: "GET", dataType: "jsonp" });
-}
+//........ removes css class from siblings and applys same class to $this
 
-
-function checkHero(hero, key, val) {
-    if(hero[key] == val)
-        return hero
-}
-
-function sortStats(stats) {
-
-    var s = {};
-    s.core =     {};
-    s.life =     {};
-    s.damage =   {};
-    s.armor =    {};
-    s.block =    {};
-    s.game =     {};
-    s.resource = {};
-
-    for(var i in stats){
-
-        switch (stats[i]) {
-
-            case "vitality" : case "dexterity": case "strength": case "intelligence":
-                s.core[i] = stats[i];
-                break;
-            case "life": case "lifeOnHit": case "lifePerKill": case "lifeSteal": case "lightningResist":
-                s.life[i] = stats[i];
-                break;
-            case "damage": case "attackSpeed": case "critChance": case "critDamage": case "damageIncrease":
-                s.damage[i] = stats[i];
-                break;
-            case "armor": case "arcaneResist": case "coldResist": case "fireResist": case "physicalResist": case "poisonResist":
-                s.armor[i] = stats[i];
-                break;
-            case "blockAmountMax": case "blockAmountMin": case "blockChance": case "damageReduction": case "thorns":
-                s.block[i] = stats[i];
-                break;
-            case "goldFind": case "magicFind":
-                s.game[i] = stats[i];
-                break;
-            case "primaryResource": case "secondaryResource":
-                s.resource[i] = stats[i];
-                break;
-
-            default:
-                s[i] = stats[i];
-                break;
-
-        }
-    }
-
-    return s;
+function select(el, cls) {
+    $(el).addClass(cls).siblings().removeClass(cls);
 }

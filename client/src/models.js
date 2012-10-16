@@ -1,76 +1,70 @@
+function renderAllHeroes(tag) {
 
-function renderHeroes(tag) {
-
-    $("#container .heroes ul").empty();
-    $("#container .heroes h2").html("Heroes " + tag);
-
-    var profile = d3.profiles[tag];
-    var heroes = profile.heroes;
-
+    var ul = $(".heroes > ul").empty();
+    var heroes = d3.profiles[tag].heroes;
 
     $(heroes).each(function(i) {
 
-        var data = {tag: tag, id : i};
-        var cls  = heroes[i].class + " " +  defineGender(heroes[i].gender);
-        var htm  = "<div>" + heroes[i].name + "</div>";
-        var li = $("<li>").data("hero", data).addClass(cls).html(htm).on('click', function(){
+        //var size = !!((_.size(heroes[i].items) > 5));
 
-            renderItems($(this).data("hero").tag, $(this).data("hero").id);
-        });
-
-        $("#container .heroes ul").append(li);
+        _.size(heroes[i].items) > 10 ? ul.append(renderHero(heroes[i], tag, i)) : null;
 
     });
 
-    renderItems(tag, 0);
+    ul.find("li:first").addClass("highlight");
+
+   renderHeroItems({ tag:tag, id:heroes[0].id, index:0 });
 }
 
-function  renderItems(tag, n) {
+function renderHero(hero, parent, index){
 
+    var nav  = { tag:parent, id:hero.id, index:index }
+       ,cls  = hero.class + " " + defineGender(hero.gender)
+       ,htm  = wrap("h3", hero.name) + wrap("label", hero.level) + wrap("label", hero.paragonLevel) + wrap("p", hero.kills.elites) + wrap("h4", hero.class)
+       ,info = wrap("div", htm)
+       ,li = $("<li>").data("nav", nav).addClass(cls).html(info);
 
-    $("#container .gear h2").text(d3.profiles[tag].heroes[n].name + "'s Gear");
+    hero.hardcore ? li.addClass("hardcore") : null;
 
-    $("#doll li").removeClass().addClass("white").data("tip", "");
-    $("#doll li img").attr("src", "http://eu.battle.net/d3/static/images/profile/hero/help-icon.png");
+    li.on('click', function(){
+        select($(this), "highlight");
+        renderHeroItems($(this).data("nav"));
+    });
+    return li;
+}
 
-    var items = d3.profiles[tag].heroes[n].items;
+function  renderHeroItems(obj) {
+
+    var items = d3.profiles[obj.tag].heroes[obj.index].items;
+
+    $("#doll li").removeClass().removeData("url", "").empty();
 
     for (var i in items) {
-
-        var bg = items[i].displayColor;
-        var li  = $("#container").find(".gear li[type=" + i + "]").removeClass().addClass(bg);
-
-        li.find("img").attr("src", makeIcon("items", "large", items[i].icon));
-
-        var str =  items[i].tooltipParams;
-        var itm = str.replace("item", "item-data");
-
-        li.data("tip", d3.current.urls.tooltip + itm);
-
-        li.on({
-            mouseenter: function () {
-
-                var l = $(this).offset().left-50;
-                var t = $(this).offset().top-500;
-
-                var req = $.ajax({
-                    url: $(this).data("tip"), dataType:"jsonp", data:{ format:"jsonp"}
-                });
-
-                $(".olo").fadeIn().css({left:l,top:t});
-
-                req.then(function(d) {
-                    $(".olo").html(d);
-                });
-            },
-            mouseleave: function () {
-                $(".olo").fadeOut().html("");
-            }
-        });
+        renderItem(items[i], i);
     }
+   getNextDummy();
 }
 
+function renderItem(item, slt){
 
+    var bg = item.displayColor
+       ,url = makeItemUrl(item.tooltipParams)
+       ,icon = makeIcon("items", "large", item.icon)
+       ,slot = ".gear li[type=" + slt + "]"
 
+       ,li = $(slot).data("url", url).html("<img src='" + icon + "'>").addClass(item.displayColor);
 
+    li.on("click", function(){
+        $.ajax({
+            url:$(this).data("url"),
+            dataType:"jsonp",
+            data:{ format:"jsonp" }
+        });
+    });
 
+    li.on("mouseout", function(){
+        if ($(d3.sel.tTip).css('display') !== 'none') {
+            $(d3.sel.tTip).fadeOut(100).html("");
+        }
+    });
+};
