@@ -13,19 +13,14 @@
 
         <script src="~/client/src/libs/jquery-1.8.2.js"></script>
         <script src="~/client/src/libs/underscore-1.4.2.js"></script>
+
         <script src="~/client/src/utils.js"></script>
-        <script src="~/client/src/main.js"></script>
+        <script src="~/client/src/render.js"></script>
         <script src="~/client/src/config.js"></script>
-        <script src="~/client/src/profile.js"></script>
-        <script src="~/client/src/models.js"></script>
+        <script src="~/client/src/main.js"></script>
 
         <script>
-
             $(document).ready(function () {
-
-                for (var i in d3.base.regions) {
-                    $("#sel").append($("<option>").attr("value", i).text(d3.base.regions[i]));
-                }
 
                 dummy("az");
 
@@ -35,7 +30,6 @@
                 });
 
             });
-
         </script>
 
     </head>
@@ -61,7 +55,12 @@
                     </li>
                     <li>
                         <label>region</label>
-                        <select id="sel"></select>
+                        <select id="sel">
+                            <option value="us">us</option>
+                            <option value="eu">eu</option>
+                            <option value="kr">kr</option>
+                            <option value="tw">tw</option>
+                        </select>
                     </li>
                 </ul>
 
@@ -70,6 +69,7 @@
             </form>
 
             <section class="heroes">
+                <h3></h3><blockquote></blockquote>
                 <ul></ul>
             </section>
 

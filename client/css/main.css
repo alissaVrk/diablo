@@ -11,20 +11,18 @@ body { font-size: 0.75em; font-family: Calibri; color: #777; }
             border-radius:5px; box-shadow:0px 1px 3px rgba(0,0,0,0.5);
         }
 
-            .heroes { background:#ddd; text-align:left; padding-bottom:10px; z-index: 10; }
+            .heroes { background:#ddd; text-align:left; padding:10px 20px; z-index: 10; }
             .gear   { margin:-20px 40px 20px 40px; }
             form    { margin:10px 40px -20px 40px; padding-bottom:30px;}
             nav     {
                 width:165px; min-height:100px; background:#ddd;
                 left:0; top:30px; position:fixed;
             }
-                nav li { display: block; padding: 5px 0;
-
+                nav li {
+                    display: block; padding: 5px 0;
                     box-shadow:0 1px 0 #aaa, 0 2px 0 #fff;
-
-                    border-bottom:1px solid #ccc; border-top:1px solid #fff;}
-                    nav li:first-child { border-top:none;}
-                    nav li:last-child { border-bottom:none;}
+                }
+                    nav li:last-child  { box-shadow:none; }
 
 /*
 ===============================================================
@@ -32,36 +30,38 @@ body { font-size: 0.75em; font-family: Calibri; color: #777; }
 
 .heroes li  {
 
-    cursor:pointer;
-    width: 60px; height: 60px; margin:0 5px 0 0;
+    width: 93px; height: 76px;
+    border:5px solid #f3e6d0; margin:0 5px 0 0;
     display: inline-block; position: relative;
-    background: url("../../images/portraits.jpg") no-repeat;
-    box-shadow: 0px 1px 2px rgba(0,0,0,0.6);
+    background:#ffffa3 url("../../images/portraits1.jpg") no-repeat;
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.6); border-radius:3px;
 }
 
-    .heroes .barbarian        { background-position: -60px 0     ; }
-    .heroes .demon-hunter     { background-position: -60px -60px ; }
-    .heroes .monk             { background-position: -60px -120px; }
-    .heroes .witch-doctor     { background-position: -60px -180px; }
-    .heroes .wizard           { background-position: -60px -240px; }
+.heroes li a { display:inline-block; width:100%; height:66px;}
+.heroes li div, .gear .tip {
+    display:none; position:absolute; z-index:999;
+    top:-95%; right:-95%; padding:10px;
+    background:#fff;
+    border-radius:5px; box-shadow:0px 1px 2px rgba(0,0,0,0.6);
+}
 
-        .heroes li div, .gear .tip {
-            display:none; position:absolute; z-index:999;
-            top:-95%; right:-95%; padding:10px;
-            background:#fff;
-            border-radius:5px; box-shadow:0px 1px 2px rgba(0,0,0,0.6);
-        }
+.heroes li:hover div { display: block; }
 
-            .heroes li:hover div { display: block; }
+.heroes li.highlight:after {
+    content:"▼";
+    font-size:24px; color:#f3e6d0;
+    text-shadow:0px 2px 3px rgba(0,0,0,0.8);
+    position:absolute; z-index:90;
+    width:30px; height:30px; margin-left:-15px;
+    bottom:-26px; left:50%;
+}
+nav li.highlight {
+    color:#f06d65;
+}
 
-                li.highlight:after {
-                    content:"▼";
-                    font-size:30px; color:#ddd;
-                    text-shadow:0px 2px 3px rgba(0,0,0,0.8);
-                    position:absolute; z-index:90;
-                    width:30px; height:30px; margin-left:-15px;
-                    bottom:-30px; left:50%;
-                }
+.hardcore { border-color:#f06d65 !important;}
+li.hardcore:after {color:#f06d65;}
+
 
 /*
 ===============================================================
