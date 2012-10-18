@@ -1,16 +1,23 @@
-function renderProfile(prf){
 
-    var li = $("<li>").attr("id",  prf.tag).text(prf.name).appendTo("nav ul");
+d3.render = {
 
-    li.on('click', function() {
-        select($(this), "highlight");
-        renderAllHeroes($(this).text());
-    });
+    profile : function(tag, name, target){
 
-    $("nav li:first").click();
+        var li = $("<li>").attr("id",  tag).text(name).appendTo($(target));
 
-    getNextDummy();
-}
+        li.on("click", function() {
+
+            select($(this), "highlight");
+            renderAllHeroes($(this).text());
+
+        });
+
+        $(target + " li:last").click();
+    }
+
+};
+
+
 
 function renderAllHeroes(tag) {
 
@@ -39,6 +46,8 @@ function renderHero(hero){
 
     hero.hardcore ? li.addClass("hardcore") : null; setBg(li);
 
+    getData(hero.lnk, heroReady);
+
     a.on("click", function(e){
 
         e.preventDefault()
@@ -48,7 +57,15 @@ function renderHero(hero){
         $(".heroes h3").text(txt);
 
         select($(this).parent(), "highlight");
-        getData(url, heroReady);
+
+
+        $("#doll li").removeClass().empty();
+
+        renderHeroItems(hero.items);
+
+        $("#stats").empty();
+
+        renderHeroStats(hero.stats);
 
     });
 
@@ -57,45 +74,37 @@ function renderHero(hero){
 
 function renderHeroItems(items) {
 
-    $("#doll li").removeClass().empty();
-
     for (var i in items) {
-        renderItem(items[i], i);
-    }
-}
 
-function renderHeroProps(prop, foo) {
-    for (var i in prop) {
-        foo(prop[i], i);
-    }
-}
+        var url  = curr.urls.tooltip + items[i].tooltipParams
+        var li = $("#doll li[slot=" + i + "]")
+            .data("url", url)
+                .html("<img src='" + makeIcon("items", "large", items[i].icon) + "'>")
+                    .addClass(items[i].displayColor);
 
-function renderItem(item, slt){
-
-    var bg = item.displayColor
-       ,url = makeItemUrl(item.tooltipParams)
-       ,icon = makeIcon("items", "large", item.icon)
-       ,slot  = ".gear li[type=" + slt + "]"
-       ,li = $(slot).data("url", url).html("<img src='" + icon + "'>").addClass(item.displayColor);
-
-    li.on("click", function(){
-        $.ajax({
-            url:$(this).data("url"),
-            dataType:"jsonp",
-            data:{ format:"jsonp" }
+        li.on("click", function(){
+            $.ajax({
+                url:$(this).data("url"),
+                cache: true,
+                dataType:"jsonp",
+                data:{ format:"jsonp" }
+            });
         });
-    });
-
-    li.on("mouseout", function(){
-        if ($(d3.sel.tTip).css('display') !== 'none') {
-            $(d3.sel.tTip).fadeOut(100).html("");
-        }
-    });
+        li.on("mouseout", function(){
+            if ($("#showitem").css('display') !== 'none') {
+                $("#showitem").fadeOut(100).html("");
+            }
+        });
+    }
 }
 
-function renderStat(stat){
-    console.log(stat);
+function renderHeroStats(stats) {
+    for (var i in stats) {
+
+        var key = wrap("b", i);
+
+        $("#stats").append(wrap("li", key + ": " + stats[i]));
+    }
 }
-function renderSkill(skill){
-    console.log(skill);
-}
+
+

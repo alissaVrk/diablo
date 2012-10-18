@@ -1,131 +1,87 @@
-/*
+var apiResponse = {
 
- apiResponse : {
+    errorCode   : { json : "code"   },
+    errorReason : { json : "reason" },
+    oops        : ['LIMITED', 'MAINTENANCE', 'NOTFOUND'],
+    heroes      : { json : "heroes" }
+}
+var apiHero = [ "name", "class", "id", "level", "hardcore", "gender", "last-updated", "dead", "stats", "skills", "items" ]
 
- ErrorCode   : { json : "code"   },
- ErrorReason : { json : "reason" },
- //'OOPS', 'LIMITED', 'MAINTENANCE', 'NOTFOUND'
+var apiStats = [
+    "life", "damage", "attackSpeed", "armor", "strength", "dexterity", "vitality", "intelligence", "physicalResist", "fireResist", "coldResist", "lightningResist", "poisonResist", "arcaneResist", "critDamage",
+    "damageIncrease", "critChance", "damageReduction", "blockChance", "thorns", "lifeSteal", "lifePerKill", "goldFind", "magicFind", "blockAmountMin", "blockAmountMax", "lifeOnHit", "primaryResource", "secondaryResource"
+]
 
- Heroes      : { json : "heroes" }
 
+var skill = function() {
+
+
+
+}
+
+ var apiSkillStruct = {
+    Active  : { json:"active" },
+    Passive : { json:"passive"}
  }
 
- apiHero : {
+var apiActiveSkillStruct = {
+    Skill : { json:"skill"},
+    Rune  : { json:"rune" }
+}
 
- name        : { json : "name"         , type : "string   " }
- class       : { json : "class"        , type : "string   " }
- id          : { json : "id"           , type : "number   " }
- level       : { json : "level"        , type : "number   " }
- hardcore    : { json : "hardcore"     , type : "bool     " }
- gender      : { json : "gender"       , type : "number   " }
- lastupdated : { json : "last-updated" , type : "number   " }
- dead        : { json : "dead"         , type : "bool     " }
- stats       : { json : "stats"        , type : "ApiStats " }
- skills      : { json : "skills"       , type : "ApiSkills" }
- items       : { json : "items"       , type : "ApiItems " }
+var apiPassiveSkillStruct = {
+    Skill : { json:"skill"}
+}
 
- }
-
- apiStats : {
- Life              : { json:"life"
- Damage            : { json:"damage"
- AttackSpeed       : { json:"attackSpeed"
- Armor             : { json:"armor"
- Strength          : { json:"strength"
- Dexterity         : { json:"dexterity"
- Vitality          : { json:"vitality"
- Intelligence      : { json:"intelligence"
- ResistPhysical    : { json:"physicalResist"
- ResistFire        : { json:"fireResist"
- ResistCold        : { json:"coldResist"
- ResistLightning   : { json:"lightningResist"
- ResistPoison      : { json:"poisonResist"
- ResistArcane      : { json:"arcaneResist"
- CritDamage        : { json:"critDamage"
- DamageIncrease    : { json:"damageIncrease"
- CritChance        : { json:"critChance"
- DamageReduction   : { json:"damageReduction"
- BlockChance       : { json:"blockChance"
- ThornsDamage      : { json:"thorns"
- LifeSteal         : { json:"lifeSteal"
- LifePerKill       : { json:"lifePerKill"
- GoldFind          : { json:"goldFind"
- MagicFind         : { json:"magicFind"
- BlockAmountMin    : { json:"blockAmountMin"
- BlockAmountMax    : { json:"blockAmountMax"
- LifeOnHit         : { json:"lifeOnHit"
- PrimaryResource   : { json:"primaryResource"
- SecondaryResource : { json:"secondaryResource"
- }
-
- type ApiSkills struct {
- Active  []ApiActiveSkill  json:"active"
- Passive []ApiPassiveSkill json:"passive"
- }
-
- type ApiActiveSkill struct {
- Skill ApiSkill json:"skill"
- Rune  ApiRune  json:"rune"
- }
-
- type ApiPassiveSkill struct {
- Skill ApiSkill json:"skill"
- }
-
- type ApiSkill struct {
- Slug              string  json:"slug"
- Name              string  json:"name"
- Icon              string  json:"icon"
- Level             number rjson:"level"
- CategorySlug      string  json:"categorySlug"
- TooltipUrl        string  json:"tooltipUrl"
- Description       string  json:"description"
- SimpleDescription string  json:"simpleDescription"
- SkillCalcId       string  json:"skillCalcId"
- }
-
- type ApiRune struct {
- Slug              string  json:"slug"
- Type              string  json:"type"
- Name              string  json:"name"
- Level             number rjson:"level"
- Description       string  json:"description"
- SimpleDescription string  json:"simpleDescription"
- TooltipParams     string  json:"tooltipParams"
- SkillCalcId       string  json:"skillCalcId"
- Order             number rjson:"order"
- }
-
- type ApiItems struct {
- Head        ApiItem json:"head"
- Torso       ApiItem json:"torso"
- Feet        ApiItem json:"feet"
- Hands       ApiItem json:"hands"
- Shoulders   ApiItem json:"shoulders"
- Legs        ApiItem json:"legs"
- Bracers     ApiItem json:"bracers"
- MainHand    ApiItem json:"mainHand"
- OffHand     ApiItem json:"offHand"
- Waist       ApiItem json:"waist"
- RightFinger ApiItem json:"rightFinger"
- LeftFinger  ApiItem json:"leftFinger"
- Neck        ApiItem json:"neck"
- }
-
- type ApiItem struct {
- Id            string json:"id"
- Name          string json:"name"
- Icon          string json:"icon"
- DisplayColor  string json:"displayColor"
- TooltipParams string json:"tooltipParams"
- }
+var apiSkillStruct = {
+    Slug              : { json:"slug"             },
+    Name              : { json:"name"             },
+    Icon              : { json:"icon"             },
+    Level             : { json:"level"            },
+    CategorySlug      : { json:"categorySlug"     },
+    TooltipUrl        : { json:"tooltipUrl"       },
+    Description       : { json:"description"      },
+    SimpleDescription : { json:"simpleDescription"},
+    SkillCalcId       : { json:"skillCalcId"      }
+}
 
 
+var apiRuneStruct = {
+    Slug              : {  json:"slug"              },
+    Type              : {  json:"type"              },
+    Name              : {  json:"name"              },
+    Level             : {  json:"level"             },
+    Description       : {  json:"description"       },
+    SimpleDescription : {  json:"simpleDescription" },
+    TooltipParams     : {  json:"tooltipParams"     },
+    SkillCalcId       : {  json:"skillCalcId"       },
+    Order             : {  json:"order"             }
+}
 
- */
+var apiItemStruct = {
 
+    Head        : { json:"head"       },
+    Torso       : { json:"torso"      },
+    Feet        : { json:"feet"       },
+    Hands       : { json:"hands"      },
+    Shoulders   : { json:"shoulders"  },
+    Legs        : { json:"legs"       },
+    Bracers     : { json:"bracers"    },
+    MainHand    : { json:"mainHand"   },
+    OffHand     : { json:"offHand"    },
+    Waist       : { json:"waist"      },
+    RightFinger : { json:"rightFinger"},
+    LeftFinger  : { json:"leftFinger" },
+    Neck        : { json:"neck"       }
+}
 
-
+var apiItemStruct = {
+    Id            : { json:"id"           },
+    Name          : { json:"name"         },
+    Icon          : { json:"icon"         },
+    DisplayColor  : { json:"displayColor" },
+    TooltipParams : { json:"tooltipParams"}
+}
 
 var weaponTypes = {
     oneHanded : [ "Axe", "Ceremonial Knife", "Hand Crossbow", "Dagger", "Fist Weapon", "Mace", "Mighty Weapon", "Spear", "Sword", "Wand" ],

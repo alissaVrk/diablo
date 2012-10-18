@@ -7,7 +7,7 @@
   "dependencies": {
     "mongodb": "*"
   },
-  "version": "0.0.0-47",
+  "version": "0.0.0-48",
   "engines": {
     "node": "0.8.x"
   }

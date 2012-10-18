@@ -1,5 +1,18 @@
 
-body { font-size: 0.75em; font-family: Calibri; color: #777; }
+body {
+    font-size: 0.75em; font-family: Calibri; color: #777;
+
+
+
+    background-color: #6d695c;
+    background-image: repeating-linear-gradient(120deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px),
+        repeating-linear-gradient(60deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px),
+        linear-gradient(60deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1)),
+        linear-gradient(120deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1));
+    background-size: 70px 120px;
+
+
+}
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
     #container { margin-left: 140px; }
@@ -60,7 +73,7 @@ nav li.highlight {
 }
 
 .hardcore { border-color:#f06d65 !important;}
-li.hardcore:after {color:#f06d65;}
+li.hardcore:after {color:#f06d65 !important;}
 
 
 /*
@@ -75,7 +88,7 @@ li.hardcore:after {color:#f06d65;}
 }
 
 
-#doll { text-align: center; vertical-align: top; margin-right: 20px; width: 205px; position: relative; }
+#doll { text-align: center; vertical-align: top; margin-right: 20px; width: 205px; position: relative;  }
 
     #doll> li       {
         cursor: pointer !important;
@@ -100,6 +113,12 @@ li.hardcore:after {color:#f06d65;}
                 #doll > li a    { display:block;}
                 #doll > li img  { max-width:95%; max-height:95%; display:inline;}
 
+
+
+
+
+.gear ul { display:inline-block;}
+
 /*
 ===============================================================
 */
@@ -123,5 +142,20 @@ option {border: 0; background: none;}
     box-shadow:0px 0px 3px rgba(0,0,0,0.5); border:2px solid #fff;
 }
 
+
+#overlay { position:fixed; top:0; right:0; bottom:0; left:0; background:rgba(0,0,0,0.6); height:100%; z-index: 9999; display:none;}
+
+    #overlay div {
+        min-width:200px; min-height:100px;
+        max-width:600px; max-height:300px;
+        width:400px; height:200px;
+        position:absolute; top:50%; left:50%; margin:-100px 0 0 -200px;
+        background:#fff; padding:20px; border-radius:5px;
+    }
+
+        #overlay h3 { font-size:16px; margin-bottom:20px;}
+        #overlay p  { font-size:12px; }
+
+.error {color:#f06d65;}
 
 

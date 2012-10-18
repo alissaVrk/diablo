@@ -15,18 +15,24 @@
         <script src="~/client/src/libs/underscore-1.4.2.js"></script>
 
         <script src="~/client/src/utils.js"></script>
+        <script src="~/client/src/getdata.js"></script>
+        <script src="~/client/src/main.js"></script>
         <script src="~/client/src/render.js"></script>
         <script src="~/client/src/config.js"></script>
-        <script src="~/client/src/main.js"></script>
 
         <script>
             $(document).ready(function () {
 
-                dummy("az");
+                //dummy();
 
                 $("#go").on('click', function(e) {
+
                     e.preventDefault();
-                    d3.init();
+
+                    var src    = $("#battleTag").val();
+                    var region = $("#region").val();
+
+                    d3.init(region, src);
                 });
 
             });
@@ -46,18 +52,14 @@
 
                 <ul>
                     <li>
-                        <label>battle name</label>
-                        <input type="text" min="3" required="required" placeholder="battle name" id="battleName">
-                    </li>
-                    <li>
-                        <label>battle tag</label>
-                        <input type="number" min="3" required="required" placeholder="battle tag" id="battleCode">
+                        <label>Battle Tag</label>
+                        <input type="text" min="3" required="required" id="battleTag">
                     </li>
                     <li>
                         <label>region</label>
-                        <select id="sel">
-                            <option value="us">us</option>
+                        <select id="region">
                             <option value="eu">eu</option>
+                            <option value="us">us</option>
                             <option value="kr">kr</option>
                             <option value="tw">tw</option>
                         </select>
@@ -76,26 +78,30 @@
             <section class="gear">
 
                 <ul id="doll">
-                    <li type="shoulders">  </li>
-                    <li type="head">       </li>
-                    <li type="neck">       </li>
-                    <li type="hands">      </li>
-                    <li type="torso">      </li>
-                    <li type="bracers">    </li>
-                    <li type="rightFinger"></li>
-                    <li type="waist">      </li>
-                    <li type="leftFinger"> </li>
-                    <li type="mainHand">   </li>
-                    <li type="legs">       </li>
-                    <li type="offHand">    </li>
-                    <li type="feet">       </li>
+                    <li slot="shoulders"></li>
+                    <li slot="head"></li>
+                    <li slot="neck"></li>
+                    <li slot="hands"></li>
+                    <li slot="torso"></li>
+                    <li slot="bracers"></li>
+                    <li slot="rightFinger"></li>
+                    <li slot="waist"></li>
+                    <li slot="leftFinger"></li>
+                    <li slot="mainHand"></li>
+                    <li slot="legs"></li>
+                    <li slot="offHand"></li>
+                    <li slot="feet"></li>
                 </ul>
 
-                <div id="showitem" class="ui-tooltip ui-tooltip-d3"></div>
+                <ul id="stats"></ul>
+                <ul id="skills"></ul>
 
             </section>
 
         </div>
+
+        <div id="showitem" class="ui-tooltip ui-tooltip-d3"></div>
+        <div id="overlay"><div></div></div>
 
     </body>
 
