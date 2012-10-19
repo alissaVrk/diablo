@@ -7,7 +7,10 @@ d3.init = function(region, src) { //KingKongor#2672
     curr.name = src.match(/[a-zA-Z]/g).toString().replace(/,/g, "");
     curr.id   = src.match(/[0-9]/g).toString().replace(/,/g, "");
     curr.tag  = curr.name + "#" + curr.id;
+    curr.region = region;
     curr.urls = makeUrl(region, curr.name, curr.id)
+
+    //console.log("name: " + curr.name + " id: " + curr.id + " tag: " + curr.tag);
 
     getData(curr.urls.profile, profileReady);
 }
@@ -30,24 +33,26 @@ function profileReady(profile) {
     });
 
     d3.profiles[prf.name] = prf;
-    d3.render.profile(prf.tag, prf.name, "nav ul");
+    d3.render.profile(prf);
 }
 
-function heroReady(data){
+function heroReadyiiiii(data){
 
     //TODO add cleaning function to clean all previous stats
 
-    $("#doll li").removeClass().empty();
+    console.log(data);
 
-    d3.profiles[curr.name].items = data.items
-    d3.profiles[curr.name].skills = data.skills
-    d3.profiles[curr.name].stats = data.stats
-
-    renderHeroItems(data.items);
-
-    $("#stats").empty();
-
-    renderHeroStats(data.stats);
+//    $("#doll li").removeClass().empty();
+//
+//    d3.profiles[curr.name].items = data.items
+//    d3.profiles[curr.name].skills = data.skills
+//    d3.profiles[curr.name].stats = data.stats
+//
+//    renderHeroItems(data.items);
+//
+//    $("#stats").empty();
+//
+//    renderHeroStats(data.stats);
 }
 
 

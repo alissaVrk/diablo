@@ -66,12 +66,21 @@ function select(el, cls) {
     $(el).addClass(cls).siblings().removeClass(cls);
 }
 
-function setBg(el){
-    var x = el.hasClass("male") ? 0 : -83, y = 0;
-    if(el.hasClass("barbarian")) { y = 0;
-    } else if (el.hasClass("demon-hunter")) { y = -66;
-    }else if (el.hasClass("monk")) { y = -132;
-    }else if (el.hasClass("witch-doctor")) { y = -198;
-    }else if (el.hasClass("wizard")) { y = -264; }
-    el.attr("style", "background-position:" + x + "px " + y + "px");
+function setBg(c, g){
+
+    var x = g ? -83 : 0,
+        y = 0;
+
+    if(c == "barbarian") {
+        y = 0;
+    } else if (c == "demon-hunter") {
+        y = -66;
+    }else if (c == "monk") {
+        y = -132;
+    }else if (c == "witch-doctor") {
+        y = -198;
+    }else if (c == "wizard") {
+        y = -264; }
+
+    return "background-position:" + x + "px " + y + "px";
 }

@@ -72,8 +72,10 @@ nav li.highlight {
     color:#f06d65;
 }
 
-.hardcore { border-color:#f06d65 !important;}
-li.hardcore:after {color:#f06d65 !important;}
+.hardcore, .true { border-color:#f06d65 !important;}
+li.hardcore:after, li.true:after {color:#f06d65 !important;}
+
+.heroes h3 {font-size:16px; margin:0 0 10px 0;}
 
 
 /*

@@ -1,21 +1,16 @@
+
 function dummy() {
 
-    var heroList = [
-        {reg:"eu", name:"zebq",   id: "2452" },
-        {reg:"eu", name:"KingKongor", id: "2672" }
+    var hl = [
+        { r: "eu", n: "Kotsa#2237" },
+        { r: "eu", n: "Zarfax#2706" },
+        { r: "eu", n: "howcanwewin#2299" },
+        { r: "us", n: "Raiden#1358" },
+        { r: "kr", n: "nyt#3942" },
+        { r: "eu", n: "Legionz#2868" }
     ];
 
-    setTimeout((function(){
-
-        for (var i in heroList) {
-
-            var src = heroList[i].name + "#" + heroList[i].id
-            d3.init(heroList[i].reg, src);
-        }
-
-    }), 2000)
-
-
+        d3.init(hl[5].r, hl[5].n);
 
 }
 
