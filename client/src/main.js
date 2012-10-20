@@ -1,58 +1,75 @@
-var d3 = {}, curr  = {};
+(function (){
 
-d3.profiles = {};
+    var Career = Backbone.Model.extend({
+        defaults: {
+            battleTag : "",
+            region    : "",
+            name      : "",
+            id        : "",
+            url       : ""
+        }
 
-d3.init = function(region, src) { //KingKongor#2672
-
-    curr.name = src.match(/[a-zA-Z]/g).toString().replace(/,/g, "");
-    curr.id   = src.match(/[0-9]/g).toString().replace(/,/g, "");
-    curr.tag  = curr.name + "#" + curr.id;
-    curr.region = region;
-    curr.urls = makeUrl(region, curr.name, curr.id)
-
-    //console.log("name: " + curr.name + " id: " + curr.id + " tag: " + curr.tag);
-
-    getData(curr.urls.profile, profileReady);
-}
-
-function profileReady(profile) {
-
-    var prf = {};
-        prf.heroes = {};
-        prf.size = 0
-        prf.name = curr.name
-        prf.id   = curr.id
-        prf.tag  = curr.tag;
-        prf.urls = curr.urls;
-            prf.zz   = _.omit(profile, ["battleTag", "heroes"]);
-
-    _.each(profile.heroes, function(hero){
-        prf.size ++
-        hero.lnk = curr.urls.hero + hero.id
-        prf.heroes["hero-" + prf.size] = hero;
     });
 
-    d3.profiles[prf.name] = prf;
-    d3.render.profile(prf);
-}
+    var CareerView = Backbone.View.extend({
+        tagName: "article",
+        className: "contact-container",
+        template: $("#contactTemplate").html(),
 
-function heroReadyiiiii(data){
+        render: function () {
+            var tmpl = _.template(this.template);
 
-    //TODO add cleaning function to clean all previous stats
+            $(this.el).html(tmpl(this.model.toJSON()));
+            return this;
+        }
+    });
 
-    console.log(data);
+    function createCareer(reg, btag) {
 
-//    $("#doll li").removeClass().empty();
-//
-//    d3.profiles[curr.name].items = data.items
-//    d3.profiles[curr.name].skills = data.skills
-//    d3.profiles[curr.name].stats = data.stats
-//
-//    renderHeroItems(data.items);
-//
-//    $("#stats").empty();
-//
-//    renderHeroStats(data.stats);
-}
+        var name = btag.match(/[a-zA-Z]/g).toString().replace(/,/g, "");
+        var id   = btag.match(/[0-9]/g).toString().replace(/,/g, "");
+        var urls = makeUrl(reg, name,id);
+
+        $.ajax({
+            url: urls.profile,
+            type:"GET",
+            dataType:"jsonp",
+            timeout: 5000,
+            error: function(x, t, m) {
+                console.log(t); console.log(m);
+            }
+        }).done(function (res) {
+
+                if (!_.has(res, "code")) {
+
+                    var career = new Career({ battleTag: res.battleTag, region:reg, name:name, id:id, urls:urls});
+
+                    console.log(career.toJSON());
+                    console.time('createCareer timer');
+                    console.timeEnd('createCareer timer')
+
+                } else {
+                    console.log("code: " + res.code + "\n reason: " + res.reason);
+                }
+
+            })
+    }
+
+    $(document).ready(function () {
+
+        $("#go").on('click', function(e) {
+            e.preventDefault();
+
+            createCareer($("#region").val(), $("#battleTag").val());
+        });
+    });
+
+
+})();
+
+
+
+
+
 
 

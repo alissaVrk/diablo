@@ -7,98 +7,162 @@
         <title>Diablo</title>
         <meta charset="utf-8">
 
-        <link rel="stylesheet" href="~/client/css/reset.css" type="text/css" />
-        <link rel="stylesheet" href="~/client/css/main.css" type="text/css" />
-        <link rel="stylesheet" href="http://eu.battle.net/d3/static/css/tooltips.css?v51" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="~/client/css/reset.css"/>
+        <link rel="stylesheet" type="text/css" href="http://eu.battle.net/d3/static/css/tooltips.css?v51"/>
 
-        <script src="~/client/src/libs/jquery-1.8.2.js"></script>
-        <script src="~/client/src/libs/underscore-1.4.2.js"></script>
+        <script src="~/client/src/libs/less-1.3.1.min.js" type="text/javascript"></script>
 
-        <script src="~/client/src/utils.js"></script>
-        <script src="~/client/src/getdata.js"></script>
-        <script src="~/client/src/main.js"></script>
-        <script src="~/client/src/render.js"></script>
-        <script src="~/client/src/config.js"></script>
+        <link rel="stylesheet/less" type="text/css" href="~/client/css/main.less">
 
-        <script>
-            $(document).ready(function () {
-
-                dummy();
-
-                $("#go").on('click', function(e) {
-
-                    e.preventDefault();
-
-                    var src    = $("#battleTag").val();
-                    var region = $("#region").val();
-
-                    d3.init(region, src);
-                });
-
-            });
-        </script>
 
     </head>
 
     <body>
 
-        <nav>
-            <ul></ul>
-        </nav>
+        <ul style="text-align:left; font-size:10px; display:inline-block;">
 
-        <div id="container">
+            <li>azimuth2255    <b>eu</b></li>
+            <li>Thundar2697    <b>eu</b></li>
+            <li>sssd2577       <b>eu</b></li>
+            <li>gogogo1629     <b>ko</b></li>
+            <li>pureoym2637    <b>ko</b></li>
+            <li>ryuzaki2177    <b>eu</b></li>
+            <li>mantukinas1386 <b>eu</b></li>
 
-            <form>
+        </ul>
+
+        <ul style="text-align:left; font-size:10px; display:inline-block;">
+
+            <li>nugiyen1382    <b>eu</b></li>
+            <li>muggz2796      <b>eu</b></li>
+            <li>nel1957        <b>eu</b></li>
+            <li>faye1737       <b>us</b></li>
+            <li>buleh1655      <b>us</b></li>
+            <li>fish1477       <b>us</b></li>
+            <li>ingek2353      <b>eu</b></li>
+
+        </ul>
+
+        <form>
+            <label>Battle Tag</label>
+            <input type="text" min="3" required="required" id="battleTag">
+
+            <label>region</label>
+            <select id="region">
+                <option value="eu">eu</option>
+                <option value="us">us</option>
+                <option value="kr">kr</option>
+                <option value="tw">tw</option>
+            </select>
+
+            <a id="go" href="#">go</a>
+
+        </form>
+
+
+
+
+        <ul id="careers">
+
+
+
+            <script id="careerTemplate" type="text/template">
+
+
+                    <a class="" href="http://eu.battle.net/api/d3/profile/<%= battleTag %>"><%= battleTag %></a>
+
+
+            </script>
+
+        </ul>
+
+
+
+        <ul id="heroes">
+
+            <script id="heroTemplate" type="text/template">
+
+                <li class="<%= class %> <%= gender %> <%= hardcore %>" >
+                    <a href="http://<%= region %>.battle.net/api/d3/profile/<%= battleTag %>/hero/<%= id %>">
+                        <span><%= level %></span>
+                        <h4><%= name %></h4>
+                    </a>
+                </li>
+
+            </script>
+
+        </ul>
+
+        <ul id="items">
+
+            <script id="itemTemplate" type="text/template">
+
+                <li class="slot-<%= type %> <%= displayColor %>">
+                    <a data-d3tooltip="<%= tooltipParams %>">
+                        <img src="http://<%= region %>.media.blizzard.com/d3/icons/items/large/<%= icon %>.png" alt="<%= name %>" />
+                    </a>
+                </li>
+
+            </script>
+
+        </ul>
+
+        <div id="stats">
+
+            <script id="statsTemplate" type="text/template">
 
                 <ul>
                     <li>
-                        <label>Battle Tag</label>
-                        <input type="text" min="3" required="required" id="battleTag">
+                        <span class="label">Strength</span>
+                        <span class="value"><%= strength %></span>
                     </li>
                     <li>
-                        <label>region</label>
-                        <select id="region">
-                            <option value="eu">eu</option>
-                            <option value="us">us</option>
-                            <option value="kr">kr</option>
-                            <option value="tw">tw</option>
-                        </select>
+                        <span class="label">Dexterity</span>
+                        <span class="value"><%= dexterity %></span>
+                    </li>
+                    <li>
+                        <span class="label">Intelligence</span>
+                        <span class="value"><%= intelligence %></span>
+                    </li>
+                    <li>
+                        <span class="label">Vitality</span>
+                        <span class="value"><%= vitality %></span>
                     </li>
                 </ul>
 
-                <a id="go" href="#">go</a>
-
-            </form>
-
-            <section class="heroes"><h3></h3></section>
-
-            <section class="gear">
-
-                <ul id="doll">
-                    <li slot="shoulders"></li>
-                    <li slot="head"></li>
-                    <li slot="neck"></li>
-                    <li slot="hands"></li>
-                    <li slot="torso"></li>
-                    <li slot="bracers"></li>
-                    <li slot="rightFinger"></li>
-                    <li slot="waist"></li>
-                    <li slot="leftFinger"></li>
-                    <li slot="mainHand"></li>
-                    <li slot="legs"></li>
-                    <li slot="offHand"></li>
-                    <li slot="feet"></li>
+                <ul class="resources">
+                    <li class="primaryResource"><%= primaryResource %></span></li>
+                    <li class="life"><%= life %></li>
                 </ul>
-
-                <ul id="stats"></ul>
-                <ul id="skills"></ul>
-
-            </section>
+            </script>
 
         </div>
 
-        <div id="showitem" class="ui-tooltip ui-tooltip-d3"></div>
-        <div id="overlay"><div></div></div>
+        <ul id="skills">
+
+            <script id="skillTemplate" type="text/template">
+
+                <li>
+                    <a href="http://<%= region %>.battle.net/d3/en/class/<%= klass %>/<%= category %>/<%= name %>" data-tooltip="<%= tooltipParams %>">
+                        <h3 class=""><%= name %></h3>
+                        <img src="http://<%= region %>.media.blizzard.com/d3/icons/skills/64/<%= icon %>.png" alt="<%= name %>" />
+                    </a>
+                </li>
+
+            </script>
+
+        </ul>
+
+
+
+        <script src="~/client/src/libs/jquery-1.8.2.js"></script>
+        <script src="~/client/src/libs/underscore-1.4.2.js"></script>
+        <script src="~/client/src/libs/backbone.js"></script>
+
+
+        <script src="~/client/src/utils.js"></script>
+        <script src="~/client/src/config.js"></script>
+        <script src="~/client/src/main.js"></script>
 
     </body>
 

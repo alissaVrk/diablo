@@ -48,6 +48,27 @@ function getData(url, callback) {
     })
 }
 
+
+function returnData(url, index, callback) {
+
+    $.ajax({
+        url: url,
+        type:"GET",
+        dataType:"jsonp",
+        cache: true,
+        global: false,
+        timeout: 5000,
+        error: function(x, t, m) {
+            console.log(t);
+            console.log(m);
+        }
+    }).done(function (res) {
+
+            _.has(res,"code") ? console.log("code: " + res.code + "\n reason: " + res.reason) : callback(res);
+
+        })
+}
+
 function showMsg(status, m) {
 
     var div = $("#overlay"),
@@ -72,7 +93,7 @@ function showMsg(status, m) {
     switch (status) {
         case 1 :
             div.html(msg);
-            vis ? null : div.fadeIn();
+	        vis ? null : div.fadeIn();
             break;
         case 0 :
             div.html(msg);

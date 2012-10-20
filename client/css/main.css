@@ -1,86 +1,12 @@
 
-body {
-    font-size: 0.75em; font-family: Calibri; color: #777;
+body { font-size: 0.75em; font-family: Calibri; color: #777; }
 
-
-
-    background-color: #6d695c;
-    background-image: repeating-linear-gradient(120deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px),
-        repeating-linear-gradient(60deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px),
-        linear-gradient(60deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1)),
-        linear-gradient(120deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1));
-    background-size: 70px 120px;
-
-
-}
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
-    #container { margin-left: 140px; }
-
-        .heroes, .gear, nav, form {
-
-            position:relative; margin:0 20px; padding:20px;
-            background:#f5f5f5; border:2px solid #fff;
-            border-radius:5px; box-shadow:0px 1px 3px rgba(0,0,0,0.5);
-        }
-
-            .heroes { background:#ddd; text-align:left; padding:10px 20px; z-index: 10; }
-            .gear   { margin:-20px 40px 20px 40px; }
-            form    { margin:10px 40px -20px 40px; padding-bottom:30px;}
-            nav     {
-                width:165px; min-height:100px; background:#ddd;
-                left:0; top:30px; position:fixed;
-            }
-                nav li {
-                    display: block; padding: 5px 0;
-                    box-shadow:0 1px 0 #aaa, 0 2px 0 #fff;
-                }
-                    nav li:last-child  { box-shadow:none; }
-
 /*
 ===============================================================
 */
 
-.heroes li  {
-
-    width: 93px; height: 76px;
-    border:5px solid #f3e6d0; margin:0 5px 0 0;
-    display: inline-block; position: relative;
-    background:#ffffa3 url("../../images/portraits1.jpg") no-repeat;
-    box-shadow: 0px 1px 3px rgba(0,0,0,0.6); border-radius:3px;
-}
-
-.heroes li a { display:inline-block; width:100%; height:66px;}
-.heroes li div, .gear .tip {
-    display:none; position:absolute; z-index:999;
-    top:-95%; right:-95%; padding:10px;
-    background:#fff;
-    border-radius:5px; box-shadow:0px 1px 2px rgba(0,0,0,0.6);
-}
-
-.heroes li:hover div { display: block; }
-
-.heroes li.highlight:after {
-    content:"▼";
-    font-size:24px; color:#f3e6d0;
-    text-shadow:0px 2px 3px rgba(0,0,0,0.8);
-    position:absolute; z-index:90;
-    width:30px; height:30px; margin-left:-15px;
-    bottom:-26px; left:50%;
-}
-nav li.highlight {
-    color:#f06d65;
-}
-
-.hardcore, .true { border-color:#f06d65 !important;}
-li.hardcore:after, li.true:after {color:#f06d65 !important;}
-
-.heroes h3 {font-size:16px; margin:0 0 10px 0;}
-
-
-/*
-===============================================================
-*/
 
 #showitem {
     display:none; position:fixed; z-index:999;

@@ -1,78 +1,62 @@
 d3.render = {
 
-    html : {
-        career : "nav ul",
-        heroes : ".heroes",
-        items  : "#doll",
-        skills : "#skills",
-        stats  : "#stats"
-    },
+	html : {
+		career : "nav ul",
+		heroes : ".heroes",
+		items  : "#doll",
+		skills : "#skills",
+		stats  : "#stats"
+	},
 
-    profile : function(prf, target){
+	profile : function(prf, target){
 
-        var li = $("<li>")
-            .data(prf)
-                .attr("id",  prf.name)
-                    .text(prf.name)
-                        .appendTo($(d3.render.html.career));
+		var li = $("<li>")
+			.data(prf)
+			.attr("id",  prf.name)
+			.text(prf.name)
+			.appendTo($(d3.render.html.career));
 
-        d3.render.heroes();
-    },
+		d3.render.heroes();
+	},
 
-    heroes : function() {
+	heroes : function() {
 
-        var prf = $(d3.render.html.career + " li:last").data();
+		var prf = $(d3.render.html.career + " li:last").data();
 
-        var ul  = $("<ul>");
+		var ul  = $("<ul>");
 
-        _.each(prf.heroes, function(hero){
-
-
-            var cls  = hero.class + " " + defineGender(hero.gender) + " " + hero.hardcore;
-
-            var htm  = wrap("h3", hero.name) + wrap("label", hero.level) + wrap("label", hero.paragonLevel) + wrap("h4", hero.class);
-
-            var li   = $("<li>").data(hero).addClass(cls).html(wrap("div", htm)).attr("style", setBg(hero.class, hero.gender));
-
-            li.appendTo(ul);
+		_.each(prf.heroes, function(hero){
 
 
-        });
+			var cls  = hero.class + " " + defineGender(hero.gender) + " " + hero.hardcore;
 
-        ul.appendTo(d3.render.html.heroes);
+			var htm  = wrap("h3", hero.name) + wrap("label", hero.level) + wrap("label", hero.paragonLevel) + wrap("h4", hero.class);
 
-        $(d3.render.html.heroes + " h3").text(prf.name);
+			var li   = $("<li>").data(hero).addClass(cls).html(wrap("div", htm)).attr("style", setBg(hero.class, hero.gender));
 
-        d3.render.hero();
-    },
+			li.on('click', function() {
 
-    hero : function(){
-
-
-        $(".heroes ul li").each(function() {
-
-            console.log(data);
+				d3.render.hero($(this).data("lnk"));
+			});
 
 
-            var req =  $.ajax({
-                    url: $(this).data.lnk,
-                    type:"GET",
-                    dataType:"jsonp",
-                    cache: true, global:false, timeout:5000,
+			li.appendTo(ul);
 
-                    error: function() { console.log("error"); }
 
-                });
+		});
+
+		ul.appendTo(d3.render.html.heroes);
+
+		$(d3.render.html.heroes + "> h3").text(prf.name);
 
 
 
-            
+	}
 
-        });
 
-    }
 
 };
+
 
 
 

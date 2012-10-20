@@ -1,0 +1,194 @@
+
+/* 
+--------------------------------Colors */
+@light: #EAE6DD;
+@lightSecond: #f0f0f0;
+@textColor: #8A877F;
+@selected: #7cc576;
+@font: "Helvetica Neue", Helvetica,Arial, sans-serif;
+@fontCustom: "UbuntuTitlingBold", "Helvetica Neue", Helvetica,Arial, sans-serif;
+@colorLink: #bada55;
+@colorLinkHover: #C00;
+@navBg: #A32B2F ;
+@navHover: #F90;
+
+
+
+.font( @family, @size, @lheight, @style, @weight, @color, @transform, @decoration) { 
+	font-family:@family; font-size:@size; font-style:@style; font-weight:@weight;	
+	color:@color; line-height:@lheight;
+	text-transform:@transform; text-decoration:@decoration;
+}
+
+/* 
+-------------------------------- Css3 Prefixes */
+.brd (@radius) { border-radius: @radius; -moz-border-radius: @radius; -webkit-border-radius: @radius; }
+
+.shd(@style, @c) when (iscolor(@c)) {  box-shadow: @style @c; -webkit-box-shadow: @style @c; -moz-box-shadow: @style @c; }
+.shd(@style, @alpha: 50%) when (isnumber(@alpha)) { .shd(@style, rgba(0, 0, 0, @alpha)); }
+
+.text-shadow (@string: 0 1px 3px rgba(0, 0, 0, 0.25), @string2: 0 1px 3px rgba(0, 0, 0, 0.25)) {
+	text-shadow: @string;
+}
+
+
+
+/* 
+-------------------------------- Arrows */
+.arrowDown (@s, @c) { width: 0; height: 0; border-left: @s solid transparent; border-right:  @s solid transparent; border-top:    @s solid @c; }
+.arrowUp (@s, @c)   { width: 0; height: 0; border-left: @s solid transparent; border-right:  @s solid transparent; border-bottom: @s solid @c; }
+.arrowRight (@s, @c){ width: 0; height: 0; border-top:  @s solid transparent; border-bottom: @s solid transparent; border-left:   @s solid @c; } 
+.arrowLeft (@s, @c) { width: 0; height: 0; border-top:  @s solid transparent; border-bottom: @s solid transparent; border-right:  @s solid @c; }
+
+/* 
+--------------------------------Sizes */
+@step: 18px;
+
+html { 
+	background:@light; font-size: 100%;  overflow-y:  scroll; 
+	-webkit-overflow-scrolling: touch; 
+	-webkit-tap-highlight-color: rgba(0,0,0,0); 
+	-webkit-text-size-adjust: 100%;  -ms-text-size-adjust: 100%;
+}
+
+body    { font-size:@step/1.5; line-height:@step; color:@textColor; font-family:@font;}
+
+header, footer, #main { margin:@step*2 0;}
+
+header:after, footer:after, #main:after{
+	content: ".";  
+    display: block;  
+	clear: both;
+    height: 0; 
+	line-height:0;  
+    font-size:0;   
+    visibility: hidden;  	
+}
+.holder { margin:0 10%;	}
+
+/*
+==================================================== comparison */	
+
+
+
+#comparison { 
+	width:30%; float:left; margin:0 3% @step 0; 
+	li { 
+		position:relative; padding:0 @step; margin:0 0 1px 0; height:@step*2; line-height:@step*2;
+		background:@lightSecond; cursor:pointer; 
+		img { display:none; } 
+		h3  { white-space:nowrap; }
+		span.add { 
+			display:block; position:absolute; top:-10px; right:-10px; 
+			line-height:@step; height:@step;  width:@step; 
+			text-align:center; font-weight:bold; font-size:@step; color:#99CC00;
+			background:@lightSecond; border:2px solid #99CC00; .brd (50%); 	 
+		}
+		a { .font( @fontCustom, @step, @step*2, normal, normal, darken(@lightSecond, 25%), uppercase, none); }
+	} 
+	li.selected { background:@selected; }
+}
+
+
+
+#results { 
+	float:left; margin:0 5% @step 0; text-align:left; vertical-align:bottom; 
+	li { 
+		display:inline-block;
+		position:relative; padding:@step; margin:0 1px 1px 0;
+		background:#F66; color:@light;
+		
+		span       { 
+			display:none;  padding:@step; width:100px; background:@lightSecond; 
+			position:absolute; top:-@step*2; right:-130px; z-index:999;
+			.shd(0 0 5px, 60%); .brd (5px); color:@textColor; }
+		span:after { content:''; position:absolute; top:45%; left:-5px; .arrowLeft (5px, @lightSecond);}
+	}
+	li:hover > span { display:block; }
+}
+
+/*
+==================================================== navigation */	
+
+
+header nav { 
+	clear:both; height:@step*2;
+	li { float:left; position:relative; z-index:9999999; }
+	li:hover > ul { display: block; }
+	a  { float:left; line-height:@step*2; font-size:@step; padding:0 @step/2; }
+	a:hover { color:@light;  }
+	ul {
+		a  { display:block !important; float:none; background: none; text-shadow:none; }
+		a:hover {  background:@navHover; .brd (3px);}
+		ul {
+			display: none; float: left; height: auto; min-width: 200px; padding: @step @step/2; background: @navBg;
+			position: absolute; top: @step*2; left:0;
+			.brd (5px); .shd(0 0 5px, 60%);
+			
+			li { display:block; float:none; background:none; min-width: @step*10;  }
+		}
+		ul:before { content:''; position:absolute; top:-5px; left:@step; width: 0; height: 0; .arrowUp (5px, @navBg); }	
+	}
+}	
+	
+
+/*
+=============================================================================
+*/
+
+a       { color: @colorLink; text-decoration:none; outline:none; }
+a:focus { outline: thin dotted; }
+a:hover { outline: 0; text-decoration:underline; text-decoration:none; }
+
+p {  margin-bottom:@step; }
+
+h1, h2, h3, h4, h5, h6 {
+	.font( @fontCustom, @step, @step*2, normal, normal, darken(@lightSecond, 25%), uppercase, none);
+	margin-bottom:@step;
+	
+   .text-shadow (2px 2px 0 rgba(255, 255, 255, 1), 3px 3px 0 rgba(0, 0, 0, 1));
+}
+h1 { font-size:(@step*3); line-height:@step*2; }
+h2 { font-size:@step*2; }
+h3 { font-size:@step; }
+h4 { font-size:@step/1.3; }
+h5 { font-size:@step/1.2; }
+h6 { font-size:@step/1.1; }
+
+
+@font-face {
+    font-family: 'UbuntuTitlingBold';
+    src: url('fonts/UbuntuTitling-Bold-webfont.eot');
+    src: url('fonts/UbuntuTitling-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/UbuntuTitling-Bold-webfont.woff') format('woff'),
+         url('fonts/UbuntuTitling-Bold-webfont.ttf') format('truetype'),
+         url('fonts/UbuntuTitling-Bold-webfont.svg#UbuntuTitlingBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+::-moz-selection { background: @colorLink; color: #fff; text-shadow: none; }
+::selection { background: @colorLink; color: #fff; text-shadow: none; }
+
+.fl  { float:left; }
+.fr  { float:right; }
+.cb  { clear:both; }
+.cbf:after {
+	content: ".";  
+    display: block;  
+	clear: both;
+    height: 0; 
+	line-height:0;  
+    font-size:0;   
+    visibility: hidden;  
+}
+oldie .cbf:after {zoom:1;}
+
+blockquote {}
+img { border: 0; -ms-interpolation-mode: bicubic; }
+svg:not(:root) { overflow: hidden; }
+
+
+

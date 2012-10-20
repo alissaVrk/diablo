@@ -1,19 +1,19 @@
 
-var info = {};
-    info.host    = "battle.net/";
-    info.api     = "api/d3/";
-    info.media   = "media.blizzard.com/";
-    info.regions = ["us", "eu", "tw", "kr", "cn"];
-    info.lang    = ["en_US", "es_MX", "en_GB", "it_IT", "es_ES", "pt_PT", "fr_FR", "ru_RU", "pl_PL", "de_DE", "ko_KR", "en_US", "zh_TW", "en_US", "zh_CN", "en_US"] ;
-    info.errors  = ["OOPS", "LIMITED", "MAINTENANCE", "NOTFOUND"];
-
+var paths = {
+	lang    : ["en_US", "es_MX", "en_GB", "it_IT", "es_ES", "pt_PT", "fr_FR", "ru_RU", "pl_PL", "de_DE", "ko_KR", "en_US", "zh_TW", "en_US", "zh_CN", "en_US"],
+	errors  : ["OOPS", "LIMITED", "MAINTENANCE", "NOTFOUND"],
+	regions : ["us", "eu", "tw", "kr", "cn"],
+	host    : "battle.net/",
+	api     : "api/d3/",
+	media   : "media.blizzard.com/"
+}
 
 function makeUrl(region, name, id) {
 
     var tag  = name + "-" + id;
 
-    var host = "http://" + region + "." + info.host;
-    var api = host + info.api;
+    var host = "http://" + region + "." + paths.host;
+    var api = host + paths.api;
     var prf = api + "profile/" + tag;
 
     var u = {}
@@ -27,7 +27,7 @@ function makeUrl(region, name, id) {
 
         u.tooltip = host + "d3/en/tooltip/"
 
-        u.media   = "http://" + region + "." + info.media + "d3/icons/"
+        u.media   = "http://" + region + "." + paths.media + "d3/icons/"
 
     return u;
 }
@@ -68,19 +68,21 @@ function select(el, cls) {
 
 function setBg(c, g){
 
-    var x = g ? -83 : 0,
-        y = 0;
+    var x = g ? -83 : 0;
+	var y = 0;
 
-    if(c == "barbarian") {
-        y = 0;
-    } else if (c == "demon-hunter") {
-        y = -66;
-    }else if (c == "monk") {
-        y = -132;
-    }else if (c == "witch-doctor") {
-        y = -198;
-    }else if (c == "wizard") {
-        y = -264; }
+	switch (c) {
+		case "barbarian"   : y = 0;
+			break;
+		case "demon-hunter": y = -66;
+			break;
+		case "monk"        : y = -132;
+			break;
+		case "witch-doctor": y = -198;
+			break;
+		case "wizard"      : y = -264;
+			break;
+	}
 
     return "background-position:" + x + "px " + y + "px";
 }
