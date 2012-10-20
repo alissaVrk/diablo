@@ -1,0 +1,229 @@
+
+.brd( @radius: 3px ) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.outline-radius( @radius: 3px ) {
+  -webkit-outline-radius: @radius;
+  -moz-outline-radius: @radius;
+  outline-radius: @radius;
+}
+
+.shd( @x : 2px, @y : 2px, @blur : 5px, @spread : 0, @color : rgba(0,0,0,.6)) {
+  -webkit-box-shadow: @x @y @blur @spread @color;
+  -moz-box-shadow: @x @y @blur @spread @color;
+  box-shadow: @x @y @blur @spread @color;
+}
+
+.trans( @what : all, @length : 1s, @easing : ease-in-out ) {
+  -webkit-transition: @what @length @easing;
+  -moz-transition: @what @length @easing;
+  -o-transition: @what @length @easing;
+  transition: @what @length @easing;
+}
+
+.transform( @params ) { -webkit-transform: @params; -moz-transform: @params; transform: @params; }
+
+.box( @orient : horizontal, @pack : center, @align : center ) {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+
+  -webkit-box-orient: @orient;
+  -moz-box-orient: @orient;
+  box-orient: @orient;
+
+  -webkit-box-pack: @pack;
+  -moz-box-pack: @pack;
+  box-pack: @pack;
+
+  -webkit-box-align: @align;
+  -moz-box-align: @align;
+  box-align: @align;
+}
+
+.flex( @val : 1 ) {
+  -webkit-box-flex: @val;
+  -moz-box-flex: @val;
+  box-flex: @val;
+}
+
+.resize( @direction ) {
+  -webkit-resize: @direction;
+  -moz-resize: @direction;
+  resize: @direction;
+}
+
+.linear-gradient( @begin: black, @end: white, @switch : 100% ) {
+  background:  @begin;
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(@begin), color-stop(@switch, @end));
+  background: -moz-linear-gradient(top, @begin, @end @switch);
+  background: -o-linear-gradient(top, @begin, @end @switch);
+  background: linear-gradient(top, @begin, @end @switch);
+}
+
+.double-borders( @colorOne : green, @colorTwo : red, @radius : 0 ) {
+  border: 1px solid @colorOne;
+
+  -webkit-box-shadow: 0 0 0 1px @colorTwo;
+  -moz-box-shadow: 0 0 0 1px @colorTwo;
+  box-shadow: 0 0 0 1px @colorTwo;
+
+  .border-radius( @radius );
+}
+
+.triple-borders( @colorOne : green, @colorTwo : red, @colorThree : blue, @radius : 0 ) {
+  border: 1px solid @colorOne;
+  .brd( @radius );
+
+  -webkit-box-shadow: 0 0 0 1px @colorTwo, 0 0 0 2px @colorThree;
+  -moz-box-shadow: 0 0 0 1px @colorTwo, 0 0 0 2px @colorThree;
+  box-shadow: 0 0 0 1px @colorTwo, 0 0 0 2px @colorThree;
+}
+
+.columns( @count : 3, @gap : 10 ) {
+  -webkit-column-count: @count;
+  -moz-column-count: @count;
+  column-count: @count;
+
+  -webkit-column-gap: @gap;
+  -moz-column-gap: @gap;
+  column-gap: @gap;
+}
+
+.box-sizing( @type : border-box ) {
+  -webkit-box-sizing: @type;
+  -moz-box-sizing: @type;
+  box-sizing: @type;
+}
+
+@light: #fbf7ee;
+@lightSecond: #d3ccb8;
+@dark: #767162;
+@white: #ffffff;
+@black: #000000;
+@colorSpecial: #bada55;
+@selected: #a8cb7a;
+@fontBody: "Helvetica Neue", Helvetica,Arial, sans-serif;
+@fontCustom: "AlfaSlabOneRegular", "Helvetica Neue", Helvetica,Arial, sans-serif;
+@colorLink: #a8cb7a;
+@colorLinkHover: #C00;
+@navBg: #A32B2F ;
+@navHover: #F90;
+
+@step: 18px;
+@step: 18px;
+@stepBorder: 17px;
+
+@wLeft: 10%;
+@wMain: 65%;
+@wRight: 20%;
+@fontSize:@step/1.5;
+
+body    {
+  text-align:left;
+  font-size:@fontSize;
+  line-height:@step;
+  color:@dark;
+  font-family:@fontBody;
+  text-rendering: optimizeLegibility;
+  vertical-align:top;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  .font( @fontCustom, @step, @step, normal, normal, @dark, uppercase, none, left);
+  margin-bottom:@step;
+  text-shadow:0px 1px 0 @light, 0px 2px 1px rgba(0, 0, 0, 0.5);
+
+/*.text-shadow (2px 2px 0 rgba(255, 255, 255, 1), 3px 3px 0 rgba(0, 0, 0, 1));*/
+}
+h1 { font-size:36px; line-height:@step*2; }
+h2 { font-size:18px; }
+h3 { font-size:16px; }
+h4 { font-size:14px; }
+h5, h6  { font-size:12px; }
+
+
+img { display:block; margin-bottom:@step;   }
+img.fr, img.alignright { float:right; margin:0 0 @step @step; .clearfix(); }
+img.fl, img.alignleft  { float:left; margin:0 @step @step 0;  .clearfix(); }
+
+@font-face {
+  font-family: 'AlfaSlabOneRegular';
+  src: url('fonts/AlfaSlabOne-Regular-OTF-webfont.eot');
+  src: url('fonts/AlfaSlabOne-Regular-OTF-webfont.eot?#iefix') format('embedded-opentype'),
+  url('fonts/AlfaSlabOne-Regular-OTF-webfont.woff') format('woff'),
+  url('fonts/AlfaSlabOne-Regular-OTF-webfont.ttf') format('truetype'),
+  url('fonts/AlfaSlabOne-Regular-OTF-webfont.svg#AlfaSlabOneRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Trump Gothic East';
+  src: url('fonts/trumpgoteasbol-webfont.eot');
+  src: local('trumpgoteasbol'), url('fonts/trumpgoteasbol-webfont.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Trump Gothic East Regular';
+  src: url('fonts/trumpgoteasreg-webfont.eot');
+  src: local('trumpgoteasreg'), url('fonts/trumpgoteasreg-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Trump Gothic East Medium';
+  src: url('tfonts/rumpgoteasmed-webfont.eot');
+  src: local('trumpgoteasmed'), url('fonts/trumpgoteasmed-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+::-moz-selection { background: @colorLink; color: #fff; text-shadow: none; }
+::selection { background: @colorLink; color: #fff; text-shadow: none; }
+
+.fl  { float:left; }
+.fr  { float:right; }
+.cb  { clear:both; }
+.cbf:after {
+  content: ".";
+  display: block;
+  clear: both;
+  height: 0;
+  line-height:0;
+  font-size:0;
+  visibility: hidden;
+}
+oldie .cbf:after {zoom:1;}
+
+blockquote {}
+img { border: 0; -ms-interpolation-mode: bicubic; }
+svg:not(:root) { overflow: hidden; }
+
+
+
+/* #Media Queries
+================================================== */
+
+/* Smaller than standard 960 (devices and browsers) */
+@media only screen and (max-width: 959px) {
+
+  html { background:#bada55;   }
+
+}
+
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) { html { background:#f00;  } }
+
+/* All Mobile Sizes (devices and browser) */
+@media only screen and (max-width: 767px) { html { background:#000; } }
+
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+@media only screen and (min-width: 480px) and (max-width: 767px) { html { background:#fff; } }
+
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+@media only screen and (max-width: 479px) { html { background:#666; } }
