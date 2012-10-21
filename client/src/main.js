@@ -1,37 +1,38 @@
-(function (){
-
+    var d3 = {}
     var Career = Backbone.Model.extend({
         defaults: {
             battleTag : "",
             region    : "",
             name      : "",
-            id        : "",
-            url       : ""
+            id        : ""
         }
 
     });
 
-    var CareerView = Backbone.View.extend({
-        tagName: "article",
-        className: "contact-container",
-        template: $("#contactTemplate").html(),
 
-        render: function () {
-            var tmpl = _.template(this.template);
 
-            $(this.el).html(tmpl(this.model.toJSON()));
-            return this;
-        }
-    });
+    function createCareer(reg, name, id, urls) {
 
-    function createCareer(reg, btag) {
+        d3[name] = new Career({ region:reg, name:name, id:id, urls:urls});
+
+        getCareer(urls.profile, callback)
+
+    }
+
+    function valCareer(reg, btag){
 
         var name = btag.match(/[a-zA-Z]/g).toString().replace(/,/g, "");
         var id   = btag.match(/[0-9]/g).toString().replace(/,/g, "");
         var urls = makeUrl(reg, name,id);
 
+        createCareer(reg, name, id, urls)
+
+    }
+
+    function getCareer(url, callback) {
+
         $.ajax({
-            url: urls.profile,
+            url: url,
             type:"GET",
             dataType:"jsonp",
             timeout: 5000,
@@ -42,11 +43,7 @@
 
                 if (!_.has(res, "code")) {
 
-                    var career = new Career({ battleTag: res.battleTag, region:reg, name:name, id:id, urls:urls});
-
-                    console.log(career.toJSON());
-                    console.time('createCareer timer');
-                    console.timeEnd('createCareer timer')
+                    callback(res);
 
                 } else {
                     console.log("code: " + res.code + "\n reason: " + res.reason);
@@ -55,17 +52,15 @@
             })
     }
 
-    $(document).ready(function () {
-
-        $("#go").on('click', function(e) {
-            e.preventDefault();
-
-            createCareer($("#region").val(), $("#battleTag").val());
-        });
-    });
 
 
-})();
+
+
+
+
+
+
+
 
 
 

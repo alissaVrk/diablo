@@ -19,8 +19,9 @@ var routingTable = {
 
 var fileExtToType = {
     'html': {'type': 'text/html'},
-    'css': {'type': 'text/css'},
-    'js': {'type': 'text/javascript'},
+    'css':  {'type': 'text/css'},
+    'less': {'type': 'text/css'},
+    'js':   {'type': 'text/javascript'},
     'jpg': {'type': 'image/jpeg', 'encoding': 'binary'},
     'png': {'type': 'image/png', 'encoding': 'binary'},
     'gif': {'type': 'image/gif', 'encoding': 'binary'},
