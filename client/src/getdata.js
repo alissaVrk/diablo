@@ -1,107 +1,81 @@
-/*
 
- $.ajax({
- type: "GET",
- url: url,
- dataType: "html",
- global: false,
- beforeSend: function() {
- // Show "Loading..." tooltip when request is being slow
- setTimeout(function() {
- if (!Tooltip.visible)
- Tooltip.position(node, Msg.ui.loading, options);
- }, 500);
- },
- success: function(data) {
- Tooltip.cache[content] = data;
+var curr = {};
 
- if (Tooltip.currentNode == node){
- Tooltip.position(node, data, options);
- }
- },
- error: function(xhr) {
- if (xhr.status != 200){
- Tooltip.hide();
- }
- }
- });
+function getCareer(tmp) {
 
-*/
+    var req = $.ajax({ url: tmp.urls.main, type: "GET", dataType: "jsonp" });
 
-function getData(url, callback) {
+    req.then(function (data) {
 
-    $.ajax({
-        url: url,
-        type:"GET",
-        dataType:"jsonp",
-        cache: true,
-        global: false,
-        timeout: 5000,
-        error: function(x, t, m) {
-           console.log(t);
-           console.log(m);
-        }
-    }).done(function (res) {
+        curr = tmp;
+        curr.heroes = {};
+        curr.res = data;
 
-        _.has(res,"code") ? console.log("code: " + res.code + "\n reason: " + res.reason) : callback(res);
+        getHeroes(data.heroes, babyGotBack);
 
-    })
+    });
 }
 
 
-function returnData(url, index, callback) {
+function getHeroes(heroes, callback) {
 
-    $.ajax({
-        url: url,
-        type:"GET",
-        dataType:"jsonp",
-        cache: true,
-        global: false,
-        timeout: 5000,
-        error: function(x, t, m) {
-            console.log(t);
-            console.log(m);
-        }
-    }).done(function (res) {
+    var getHeroCalls = [];
 
-            _.has(res,"code") ? console.log("code: " + res.code + "\n reason: " + res.reason) : callback(res);
 
-        })
+    for (var i in heroes){
+
+        var url = curr.urls.hero + heroes[i].id
+
+        getHeroCalls.push(getHeroCall(url, heroes[i].id));
+
+    }
+    $.when.apply($, getHeroCalls).then(function(args){
+        getItems(curr.heroes, callback);
+    });
 }
 
-function showMsg(status, m) {
+function getHeroCall(url, id){
 
-    var div = $("#overlay"),
-        vis = $("overlay").is(":visible"),
-        msg = _.isObject(m) ? readObj(m) : wrap("p", m);
+    return $.ajax({
+        url: url,
+        type: "GET",
+        dataType: "jsonp",
+        success: function(data){
+            curr.heroes["hero-" + data.id] =  data;
+        }
+    });
+}
 
-    div.on("click", function(){div.fadeOut()});
+function getItems(heroes, callback){
 
-    function readObj(msg){
+    var getItemsCalls = [];
 
-        var htm = ""; console.log(msg);
+    for(var h in heroes){
 
-        _.each(msg, function(m){
+        var hero = heroes[h];
 
-            htm += wrap("p", m);
-            console.log(m)
-        });
+        for(var i in hero.items){
 
-        return wrap("div", htm);
+            getItemsCalls.push(getItemCall(hero.items, i));
+
+        }
     }
 
-    switch (status) {
-        case 1 :
-            div.html(msg);
-	        vis ? null : div.fadeIn();
-            break;
-        case 0 :
-            div.html(msg);
-            vis ? null : div.fadeIn();
-            break;
-        case -1 :
-            div.fadeOut().html("");
-            break;
-    }
+    $.when.apply($, getItemsCalls).then(function(args){
 
+        curr.heroes = heroes;
+        callback(curr);
+        delete curr;
+    });
+}
+
+function getItemCall(items, key){
+    return $.ajax({
+        url: curr.urls.data + items[key].tooltipParams,
+        type: "GET",
+        dataType: "jsonp",
+        success: function(data){
+            items[key] = data;
+        }
+    });
 }

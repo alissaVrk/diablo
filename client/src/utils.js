@@ -18,11 +18,10 @@ function makeUrl(region, name, id) {
 
     var u = {}
 
-        u.profile = prf + "/"
+        u.main = prf + "/"
         u.hero    = prf + "/hero/"
 
         u.data    = api + "data/"
-        u.item    = api + "data/item/"
         u.skill   = api + "data/skill/"
 
         u.tooltip = host + "d3/en/tooltip/"
