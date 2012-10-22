@@ -15,7 +15,13 @@
 
         d3[name] = new Career({ region:reg, name:name, id:id, urls:urls});
 
-        getCareer(urls.profile, callback)
+        getCareer(urls.profile, olo)
+
+    }
+
+
+    function olo(data){
+        
 
     }
 

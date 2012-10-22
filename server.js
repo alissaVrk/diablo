@@ -3,6 +3,7 @@ var http = require("http");
 var url = require("url");
 var querystring = require('querystring');
 var domain = require('domain');
+var less = require('less');
 
 var serverDomain = domain.create();
 
