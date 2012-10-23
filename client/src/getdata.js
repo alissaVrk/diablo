@@ -12,29 +12,24 @@ function getCareer(tmp) {
         curr.res = data;
 
         getHeroes(data.heroes, babyGotBack);
-
     });
 }
 
-
 function getHeroes(heroes, callback) {
 
-    var getHeroCalls = [];
-
+    var deferred  = [];
 
     for (var i in heroes){
 
-        var url = curr.urls.hero + heroes[i].id
-
-        getHeroCalls.push(getHeroCall(url, heroes[i].id));
-
+        deferred .push(getHeroCall(curr.urls.hero + heroes[i].id));
     }
-    $.when.apply($, getHeroCalls).then(function(args){
+
+    $.when.apply($, deferred ).then(function(args){
         getItems(curr.heroes, callback);
     });
 }
 
-function getHeroCall(url, id){
+function getHeroCall(url){
 
     return $.ajax({
         url: url,
@@ -48,21 +43,18 @@ function getHeroCall(url, id){
 
 function getItems(heroes, callback){
 
-    var getItemsCalls = [];
+    var deferred  = [];
 
     for(var h in heroes){
 
         var hero = heroes[h];
 
         for(var i in hero.items){
-
-            getItemsCalls.push(getItemCall(hero.items, i));
-
+            deferred .push(getItemCall(hero.items, i));
         }
     }
 
-    $.when.apply($, getItemsCalls).then(function(args){
-
+    $.when.apply($, deferred ).then(function(args){
         curr.heroes = heroes;
         callback(curr);
         delete curr;
@@ -70,12 +62,34 @@ function getItems(heroes, callback){
 }
 
 function getItemCall(items, key){
-    return $.ajax({
+// ToolTip
+//    $.ajax({
+//        url:curr.urls.tooltip + items[key].tooltipParams,
+//        dataType:"jsonp",
+//        data:{ format:"jsonp" }
+//    });
+
+    $.ajax({
         url: curr.urls.data + items[key].tooltipParams,
         type: "GET",
         dataType: "jsonp",
         success: function(data){
             items[key] = data;
+
         }
     });
+
+}
+
+// ToolTip
+
+function getItemTip(d){
+
+    // identify item by class-slot of html responce;
+
+    //class="item-slot"
+    //var htm = $(d.tooltipHtml);
+    //var match = $(d.tooltipHtml).find("li.item-slot").html();
+    //console.log("bn key: " + d.params.key + " bn match: " + match);
+
 }

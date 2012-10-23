@@ -5,7 +5,7 @@ var paths = {
 	regions : ["us", "eu", "tw", "kr", "cn"],
 	host    : "battle.net/",
 	api     : "api/d3/",
-	media   : "media.blizzard.com/"
+    media   : "media.blizzard.com/"
 }
 
 function makeUrl(region, name, id) {
@@ -31,6 +31,7 @@ function makeUrl(region, name, id) {
     return u;
 }
 
+
 function makeIcon(type, size, prop ) {
     var t, s;
     switch (type) {
@@ -55,7 +56,13 @@ function showItemTip(html) {
     tip.is(":visible") ? tip.html(html).fadeIn(300) : null;
 }
 
-var Bnet={D3:{Tooltips:{registerData:function(d){showItemTip(d.tooltipHtml);}}}};
+var Bnet={D3:{Tooltips:{registerData:function(d){
+
+    getItemTip(d);
+
+}}}};
+
+var itemTip;
 
 function wrap(wrp, msg) {
     return "<" + wrp + ">" + msg + "</" + wrp + ">";

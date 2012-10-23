@@ -1,15 +1,6 @@
 var d3 = {}
-var Career = Backbone.Model.extend({
-    defaults: {
-        battleTag : "",
-        region    : "",
-        name      : "",
-        id        : ""
-    }
 
-});
-
-function valCareer(reg, btag){
+function initCareer(reg, btag){
 
     var tmp = {}
 
@@ -19,27 +10,35 @@ function valCareer(reg, btag){
     tmp.urls = makeUrl(reg, tmp.name, tmp.id);
 
     getCareer(tmp, babyGotBack);
-
 }
-
 
 function babyGotBack(data){
 
-    var career = new Career({
-        battleTag : data.res.battleTag,
+    var bTag = data.res.battleTag;
+
+    var career = {
+        battleTag : bTag,
         region    : data.region,
         name      : data.name,
-        id        : data.id
-    });
+        id        : data.id,
+        heroes    : data.heroes,
+        last      : data.heroes["hero-" + data.res.lastHeroPlayed],
+        urls      : data.urls,
+        rest      : data.res
+    };
 
+//    var career = new Career({
+//        battleTag : bTag,
+//        region    : data.region,
+//        name      : data.name,
+//        id        : data.id,
+//        heroes    : data.heroes,
+//        last      : data.heroes["hero-" + data.res.lastHeroPlayed],
+//        urls      : data.urls,
+//        rest      : data.res
+//    });
 
-    career.set({
-
-        heroes : data.heroes,
-        last   : _.find(data.heroes, function(hero){hero.id == data.res.lastHeroPlayed })
-
-    });
-
+    d3[bTag] = career;
 }
 
 
