@@ -21,50 +21,47 @@
        <div>
         <ol style="text-align:left; font-size:10px; display:inline-block; padding:20px; width:20%;">
 
-            <li>azimuth2255    <b>eu</b></li>
-            <li>Thundar2697    <b>eu</b></li>
-            <li>sssd2577       <b>eu</b></li>
-            <li>gogogo1629     <b>ko</b></li>
-            <li>pureoym2637    <b>ko</b></li>
-            <li>ryuzaki2177    <b>eu</b></li>
-            <li>mantukinas1386 <b>eu</b></li>
+            <li><span>azimuth2255   </span> <b>eu</b></li>
+            <li><span>Thundar2697   </span> <b>eu</b></li>
+            <li><span>sssd2577      </span> <b>eu</b></li>
+            <li><span>gogogo1629    </span> <b>ko</b></li>
+            <li><span>pureoym2637   </span> <b>ko</b></li>
+            <li><span>ryuzaki2177   </span> <b>eu</b></li>
+            <li><span>mantukinas1386</span> <b>eu</b></li>
 
         </ol>
 
         <ol style="text-align:left; font-size:10px; display:inline-block; padding:20px; width:20%;">
 
 
-            <li>Aoko#1221      <b>us</b></li>
-            <li>Kpac#2209      <b>eu</b></li>
-            <li>ecto#2929      <b>eu</b></li>
-            <li>CaVeFOX#2924   <b>eu</b></li>
-            <li>Pbuck#2594     <b>eu</b></li>
-            <li>Reimur#1647    <b>us</b></li>
+            <li><span>Aoko#1221    </span>  <b>us</b></li>
+            <li><span>Kpac#2209    </span>  <b>eu</b></li>
+            <li><span>ecto#2929    </span>  <b>eu</b></li>
+            <li><span>CaVeFOX#2924 </span>  <b>eu</b></li>
+            <li><span>Pbuck#2594   </span>  <b>eu</b></li>
+            <li><span>Reimur#1647  </span>  <b>us</b></li>
 
         </ol>
 
         <ol style="text-align:left; font-size:10px; display:inline-block; padding:20px; width:20%;">
 
-            <li>TheMightyFoe#2309 <b>eu</b></li>
-            <li>chris#22306    <b>eu</b></li>
-            <li>FAN599#3486    <b>ko</b></li>
-            <li>꽃잎#3590      <b>ko</b></li>
-            <li>蒼天之痕#3571   <b>tw</b></li>
-            <li>Taipan#2649    <b>eu</b></li>
-            <li>jragunz#1856   <b>us</b></li>
-            <li>Andrea#1672    <b>us</b></li>
+            <li><span>TheMightyFoe#2309 </span><b>eu</b></li>
+            <li><span>chris#22306       </span><b>eu</b></li>
+            <li><span>Taipan#2649       </span><b>eu</b></li>
+            <li><span>jragunz#1856      </span><b>us</b></li>
+            <li><span>Andrea#1672       </span><b>us</b></li>
 
         </ol>
 
         <ol style="text-align:left; font-size:10px; display:inline-block;">
 
-            <li>nugiyen1382    <b>eu</b></li>
-            <li>muggz2796      <b>eu</b></li>
-            <li>nel1957        <b>eu</b></li>
-            <li>faye1737       <b>us</b></li>
-            <li>buleh1655      <b>us</b></li>
-            <li>fish1477       <b>us</b></li>
-            <li>ingek2353      <b>eu</b></li>
+            <li><span>nugiyen1382  </span>  <b>eu</b></li>
+            <li><span>muggz2796    </span>  <b>eu</b></li>
+            <li><span>nel1957      </span>  <b>eu</b></li>
+            <li><span>faye1737     </span>  <b>us</b></li>
+            <li><span>buleh1655    </span>  <b>us</b></li>
+            <li><span>fish1477     </span>  <b>us</b></li>
+            <li><span>ingek2353    </span>  <b>eu</b></li>
 
         </ol>
 
@@ -195,6 +192,12 @@
                 e.preventDefault();
 
                 initCareer($("#region").val(), $("#battleTag").val());
+            });
+
+            $("ol li").on('click', function() {
+                var bt = $(this).find("span").text();
+                var rg = $(this).find("b").text();
+                initCareer(rg, bt);
             });
 
 

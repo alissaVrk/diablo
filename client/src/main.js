@@ -9,6 +9,7 @@ function initCareer(reg, btag){
     tmp.region   = reg;
     tmp.urls = makeUrl(reg, tmp.name, tmp.id);
 
+
     getCareer(tmp, babyGotBack);
 }
 
@@ -27,18 +28,8 @@ function babyGotBack(data){
         rest      : data.res
     };
 
-//    var career = new Career({
-//        battleTag : bTag,
-//        region    : data.region,
-//        name      : data.name,
-//        id        : data.id,
-//        heroes    : data.heroes,
-//        last      : data.heroes["hero-" + data.res.lastHeroPlayed],
-//        urls      : data.urls,
-//        rest      : data.res
-//    });
-
     d3[bTag] = career;
+    console.log(d3);
 }
 
 
